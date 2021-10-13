@@ -1,0 +1,60 @@
+\section{Bibliographies}
+\label{sec:guide:bibliographies}
+
+Typically you do not want to manage you bibliographic references yourself.
+\LaTeX{} and its helper program \emph{bibtex} manage them for you.
+You just need to tell them what references you are going to use.
+You do that by putting a bibliographic reference --- called \emph{bib entry}
+--- into file \mbox{bibliography.bib}. 
+
+The bib entries are as shown in Example~\ref{ex:bib_entry}.
+The key=value pairs depend on the type of the bib entry.
+Certain keys must be present in an entry of a given type, while others can be
+missing.
+\begin{example}
+\label{ex:bib_entry}
+This is an example bib entry of type ``inproceedings.'' It starts with an @
+symbol, immediately followed by its type and an openeing curly brace and a
+label (LABEL in this example) and a comma.
+What follows is a comma-separated list of key=value pairs, with the values
+being surrounded by curly braces.
+The bib entry closes with a final curly brace.
+\begin{verbatim}
+@inproceedings{LABEL,
+  author    = {First Author and Second Author and ...},
+  editor    = {A List of Fancy People},
+  title     = {Example Title},
+  booktitle = {Proceedings of Conference 1468},
+  pages     = {123--456},
+  publisher = {Publisher's Name},
+  year      = {1468},
+}
+\end{verbatim}
+Note that you can enforce a certain type of letter capitalization, \ie{} all
+caps, by putting the respective term inside an extra pair of curly braces,
+\eg{} \verb+publisher = {ACM},+ may be rendered as Acm, while 
+\verb+publiser = {{ACM}},+ is always rendered as ACM.
+\end{example}
+
+Using \emph{bibtex}, you can compile a nicely looking list of bibliographic
+references.
+The list is included via the \emph{biblatex} package at the place indicated by
+the \verb+\printbibliography+ command.
+You can refer to the individual list entries by using the label (in the example
+LABEL) of the corresponding bib entry in a \verb+\cite+ command as described in
+Section~\ref{sec:guide:references}.
+Hence, it is useful to derive a bib entry's label from the information provided
+by the entry itself, \eg{} the title.
+
+While \emph{bibtex} provides means to manage your bibliographic references,
+they do not help you with obtaining all relevant, and particularly complete,
+bib entries. 
+You should create bib entries yourself, unless all other options fail.
+Typically, publishers of computer science literature provide bib entries on
+their web pages.
+Also Google Scholar\footnote{\url{https://scholar.google.com}} provides bib
+entries.
+However, both sources sometimes provide very incomplete bib entries.
+Complete entries can typically obtained from
+DBLP.\footnote{\url{http://dblp.org/search/index.php}}
+

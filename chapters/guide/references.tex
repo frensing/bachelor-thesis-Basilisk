@@ -1,0 +1,72 @@
+\section{References}
+\label{sec:guide:references}
+\LaTeX{} allows you to insert insert clickable references to other parts of the
+document into your thesis.
+These references help your readers avoid tedious scrolling to get to a specific
+page or searching for some Figure~17, that can be located anywhere.
+
+The clickable references are enabled from the \emph{hyperref} package that is
+loaded by default via file \mbox{thesis.tex}. 
+With \emph{hyperref} loaded, \LaTeX{} puts references into the table of
+contents, so the reader can jump to the right section without a hassle.
+However, it is good practice to insert such references yourself wherever
+needed.
+
+For example, your thesis's introduction will typically contain a paragraph that
+provides an overview of the thesis's structure.
+This is where you would typically add references to the sections that you talk
+about, \eg{} the foundations of your work are presented in
+Chapter~\ref{ch:packages}.
+The reference to Chapter~\ref{ch:packages} is invoked by using command
+\verb+\ref{ch:packages}+.
+Of course, you need to tell \LaTeX{} what you mean by ``ch:packages.''
+For that, you put a \verb+\label{ch:packages}+ right at the start of the
+chapter called ``Packages and Commands,'' like you can see in the code for this
+document, also replicated in Example~\ref{ex:code_label}.
+
+\begin{example}
+	\label{ex:code_label}
+	This is the code for starting a new chapter and setting a label/jump
+	mark:
+	\begin{verbatim}
+		\chapter{Packages and Commands}
+		\label{ch:packages}
+	\end{verbatim}
+\end{example}
+The \verb+\ref+ command is also used to create references to other parts of
+your thesis, \eg{} figures, tables, equations, or the code example that you
+find above. 
+
+Typically, the references are rendered as numbers, like \ref{ex:code_label},
+potentially including letters if the reference points to the appendix of your
+document.
+However, you can tell \LaTeX{} to make other text into a reference as well.
+For example, the \hyperref[ex:code_label]{code example} above can also be
+referenced via \verb+\hyperref[ex:code_label]{code example}+.\footnote{Note
+that with \texttt{\(\backslash\)hyperref}, the label is the optional
+argument!}
+If you want to point to specific equations inside an equation environment, you
+should use \verb+\eqref+ instead of \verb+\ref+, so the reference renders
+correctly: surrounded by a pair of parentheses.
+
+Two other classes of references are enabled by the packages \ac{template} loads
+by default: URLs and bibliographic references.
+The \emph{url} package in conjunction with \emph{hyperref} makes URL clickable,
+and if your PDF viewer supports it, clicking such a URL accesses the URL using
+your standard web browser.
+Such references are created using the \verb+\url{URL}+ command.
+
+\paragraph{Bibliographic references.}
+Bibliographic references point to specific entries in the bibliography section
+of your thesis, assuming you use the default setup of this template.
+However, for bibliographic references you do not manually put jump marks/labels
+into your document.
+The marks are instead taken from the labels provided in the \mbox{.bib} file,
+as discussed in Section~\ref{sec:guide:bibliographies}.
+You can create bibliographic references using the \verb+\cite{label}+ command.
+The \verb+\cite+ command correctly puts bibliographic references in square
+brackets. 
+Note that the \verb+\cite+ command can take an optional argument that is
+typically used if you want to give further information, \eg{} if you talk about
+Chapter~27 of the book referenced as \verb+FancyBookRef+, you should put the
+reference as \verb+\cite[Chapter~27]{FancyBookRef}+.

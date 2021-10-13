@@ -1,0 +1,148 @@
+\chapter{Makefiles}
+\label{ch:makefiles}
+
+This \acs{template} template comes with two Makefiles to make your life easier.
+One of the files is located inside the template's main folder, the other one is
+located in the figures sub-folder.
+The main Makefile can be used to compile the thesis's source files into a PDF
+file, while the figures directory's Makefile is used for creating graphics out
+of certain types of raw data.
+In this chapter, we discuss what both files do.
+
+You can compile your thesis without these Makefiles.
+However, the Makefiles make sure the compilation process happens in the right
+order.
+For a simple compilation, type ``make'' into your console and hit Enter.
+This starts the simple compilation process (calling pdflatex twice).
+Type ``make complete'' and hit Enter, in order to compile the source files,
+and include compiled images and bibliographic references.
+This latter option may pose problems in very specific circumstances.
+Therefore we provide a section on troubleshooting next.
+
+
+
+\section{Makefile Troubleshooting}
+\label{sec:makefiles:trouble}
+The Makefiles introduce certain dependencies, \ie{} applications they need to
+properly function.
+However, they will typically not pose a problem.
+The issues that may occur are:
+\begin{enumerate}
+	\item your thesis's bibliography file is empty, or
+	\item dependencies are not installed, but relevant files exist.
+\end{enumerate}
+
+\paragraph{Empty bibliography file.}
+The compilation process may fail if the \mbox{bibliography.bib} file does not
+contain a reference. In this case, either add a reference, or change Line~8 of
+the main Makefile from  \verb+complete: images lit short+ to 
+\verb+complete: images short+, or comment out Lines~12 and 13 of the main
+Makefile by prepending them with a hashtag (\#).
+The first option is to be preferred if you already know at least one
+bibliographic reference that you will use, the second option is reasonable if
+you will not have any bibliographic reference (very unlikely), and the third
+option is more or less a quick and dirty hack.
+
+\paragraph{Missing dependencies.}
+The compilation process may also fail, if you have \mbox{.svg} files in your
+figures directory, but \emph{inkscape} is not installed, or you have
+\mbox{.tex} files in the figures directory but either \emph{pdflatex} or
+\emph{pdfcrop} is not installed.
+In either case, you can install the relevant dependencies, or remove the
+problematic files, or comment out the problematic lines of the figures
+directory's Makefile by prepending them with a hashtag (\#).
+Which lines to comment out depend on the file type that causes the problems;
+see Section~\ref{sec:makefiles:figures} for details.
+
+
+
+
+\section{Main Makefile}
+\label{sec:makefiles:main}
+The main Makefile is designed to compile the \LaTeX{} source files of your
+thesis into the final PDF file.
+The Makefile provides two main recipes for obtaining the PDF, a short and a
+long version.
+The short version is invoked via ``make'' or ``make short,'' the long
+version is called via ``make complete.''
+ 
+We now have a look at the Makefile itself.
+The first line stores the file name (without the file extension) of your
+thesis's main \LaTeX{} file in variable \texttt{THESIS}
+Typically, this is \mbox{thesis.tex}, and THESIS store the value ``thesis,''
+accordingly.
+
+Lines~4 to 6 are the recipe for the short compilation process, they simply call
+pdflatex twice on your thesis's main source file.
+
+Line~8 contains the recipe for the long compilation process. 
+However, rather than containing the process itself, it depends on three other
+recipes that are called automatically: ``images,'' ``lit'' and ``short.''
+Hence (see below and above) the long compilation process created image files
+from raw data in the figures directory, processes bibliographic references and
+finally puts the PDF together.
+
+Lines~10 to 12 process bibliographic references.
+First, \emph{pdflatex} is invoked on your thesis's main file in order to
+collect the bibliographic references that you actually use, and then 
+\emph{bibtex} for processing bibliographic references is called.
+
+Lines~14 to 15 compile raw image data from the figures directory.
+The do so by changing into the directory and executing the directory's
+Makefile; for details, see the next \hyperref[sec:makefiles:figures]{section}.
+
+
+
+\section{figures's Makefile}
+\label{sec:makefiles:figures}
+The figures sub-folder's Makefile is designed to process raw data and transform
+them into useful images.
+It handles vector graphics in the \mbox{.svg} format, as well as graphics
+described via tikz\footnote{\TeX{} Ist Kein Zeichenprogramm, a \LaTeX{}
+package.} in \mbox{.tex} files.
+The reasoning behind putting tikz graphics in separate files is that compiling 
+the code into graphics is somewhat time consuming, so recompiling graphics that
+do not change should be avoided.
+
+We now go through the Makefile and describe its purposes.
+The first line collects all \mbox{.svg} files in the ``figures'' directory, and
+stores their file names in variable \texttt{SVG\_FILES}.
+The second line creates a variable \texttt{INKSCAPE\_FILES} and initializes it
+with all the file names stored in \texttt{SVG\_FILES} with the \mbox{.svg} file
+extension replaced by \mbox{.pdf\_tex}.
+Similarly, Lines~4 and 5 collect the \mbox{.tex} files and corresponding
+\mbox{.pdf} files in variables \texttt{TEX\_FILES} and \texttt{TIKZ\_FILES}.
+
+Line~7 says that, by default, we want to create the \mbox{.pdf\_tex} files from
+\mbox{.svg} files, and \mbox{.pdf} files from \mbox{.tex} files.
+The following lines say how this transformation process works.
+However, the transformation is only applied to source files that have changed
+recently, \ie{} if the target file does not exist yet, or source file's last
+modified date is newer than the target file's last modified date.
+
+Lines~9 and 10 are the recipe for creating \mbox{.pdf\_tex} files out of
+\mbox{.svg} files.
+For this, the application \emph{inkscape} is used.
+The recipe calls inkscape in command line mode and asks it to export the source
+file's drawing and text as two separate files.
+The first output file is a \mbox{.pdf} and contains the drawing itself.
+The second file is the desired \mbox{.pdf\_tex} that is a \LaTeX{} file in
+disguise.\footnote{The \mbox{.pdf\_tex} file extension helps with avoiding
+confusion with other \mbox{.tex} files.}
+It contains \LaTeX{} code that puts embeds the \mbox{.pdf} file into your
+thesis, but also contains the text from the \mbox{.svg} file and overlays the
+\mbox{.pdf} graphic with the text.
+As a result, the text uses the same font as your document, and all text from
+the \mbox{.svg} file gets interpreted as \LaTeX{} code.
+\emph{Note} that due to some bug in the inkscape export, you may observe
+\LaTeX{} errors during compilation if your \mbox{.pdf} file contains more than
+a single page, \ie{} if the \mbox{.svg} file was created with inkscape in the
+first place, you must put all graphic elements onto the same layer before
+exporting.
+
+Lines~12 to 14 are the recipe for getting \mbox{.pdf} files from \mbox{.tex}
+files.
+For that, the source file is compiled using pdflatex, as expected.
+Afterwards, the resulting \mbox{.pdf} file is cropped to the drawing area, with
+some surrounding margins.
+This adds the applications \emph{pdflatex} and \emph{pdfcrop} as dependencies.
