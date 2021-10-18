@@ -1,7 +1,13 @@
 \chapter{Motivation}
 \label{ch:motivation}
 
-The motivation
+Triplestores are the database backend of knowledge graphs. 
+They are typically developed in long iterations and are bench-marked, if at all, in a very late stage of such an development iteration.
+Typically Benchmarking and evaluation of the results are done manually and bind developers time.
+Thus, performance regressions are found very late or never.
+
+---
+
 
 The topic I have to offer has the working title is "Basilisk -- Continuous Benchmarking for Triplestores". At the core, it is developing and deploying a CI/CD tool that hooks into github and/or docker registries.
 
@@ -30,14 +36,7 @@ triple stores to be dockerized).
 
 The thesis task is to:
 
-1. describe and review the software architecture
-2. deploy Basilisk and its frontend on a publicly available VM
-3. benchmark 2 versions of Tentris
-(https://github.com/dice-group/tentris, via a github hook) and
-one version from another triple store (via a docker image
-registry, e.g. https://hub.docker.com/r/ontotext/graphdb/ or
-https://hub.docker.com/r/openlink/virtuoso-opensource-7).
-4. fix critical bugs in 1.-3. and document non-critical
+
 
 The thesis can be extended to a paper in a scientific journal (e.g.
 ISWC) on the resource track with you as first author. 
