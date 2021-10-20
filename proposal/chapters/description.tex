@@ -1,14 +1,21 @@
 \chapter{Description}
 \label{ch:description}
 
-Triplestores are the database backend of knowledge graphs. 
+\tsp{} are the database backend of knowledge graphs. 
 They are needed to easily store and query data of knowledge graphs used in the Semantic Web.
-%% TODO
-Since these Triplestores need to handle a lot of different data and access types, it is a good idea to perform benchmarks.
-%%
+Since knowledge graphs can contain huge amount of data and can also be subject to many changes, \tsp{} need to be able to handle many different workloads.
+To better test and compare \tsp{} in these diverse scenarios, benchmarks are performed to allow an appropriate comparison between different \tsp{}.
+
 Benchmarks in general are used to measure and compare the performance of computer programs and systems with a defined set of operations.
-Often they are designed to mimic a particular type of workload to the system.
-In the context of Triplestores, a benchmark usually consists of creating a big knowledge graph, perform multiple queries and operations on the data.
+Often they are designed to mimic and reproduce a particular type of workload to the system.
+In the context of \tsp{}, a benchmark usually consists of creating a big knowledge graph and performing multiple queries and operations on the data.
+
+Several benchmarks for \tsp{} have been proposed.
+\textsc{Iguana} is a benchmark-independent execution framework \cite{IGUANA} that can measure the performance of \tsp{} under several parallel query request.
+Currently the benchmark execution framework needs to be installed and benchmarks need to be started manually.
+Basilisk is a continuous benchmarking service for \tsp{} which internally uses \textsc{Iguana} to perform the benchmarks.
+The idea is that the Basilisk service will check automatically for new versions of \tsp{} and start benchmarks with the \iguana{} framework.
+Further it should be possible to start custom benchmarks on demand.
 
 
 
@@ -31,7 +38,7 @@ Current state of the research:
 
 
 Benchmarking erklären?
-Triplestores erklären motivierend
+\aclp*{ts} erklären motivierend
 
 
 - halbe Seite
