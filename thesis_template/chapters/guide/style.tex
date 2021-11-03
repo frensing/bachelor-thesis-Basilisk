@@ -1,0 +1,96 @@
+\section{Style}
+\label{sec:guide:style}
+This is just a simple guide on how to use the \ac{template}, so we do not get
+into the details of how to write a good scientific text.
+However, we give a short overview on the means that \LaTeX{} and \ac{template}
+provide to make your life easier, and achieve your goal of writing a high
+quality thesis.
+In this section, we discuss proper use of \LaTeX{}'s math mode and the
+footnotes.
+
+
+
+\subsection{Math Mode}
+\label{sec:guide:style:math}
+Whenever you use the language of mathematics in your text, you should tell
+\LaTeX{}!
+Do so using the sequence \verb+\(+ at the start of the formula or
+expression, and \verb+\)+ at the end.
+These commands render the mathematical expression in-line.
+For long, complex, or important expressions, \LaTeX{} offers the similar
+\verb+\[+ and \verb+\]+ commands.\footnote{The use of \texttt{\$} and
+\texttt{\$\$} is simply bad practice in \LaTeX{}. Using the same symbol as the
+start and stop marking makes reading and understanding things really hard.
+It also is confusing to some syntax highlighters in certain circumstances.
+However, switching to math mode via \texttt{\$} may still be used in certain
+contexts in which the \LaTeX{} equivalents do not work, for example in
+\mbox{\texttt{\(\backslash\)item[\$foo\$]}} commands inside lists.} 
+
+The various \emph{ams} packages leaded by default in file \mbox{packages.tex} provide
+a number of environments that also switch to math mode, but introduce
+additional functionality, like equation counting and multi-row formulas with
+custom alignment of content. 
+
+Whenever you use the language of mathematics in your text, you should tell
+\LaTeX{}!
+There really is a difference between x and \(x\)!
+If you have a variable name that consists of multiple letters, you should
+pass the name as an argument to command \verb+\mathit+, as to avoid confusion
+between \(\mathit{abc}\) and \(abc\), where the latter is short for \(a \cdot b
+\cdot c\).\footnote{If you haven't noticed, the spacing and letters are
+slightly different.}
+
+When you use your own mathematical operators, similar to \(\sin\), you should
+explicitly tell \LaTeX{} that it is an operator.
+Do so by using the \verb+\DeclareMathOperator+ command.
+Command \verb+DeclareMathOperator+ works similar to \verb+\newcommand+, but
+gets the spacing right; compare 
+\[1 \testop 23 \quad \text{ and } \quad 1 \mathrm{top} 23,\] 
+as produced by \verb+1 \testop 23+ and 
+\verb+1 \mathrm{top} 23+.\footnote{\texttt{\(\backslash\)testop} was
+defined via
+\texttt{\(\backslash\)DeclareMathOperator\{\(\backslash\)testop\}\{top\}}.}
+
+
+
+\subsection{Footnotes}
+\label{sec:guide:style:footnotes}
+In many cases, you may\footnote{read as: probably are} be inclined to use
+footnotes to provide additional information via the \verb+\footnote+ command.
+Don't! 
+Footnotes break the flow of reading.
+This means, you divert the reader's attention to some information you do not
+consider to be sufficiently important to add it to the main text body.
+As a result, using the footnote achieves the exact opposite of what it is
+supposed to achieve.\footnote{That is: provide additional, less important
+information that can be skipped without harm.}
+You have probably experienced this yourself while reading this section.
+
+
+
+\subsection{Acronyms}
+\label{sec:guide:style:acronyms}
+When writing your thesis, you may discover that some terms are repeated very
+often.
+As a result you want to abbreviate the terms.
+This is normal and completely fine.
+However, you have to take care that you do not start using an abbreviation
+before you formally introduce it.
+Otherwise your readers may be unable to understand your text.
+
+Unfortunately, you are so used to the term and its abbreviation that you will
+probably not notice that you use an abbreviation that has not been introduced
+yet, particularly when you edit your text later on, \eg{} after proof reading.
+Fortunately, there is a package to help you: the \emph{acronym} package that is
+loaded by default via the \mbox{packages.tex} file.
+\emph{acronym} allows you to define the term you use, the abbreviation and the
+long form as \verb+\newacro{myacro}[MA]{my acronym}+,
+where \verb+myacro+ is the term you use, \verb+MA+ is the abbreviation and
+\verb+my acronym+ represents the long form.
+You can insert the abbreviation called \verb+myacro+ by using
+\verb+\ac{myacro}+, which is rendered as ``my acronym (MA)'' for its first
+use, and as ``MA'' for each subsequent use.
+The \emph{acronym} package provides variants of the \verb+\ac+ command to use
+the plural form of the abbreviated term or to explicitly use the unabbreviated
+form.
+

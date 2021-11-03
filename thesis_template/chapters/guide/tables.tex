@@ -1,0 +1,179 @@
+\section{Tables}
+\label{sec:guide:tables}
+
+Tables are a means to display a lot of information in a comprehensible manner.
+\LaTeX{} offers many options to create and structure tables.
+Unfortunately, given the options, many people have a tendency to put too many
+structuring elements into their tables.
+As a result, what is intended to improve the readers understanding has quite
+the opposite effect.
+
+Basic advice on what not to do in good tables typically includes:
+\begin{itemize}
+	\item never use vertical bars,
+	\item use horizontal bars rarely, \eg{} for grouping multiple entries,
+	and
+	\item if there is a real possibility for readers to confuse entries from
+	multiple rows as belonging together, use color coding (with decent(!)
+	colors) to make boundaries clearer (there are \LaTeX{} packages for
+	that, google them if necessary).
+\end{itemize}
+Following this advice, we present you with the basics on how to produce tables
+that look good.
+
+Tables are produced in a \emph{tabular} environment, such as in
+Example~\ref{ex:table_simple}.
+\begin{example}
+\label{ex:table_simple}
+This is a code example of a simple table.
+\begin{verbatim}
+\begin{tabular}{lcp{3cm}r}
+  \toprule
+  This & is & an & example \\
+  \midrule
+  Hello & World & I really have no idea what to write & here \\
+  so & I just write & some nonsense & text. \\
+  \bottomrule
+\end{tabular}
+\end{verbatim}
+The code tells \LaTeX{} to produce a table (tabular environment) with four
+columns (arguments \verb+l+, \verb+c+, \verb+p{3cm}+ and \verb+r+ to the
+environment.
+The four arguments state how to align the text in the respective column.
+\begin{itemize}
+	\item \verb+l+: Left aligned text; the column's width is automatically
+	determined by the widest entry.
+	\item \verb+c+: Center aligned text; the column's width is determined
+	as for Option~\verb+l+.
+	\item \verb+p{3cm}+: Block aligned text; the column's with is set
+	manually to 3cm.
+	\item \verb+r+: Right aligned text; the column's width is determined as
+	for Option~\verb+l+.
+\end{itemize}
+Inside the environment, we start with a \verb+\toprule+, a thick-ish horizontal
+bar to indicate the beginning of the table.
+The header of the table follows, the change of columns indicated by the
+\verb+&+ character; the row is finished with the \verb+\\+ mark.
+The end of the header section is visually marked by another (thin) bar created
+by \verb+\midrule+.
+In the example, two more rows of contents follow, each ended by the \verb+\\+
+mark, again with the \verb+&+ character to separate cells.
+The table's end is visually marked by another thick-ish horizontal bar.
+
+The table is rendered as follows:
+
+\begin{tabular}{lcp{3cm}r}
+	\toprule
+	This & is & an & example \\
+	\midrule
+	Hello & World & I really have no idea what to write & here \\
+	so & I just write & some nonsense & text. \\
+	\bottomrule
+\end{tabular}
+\end{example}
+
+Note that the commands \verb+\toprule+, \verb+\midrule+ and \verb+\bottomrule+
+are provided by the \emph{booktabs} package that is loaded from file
+\mbox{packages.tex}. 
+Without these, \LaTeX{}'s \verb+\hline+ can be used, but messes up the spacing
+between rows, resulting in ugly tables.
+
+
+Typically, you do not want to surround your tables with context, \eg{} add a
+caption to it and be able to point to it from any part of the document.
+You can achieve this by using the \emph{table} floating environment as shown in
+Example~\ref{ex:table_env}.
+As a floating environment, it may be placed where it fits, rather than where
+(relative to the source code) it is defined.
+\begin{example}
+\label{ex:table_env}
+An example of the \emph{table} environment.
+\begin{verbatim}
+\begin{table}[tbhp]
+  \caption{Some descriptive text}
+  \label{tab:name}
+  \begin{tabular}{...}
+    ...
+  \end{tabular}
+\end{table}
+\end{verbatim}
+The optional parameter passed to the environment determines its preferred
+placement.
+The order of the letters gives the precedence.
+In this case, placement of the table at the top (\verb+t+) of a page is
+preferred, followed by a placement on the bottom (\verb+b+) of a page.
+If neither is possible, \LaTeX{} is to attempt to put the table where it is
+defined (\verb+h+, relative to the source code), and if everything else fails,
+the table will be put onto a special page (\verb+p+) that may only hold
+floating environments. 
+This last option is one of the reasons, why the caption should be some
+descriptive text that a reader can understand without having read the main
+text.
+
+Inside the environment, you find the \verb+caption+ of the table, followed by
+its \verb+label+.
+The label does not work properly if it precedes the caption.
+Finally, the table environment holds the relevant table environment.
+\emph{Note} that, unlike with figures, with tables, the caption precedes the
+table!
+\end{example}
+
+Sometimes you may have tables that are too long to fin onto a single page.
+This is problematic, since \LaTeX{} does not put page breaks into tables.
+The \emph{longtable} package comes to rescue.
+It provides the \emph{longtable} environment that puts page breaks into tables,
+repeats the table header automatically on each page that holds a portion of the
+table, and indicates that the table is continued on the next page if necessary.
+Example~\ref{ex:table_long} shows how to create long tables.
+\emph{Note} that with long tables, you do not need/want a floating environment.
+As compensation the \verb+\caption+ and \verb+label+ commands can be used with
+the \emph{longtable} environment directly.
+\begin{example}
+\label{ex:table_long}
+This is a code example of a long table
+\begin{verbatim}
+\begin{longtable}{l}
+  \caption{Some descriptive text}
+  \label{tab:name} \\
+
+  \toprule
+  HEADER \\
+  \midrule
+  \endfirsthead
+
+  \midrule
+  SECOND_HEADER
+  \midrule
+  \endhead
+
+  \midrule
+  FOOTER
+  \endfoot
+
+  \bottomrule
+  \endlastfoot
+
+  Table contents
+\end{longtable}
+\end{verbatim}
+
+The \emph{longtable} environment takes a parameter just like the \emph{tabular}
+environment that tells \LaTeX{} about the number of columns end text alignment.
+The \verb+\caption+ and \verb+\label+ commands follow as in the \emph{table}
+environment.
+This part is ended with the \verb+\\+ mark.
+
+What follows is a definition of the first header \verb+HEADER+ of the table,
+its end is marked by \verb+\endfirsthead+.
+The secondary header \verb+SECOND_HEADER+ is the header that gets repeated
+after each page break.
+The end of its definition is marked by \verb+\endhead+.
+The footer \verb+FOOTER+ gets repeated just before every page break that occurs
+in the table.
+Its definition is ended by \verb+\endfoot+
+The footer that marks the end of the table gets defined last (in this case a
+simple \verb+\bottomrule+).
+The end of its definition is marked by \verb+\endlastfoot+.
+Finally, the tables contents are put into \emph{longtable} environment, just
+like you would put in \emph{inside} the \emph{tabular} environment.
+\end{example}

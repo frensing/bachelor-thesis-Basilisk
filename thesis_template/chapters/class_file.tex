@@ -1,0 +1,335 @@
+\chapter{The upb\_cs\_thesis Document Class}
+\label{ch:class_file}
+
+In this section we discuss what the \emph{upb\_cs\_thesis} class as used by the
+\acs{template} template does, and what commands and environments it provides.
+We go through the file in chunks of lines that belong together and provide
+descriptions afterwards.
+
+
+
+\begin{verbatim}
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesClass{ubp_cs_thesis}[2017/12/18 initial version]
+\end{verbatim}
+
+\vspace*{-6pt} \noindent
+The \acs{template} template is requires the \LaTeXe{} and provides the
+\emph{upb\_cs\_thesis} documents class
+
+
+
+\begin{verbatim}
+\newif\ifgerman\germanfalse
+\DeclareOption{german}{\germantrue}
+\end{verbatim}
+
+\vspace*{-6pt} \noindent
+The class supports English and German language options.
+While the German language option (lower case: \emph{german}!) must be
+explicitly requested, the class defaults to English.
+
+
+
+\begin{verbatim}
+\ProcessOptions
+\LoadClass[a4paper, 11pt, twoside, openright]{book}
+\end{verbatim}
+
+\vspace*{-6pt} \noindent
+The class is based on the standard book class provided by \LaTeX{}.
+
+
+
+\begin{verbatim}
+\ifgerman
+        \RequirePackage[ngerman]{babel}
+\else
+        \RequirePackage[english]{babel}
+\fi
+\end{verbatim}
+
+\vspace*{-6pt} \noindent
+The class loads language packs depending on the language options passed to the
+class.
+
+
+\begin{verbatim}
+\RequirePackage[T1]{fontenc}
+\RequirePackage[utf8]{inputenc}
+\RequirePackage{lmodern}
+\RequirePackage{geometry}
+\RequirePackage{graphicx}
+\RequirePackage{hyperref}
+\RequirePackage{csquotes}
+\RequirePackage{tikz}
+\RequirePackage{calc}
+\RequirePackage[explicit]{titlesec}
+\end{verbatim}
+
+\vspace*{-6pt} \noindent
+A couple of standard packages are loaded, for details on the packages, see
+Section~\ref{sec:packages:class_packages}.
+
+
+
+\begin{verbatim}
+\reversemarginpar
+\geometry{a4paper, twoside, left=30mm, right=20mm, top=30mm, bottom=30mm}
+\end{verbatim}
+
+\vspace*{-6pt} \noindent
+The general page layout has 3cm margins on the top and bottom of an A4 page.
+The inner margin is 3cm wide, while the outer one is 2cm wide.
+The first page is to be considered a right page, \ie{} inner margins on the
+left hand side of the page.
+
+
+
+\begin{verbatim}
+\pagestyle{empty}
+\pagenumbering{roman}
+\end{verbatim}
+
+\vspace*{-6pt} \noindent
+The first few pages of a thesis are not to show any headers or page numbers.
+This behavior is altered in the \verb+\tableofcontents+ command.
+Until then, page numbers are counted in Roman numbers, although only displayed
+on the table of contents page.
+
+
+
+\begin{verbatim}
+\newcommand{\@upbchaptername}{}
+\newcommand{\@upbsectionname}{}
+\newcommand{\ps@upb}{%
+  \renewcommand{\@oddhead}{\leftmark\hfill}%
+  \renewcommand{\@evenhead}{\hfill\rightmark}%
+  \renewcommand{\@oddfoot}{\hfill\thepage\hfill}%
+  \renewcommand{\@evenfoot}{\hfill\thepage\hfill}%
+}
+\end{verbatim}
+
+\vspace*{-6pt} \noindent
+This class provides the \emph{upb} page style that prints the page number
+centered et the bottom of the page and chapter or section number and name on
+odd and even pages, respectively.
+
+
+\begin{verbatim}
+\newcommand*{\emptypage}{\newpage\null\thispagestyle{empty}\newpage}
+\end{verbatim}
+
+\vspace*{-6pt} \noindent
+The class provides the \verb+\emptypage+ command that takes no argument and
+adds an empty page to the document.
+
+
+
+\begin{verbatim}
+\newcommand{\thetitle}{undefined}
+\newcommand{\theauthor}{undefined}
+\let\oldtitle=\title
+\let\oldauthor=\author
+\renewcommand{\title}[1]{\renewcommand{\thetitle}{#1}\oldtitle{#1}}
+\renewcommand{\author}[1]{\renewcommand{\theauthor}{#1}\oldauthor{#1}}
+\newcommand{\thethesistype}{undefined}
+\newcommand{\thedegree}{undefined}
+\newcommand{\theresearchgroup}{undefined}
+\newcommand{\thesupervisor}{undefined}
+\newcommand{\thesubmissiondate}{undefined}
+\newcommand{\thesistype}[1]{\renewcommand{\thethesistype}{#1}}
+\newcommand{\degree}[1]{\renewcommand{\thedegree}{#1}}
+\newcommand{\researchgroup}[1]{\renewcommand{\theresearchgroup}{#1}}
+\newcommand{\supervisor}[1]{\renewcommand{\thesupervisor}{#1}}
+\newcommand{\submissiondate}[1]{\renewcommand{\thesubmissiondate}{#1}}
+\end{verbatim}
+
+\vspace*{-6pt} \noindent
+The class provides seven commands for setting data for a thesis title page:
+\begin{enumerate}
+	\item author: \verb+\author+,
+	\item title: \verb+\title+,
+	\item thesis type: \verb+\thesistype+,
+	\item academic degree: \verb+\degree+,
+	\item supervisor's research group name: \verb+\researchgroup+,
+	\item supervisor's name: \verb+\supervisor+, and
+	\item thesis submission date: \verb+\submissiondate+.
+\end{enumerate}
+These values passed to these commands can be accessed via commands
+\begin{enumerate}
+	\item \verb+\theauthor+,
+	\item \verb+\thetitle+,
+	\item \verb+\thethesistype+,
+	\item \verb+\thedegree+,
+	\item \verb+\theresearchgroup+,
+	\item \verb+\thesupervisor+, and
+	\item \verb+\thesubmissiondate+, respectively.
+\end{enumerate}
+\noindent Since \verb+\author+ and \verb+\title+ commands are provided by
+\LaTeX{} by default, we change their behavior slightly to make the values
+passed to the commands available in a manner consistent with the other
+commands, but we also preserve their original behavior.
+
+These commands are used to typeset the title page as defined in
+\mbox{pretext/titlepage.tex}
+
+
+
+\begin{verbatim}
+\newenvironment{abstract}{
+    \begin{center}
+        \begin{minipage}{.9\textwidth}
+            \ifgerman
+                \textbf{Zusammenfassung.} \hspace*{0.10pt}
+            \else
+                \textbf{Abstract.} \hspace*{0.10pt}
+            \fi
+}{
+        \end{minipage}
+    \end{center}
+}
+\end{verbatim}
+
+\vspace*{-6pt} \noindent
+The class provides the language sensitive \verb+abstract+ environment for
+typesetting an abstract for your thesis.
+
+
+
+\begin{verbatim}
+\let\@upbtocold=\tableofcontents
+\renewcommand{\tableofcontents}{
+  \pagestyle{plain}	
+  \@upbtocold
+  \cleardoublepage
+  \setcounter{page}{0}
+  \pagestyle{upb}
+  \pagenumbering{arabic}
+  \renewcommand{\chaptermark}[1]{
+    \markboth{\rm\chaptername\ \thechapter.\ #1}{}
+  }
+  \renewcommand{\sectionmark}[1]{
+    \markright{\rm\thesection\ #1}{}
+  }
+}
+\end{verbatim}
+
+\vspace*{-6pt} \noindent
+Starting with the table of contents, the thesis page numbers are displayed
+(Roman numbers).
+After the table of contents, page numbers are reset to 0, displayed in Arabic, 
+and headers (lowercase upright chapter and section names) are shown. 
+For this the behavior of \verb+\tableofcontents+ is altered, but its original
+behavior is preserved.
+
+
+
+\begin{verbatim}
+\newlength{\@upbchapternumberwidth}
+\newlength{\@upbtitlemaxwidth}
+\newlength{\@upbtitletextwidth}
+\end{verbatim}
+
+\vspace*{-6pt} \noindent
+These are some dimensions used by the upcoming commands to layout chapter
+openings.
+
+
+
+\begin{verbatim}
+\titleformat{\chapter}{
+  \normalfont\huge\bfseries
+}{}{0em}{
+  \newcommand*{\@upbprintscaledchapternumber}{
+    \resizebox{!}{15mm}{\thechapter}
+  }   
+  \settowidth{\@upbchapternumberwidth}{
+    \@upbprintscaledchapternumber
+  }   
+  \setlength{\@upbtitlemaxwidth}{
+    .9\textwidth - \@upbchapternumberwidth 
+  }   
+  \settowidth{\@upbtitletextwidth}{#1}
+  \flushright
+  \rlap{
+    \parbox[b]{\textwidth + 23mm}{
+      \parbox[b]{\@upbtitlemaxwidth}{
+        \ifdim\@upbtitletextwidth<\@upbtitlemaxwidth
+          \hfill #1
+	\else
+          #1\hbadness=10000
+        \fi 
+      }   
+      \hspace{12mm}
+      \makebox[\@upbchapternumberwidth][b]{
+        \raisebox{12mm}{\@upbprintscaledchapternumber}
+      }   
+      \hspace{-\@upbchapternumberwidth}
+      \hspace{-12mm}
+      \begin{tikzpicture}
+        \fill[black] (0mm, 0mm) rectangle
+           (\@upbchapternumberwidth +23mm, 10mm);
+      \end{tikzpicture}
+    }   
+  }   
+}
+\end{verbatim}
+
+\vspace*{-6pt} \noindent
+These lines define the layout of a numbered chapter opening:
+the chapter name to the left of a black box, the chapter number atop the bar.
+The first few lines compute the width of the printed chapter number, and the
+text available for the chapter name.
+The width of the black box depend on the width of the chapter number, so we
+account for arbitrary digit numbers.
+If the chapter name is wide than the space available, line breaks are
+automatically applied, the name becomes left aligned, and the base line of its
+lowest line is the bottom line of the black box.
+If there is sufficient space, the text is right aligned.
+
+
+
+\begin{verbatim}
+\titleformat{name=\chapter,numberless}{
+  \normalfont\huge\bfseries
+}{}{0em}{
+  \settowidth{\@upbchapternumberwidth}{
+    \resizebox{!}{15mm}{0}
+  }   
+  \setlength{\@upbtitlemaxwidth}{
+    .9\textwidth - \@upbchapternumberwidth 
+  }   
+  \settowidth{\@upbtitletextwidth}{#1}
+  \flushright
+  \rlap{
+    \parbox[b]{\textwidth + 23mm}{
+      \parbox[b]{\@upbtitlemaxwidth}{
+        \ifdim\@upbtitletextwidth<\@upbtitlemaxwidth
+          \hfill
+	\else
+          #1  
+        \fi 
+      }   
+      \hspace{8mm}
+      \begin{tikzpicture}
+        \fill[black] (0mm, 0mm) rectangle
+            (\@upbchapternumberwidth +23mm, 10mm);
+      \end{tikzpicture}
+    }
+  }
+}
+\end{verbatim}
+
+\vspace*{-6pt} \noindent
+This is a version of the chapter opening for unnumbered chapters.
+
+
+
+\begin{verbatim}
+\titlespacing*{\chapter}{0pt}{30pt}{25pt}
+\end{verbatim}
+
+\vspace*{-6pt} \noindent
+This command sets the spacing around chapter openings; it is required by the
+\emph{titlesec} package.

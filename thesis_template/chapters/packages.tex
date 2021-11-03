@@ -1,0 +1,170 @@
+\chapter{Packages and Commands}
+\label{ch:packages}
+This chapter provides a short overview of the packages used in the template.
+We first have a brief look at the packages directly referenced in the class
+file \mbox{upb\_cs\_thesis.cls}. 
+We then discuss the complementary packages included via file
+\mbox{packages.tex}.
+Lastly, we also provide a short list of custom commands introduced in file
+\mbox{commands.tex}.
+
+For all \LaTeX{} packages listed in this chapter, you can find documentation in
+the Comprehensive \TeX{} Archive Network (CTAN) \cite{CTAN}.
+
+
+
+\section{Class Packages}
+\label{sec:packages:class_packages}
+This section deals with the packages introduced vi the document class file
+\mbox{upb\_cs\_thesis.cls}.
+
+
+\paragraph{babel: english or ngerman.}
+This package loads hyphenation patterns, language-specific commands and
+characters, etc --- whether the \emph{english} or \emph{ngerman} option is used
+depends on the language option passed to the document class.
+
+
+\paragraph{fontenc: T1.}
+This package enables font encodings required by most western European
+languages.
+
+
+\paragraph{inputenc: utf8.}
+This package is used to interpret input files as utf8 encoded, so unicode
+characters can be used in the source code. 
+This file encoding is pretty much standard on all operating systems.
+Typically, you do not need to concern yourself with the functionality of this
+package.
+
+
+\paragraph{lmodern.}
+This package loads the \emph{Latin Modern} font.
+
+
+\paragraph{geometry.}
+This package allows fine-grained and comfortable control over all aspects
+dealing with paper dimensions and text placements.
+Typically, you do not need to concern yourself with the functionality of this
+package.
+
+
+\paragraph{graphicx.}
+This package allows the inclusion of a wide range of image formats, \eg{}
+\mbox{.png}, \mbox{.jpg} and \mbox{.pdf}, via the
+\verb+\includegraphics[\dots]{\dots}+ command, as shown in
+Section~\ref{sec:guide:graphics}.
+
+
+\paragraph{hyperref.}
+This package enables clickable links within the documents as well as to other
+resources.
+See Section~\ref{sec:guide:references} on how references work.
+
+
+\paragraph{csquotes.}
+This package loads the correct quotation marks, depending on the language
+passed to the babel package.
+
+
+\paragraph{tikz}
+This package is used to draw fancy images and make simple plots with \LaTeX{}.
+While these graphics look really great, creating them can be time consuming.
+The package's functionality can be greatly extended by loading additional
+libraries.
+
+
+\paragraph{calc.}
+This package allows for some more intuitive programming of computations in
+certain contexts.
+
+
+\paragraph{titlesec.}
+This package allows for the redefinition of chapter and section headings, etc.
+
+
+
+
+\section{Auxiliary Packages}
+\label{sec:packages:auxiliary_packages}
+This section provides a list of packages loaded from file \mbox{packages.tex}.
+Preferably, if you want to use your own packages, you add them to this file.
+
+
+\paragraph{amsmath, amssymb, amsfonts.}
+These packages introduce a load of mathematical symbols and environments.
+
+
+\paragraph{amsthm.}
+This package introduces the ability of comfortable adding environments for
+definitions, theorems, etc. 
+A \verb+proof+ environment is provided by default.
+See the \mbox{commands.tex} file for example environments, and the marked
+examples in this document for how these environments are rendered, \eg{}
+Example~\ref{ex:code_label}.
+
+
+\paragraph{todonotes.}
+This package allows you to mark open tasks (ToDos) by passing them to the
+\verb+\todo+ command.\todo{Like this ToDo.}
+\todo[inline]{Or like this with the \texttt{[inline]} variant to the command.}
+You can create a comprehensive list of open ToDos via
+\verb+\listoftodos+.
+
+
+\paragraph{subfig.}
+This package allows you to combine multiple figures into one, with each
+sub-figure getting its own caption.
+See Section~\ref{sec:guide:graphics} on how to use this feature.
+
+
+\paragraph{url.}
+This package is used to render URLs correctly via command \verb+\url+. 
+In conjunction with the \emph{hyperref} package, which is loaded by default, the
+URL becomes a clickable link. 
+
+
+\paragraph{longtable.}
+Normally, \LaTeX{} tables only cover a single page.
+With this package, long multi-page tables become possible.
+See Section~\ref{sec:guide:tables} for further information.
+
+
+\paragraph{booktabs.}
+This packages improves the default look of \LaTeX{} tables.
+See Section~\ref{sec:guide:tables} for further information.
+
+
+\paragraph{acronym.}
+This package allows you to define acronyms.
+You can use the acronyms without needing to keep track about whether you have
+formally introduced them before, or not.
+See Section~\ref{sec:guide:style:acronyms} for further information.
+
+
+
+\section{Custom Commands}
+\label{sec:packages:commands}
+\LaTeX{} allows you to easily add your own commands.
+Your own commands should go into file \mbox{commands.tex}, which also
+introduces some commands by default.
+
+The first blocks of commands, sets up some environments according to the
+\emph{amsthm} package.
+Environments for theorems, lemmas, corollaries, properties and definitions are
+provided.
+The environments are set up such that they share a counter, \ie{} you will not
+find Theorem~2.1 after Lemma~2.15; instead, the theorem that follows Lemma~2.15
+will be Theorem~2.16, unless some other of these environments is used in
+between. 
+
+The \mbox{commands.tex} file also provides some commands for common
+abbreviations with correct spacing, so you will not find the \emph{e.} and
+\emph{g.} of the \eg{} in different rows of your text. 
+Remember to use them with a pair of braces, as is good practice.
+Otherwise you may find that space is missing between the abbreviation and the
+following word.
+The abbreviations provided are \eg{}, \ie{}, \cf{}, and \etal{}
+
+The file also provides an acronym definition for the \emph{acronym} package, as
+well as a math operator for correct from the \emph{ams} packages.
