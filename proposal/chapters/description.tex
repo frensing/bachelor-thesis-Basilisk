@@ -1,8 +1,10 @@
 \chapter{Description and Motivation}
 \label{ch:description}
 
-\tsp{} are the database backend of knowledge graphs. 
-They are needed to store and query data of knowledge graphs used in the Semantic Web.
+In the field of Semantic Web, knowledge graphs are an important structure to represent data and its connections.
+To easily store and query the data in these knowledge graphs, some data structure or database is needed.
+The special kind of database developed for knowledge graphs are called \tsp{}.
+
 Since knowledge graphs can contain huge amount of data and can also be subject to many changes, \tsp{} need to be able to handle many different workloads.
 To better test and compare \tsp{} in these diverse scenarios, benchmarks are performed to allow an appropriate comparison between different \tsp{}.
 Often \tsp{} are developed in long iterations and are bench-marked only in a late stage of such an development iteration.
@@ -25,59 +27,59 @@ This means that developers do not have to worry about performing benchmarks at d
 
 
 
----
-
-- What general topic are we interested in
-- why is this topic interesting in general
-- where is it used
-- why does it matter
-- who implements it
-- what problem does it solve?
-
-- What is your personal motivation to deal with this topic?
-- Which interesting problems do you expect?
-
-Explain some more background for the topic, help the reader, who may have never heard of the topic, understand what you are talking about.
-
-Current state of the research:
-- What is a trivial way to solve x?
-- How is x usually solved in practice?
-- what are typical ingredients / techniques to construct the systems we are interested in?
-- How does ? solve the problem?
-- What does the algo in ? do roughly?
-
-
-------
-
-The topic I have to offer has the working title is "Basilisk -- Continuous Benchmarking for Triplestores". At the core, it is developing and deploying a CI/CD tool that hooks into github and/or docker registries.
-
-Described in more detail:
-
-Triplestores -- the database backend of knowledge graphs -- are
-typically developed in long iterations and are bench-marked -- if at
-all -- only in a very late stage of such an iteration. Benchmarking
-and evaluation of benchmarking results are typically done manually
-and binds developer's time. Thus, performance regressions are found
-very late or never.
-
-With Basilisk we started to develop a continuous benchmarking
-platform for triplestore which hooks into github and docker image
-registries.
-
-On events like pull requests or newly published versions of
-triplestores, a benchmarking suite is run automatically.
-
-The first version of Basilisk
-(https://github.com/dice-group/Basilisk,
-https://github.com/dice-group/basilisk-frontend) is already
-implemented. It is based on the benchmarking tool IGUANA
-(https://github.com/dice-group/IGUANA) and Docker. (It requires
-triple stores to be dockerized).
-
-The thesis task is to:
-
-
-
-The thesis can be extended to a paper in a scientific journal (e.g.
-ISWC) on the resource track with you as first author. 
-
+%---
+%
+%- What general topic are we interested in
+%- why is this topic interesting in general
+%- where is it used
+%- why does it matter
+%- who implements it
+%- what problem does it solve?
+%
+%- What is your personal motivation to deal with this topic?
+%- Which interesting problems do you expect?
+%
+%Explain some more background for the topic, help the reader, who may have never heard of the topic, understand what you are talking about.
+%
+%Current state of the research:
+%- What is a trivial way to solve x?
+%- How is x usually solved in practice?
+%- what are typical ingredients / techniques to construct the systems we are interested in?
+%- How does ? solve the problem?
+%- What does the algo in ? do roughly?
+%
+%
+%------
+%
+%The topic I have to offer has the working title is "Basilisk -- Continuous Benchmarking for Triplestores". At the core, it is developing and deploying a CI/CD tool that hooks into github and/or docker registries.
+%
+%Described in more detail:
+%
+%Triplestores -- the database backend of knowledge graphs -- are
+%typically developed in long iterations and are bench-marked -- if at
+%all -- only in a very late stage of such an iteration. Benchmarking
+%and evaluation of benchmarking results are typically done manually
+%and binds developer's time. Thus, performance regressions are found
+%very late or never.
+%
+%With Basilisk we started to develop a continuous benchmarking
+%platform for triplestore which hooks into github and docker image
+%registries.
+%
+%On events like pull requests or newly published versions of
+%triplestores, a benchmarking suite is run automatically.
+%
+%The first version of Basilisk
+%(https://github.com/dice-group/Basilisk,
+%https://github.com/dice-group/basilisk-frontend) is already
+%implemented. It is based on the benchmarking tool IGUANA
+%(https://github.com/dice-group/IGUANA) and Docker. (It requires
+%triple stores to be dockerized).
+%
+%The thesis task is to:
+%
+%
+%
+%The thesis can be extended to a paper in a scientific journal (e.g.
+%ISWC) on the resource track with you as first author. 
+%
