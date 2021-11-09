@@ -6,3 +6,51 @@
 \usepackage{longtable}% tables that span multiple pages
 \usepackage{booktabs}% tables that actually look good
 \usepackage[nolist]{acronym}% consistently use acronyms
+
+\usepackage{pgfgantt}
+
+%Customizing GanttChart
+\definecolor{barblue}{RGB}{153,204,254}
+\definecolor{groupblue}{RGB}{51,102,254}
+\definecolor{linkred}{RGB}{165,0,33}
+\renewcommand\sfdefault{phv}
+\renewcommand\mddefault{mc}
+\renewcommand\bfdefault{bc}
+\setganttlinklabel{s-s}{START-TO-START}
+\setganttlinklabel{f-s}{FINISH-TO-START}
+\setganttlinklabel{f-f}{FINISH-TO-FINISH}
+\sffamily
+\ganttset
+{%
+	y unit chart=0.8cm,
+	canvas/.append style={fill=none, draw=black!35, line width=.5pt},
+%	hgrid={*1{draw=black!35, line width=.1pt}},
+	hgrid style/.style={draw=black!35,line width=.1pt},
+	vgrid={*1{draw=black!35, line width=.1pt}},
+	today rule/.style={draw=black!64,dash pattern=on 3.5pt off 4.5pt,line width=1.5pt},
+	today label font=\small\bfseries,
+	title/.style={draw=none, fill=none},
+	title label font=\bfseries\footnotesize,
+	title label node/.append style={below=7pt},
+	progress label text={}, % \pgfmathprintnumber[precision=0, verbatim]{#1}\%
+	include title in canvas=false,
+	bar label font=\mdseries\small\color{black!70},
+	bar label node/.append style={left=0cm},
+	bar/.append style={draw=none, fill=black!63},
+	bar incomplete/.append style={fill=barblue},
+	bar progress label font=\mdseries\footnotesize\color{black!70},
+	bar height=.5,
+	bar top shift=0.1,
+	group top shift=0.1,
+	group incomplete/.append style={fill=groupblue},
+	group left shift=0,
+	group right shift=0,
+	group height=.5,
+	group peaks tip position=0,
+	group label node/.append style={left=.6cm},
+	group progress label font=\bfseries\small,
+	link/.style={-latex, line width=1.5pt, linkred},
+	link label font=\scriptsize\bfseries,
+	link label node/.append style={below left=-2pt and 0pt}
+}
+
