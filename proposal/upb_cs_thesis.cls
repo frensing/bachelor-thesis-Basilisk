@@ -13,7 +13,7 @@
 \DeclareOption{german}{\germantrue}
 
 \ProcessOptions
-\LoadClass[a4paper, 11pt, twoside, openright]{book}
+\LoadClass[a4paper, 11pt, openany]{book}
 \ifgerman
 	\RequirePackage[ngerman]{babel}
 \else
@@ -31,7 +31,7 @@
 \RequirePackage[explicit]{titlesec}
 
 \reversemarginpar
-\geometry{a4paper, twoside, left=30mm, right=20mm, top=30mm, bottom=30mm}
+\geometry{a4paper, left=25mm, right=25mm, top=30mm, bottom=30mm}
 
 \pagestyle{empty}
 \pagenumbering{roman}

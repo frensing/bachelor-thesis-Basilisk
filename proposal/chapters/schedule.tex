@@ -1,9 +1,9 @@
 \chapter{Schedule}
 \label{ch:schedule}
 
-The Schedule for the proposed task in Chapter \ref{ch:tasks} is shown in figure \ref{fig:schedule}
+%The Schedule for the proposed task in Chapter \ref{ch:tasks} is shown in figure \ref{fig:schedule}
 
-\begin{figure}
+\begin{figure}[tbph]
 	\begin{ganttchart}
 		[%today=0, %"TODAY" vertical line
 %		x unit=0.9cm, %extend sheets to 1cm
@@ -21,7 +21,14 @@ The Schedule for the proposed task in Chapter \ref{ch:tasks} is shown in figure 
 		\ganttgroup[progress=0]{Evaluation}{13}{18} \\
 		\ganttbar[progress=0]{Perform benchmarks for \tsp{}}{13}{15} \\
 		\ganttbar[progress=0]{Fix critical bugs, document non-critical}{16}{18}\\
-		\ganttgroup[progress=0]{Thesis Writing}{1}{19}
+		
+		\ganttgroup[progress=0]{Thesis Writing}{1}{20} \\
+		\ganttbar[progress=0]{Related Work \& Background}{1}{4} \\
+		\ganttbar[progress=0]{Approach}{5}{7} \\
+		\ganttbar[progress=0]{Implementation}{7}{12} \\
+		\ganttbar[progress=0]{Evaluation}{13}{18} \\
+		\ganttbar[progress=0]{Summary and Discussion}{17}{19} \\
+		\ganttbar[progress=0]{Presentation}{18}{20} \\
 	\end{ganttchart}
 	
 	\caption{Proposed schedule for the work on the thesis.}
