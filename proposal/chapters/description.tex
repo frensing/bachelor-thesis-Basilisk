@@ -1,21 +1,24 @@
 \chapter{Description and Motivation}
 \label{ch:description}
 
-In the field of Semantic Web, knowledge graphs are an important structure to represent data and its connections.
+In the field of Semantic Web, knowledge graphs are an important structure to represent data and its relationships.
 To easily store and query the data in these knowledge graphs, some data structure or database is needed.
-The special kind of database developed for knowledge graphs are called \tsp{}.
+The special kind of database developed to store knowledge graphs are called \tsp{}. \\
 
-Since knowledge graphs can contain huge amount of data and can also be subject to many changes, \tsp{} need to be able to handle many different workloads.
-To better test and compare \tsp{} in these diverse scenarios, benchmarks are performed to allow an appropriate comparison between different \tsp{}.
-Often \tsp{} are developed in long iterations and are bench-marked only in a late stage of such an development iteration.
-Today benchmarks and the evaluation of their results are usually done manually and bind developers time.
-Thus, performance regressions are  found very late or never.
+Since knowledge graphs can contain huge amount of data which can also be subject to many changes, \tsp{} need to be able to handle many different workloads.
+Some \tsp{} need to handle huge amount of data being added, while others need to handle a lot of changes on the current data.
+To better test and compare \tsp{} in these diverse scenarios, benchmarks are performed to allow an appropriate comparison between different \tsp{}\cite{Representative_Benchmark}.
 
 Benchmarks in general are used to measure and compare the performance of computer programs and systems with a defined set of operations.
 Often they are designed to mimic and reproduce a particular type of workload to the system.
 In the context of \tsp{}, a benchmark usually consists of creating a big knowledge graph and performing multiple queries and operations on the data.
 
-Several benchmarks for \tsp{} have been proposed.
+Often \tsp{} are developed in long iterations and are bench-marked only in a late stage of such an development iteration.
+Today benchmarks and the evaluation of their results are usually done manually and bind developers time.
+Thus, performance regressions are  found very late or never.
+
+
+Several benchmarks for \tsp{} have been proposed \cite{Representative_Benchmark}.
 \iguana{} is a benchmark-independent execution framework \cite{IGUANA} that can measure the performance of \tsp{} under several parallel query request.
 Currently the benchmark execution framework needs to be installed and benchmarks need to be started manually.
 Basilisk is a continuous benchmarking service for \tsp{} which internally uses \iguana{} to perform the benchmarks.
