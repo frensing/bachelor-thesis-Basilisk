@@ -2,8 +2,16 @@
 \label{ch:target_setting}
 
 The target of this thesis is to setup and deploy an instance of the Basilisk service platform.
-Since Basilisk is not yet fully developed, the missing parts will be designed and implemented first, before the system can be deployed publicly.
-After that a use-case with 3 benchmarks will be executed and evaluated.
+Since Basilisk is not yet fully developed, the missing parts will be designed and implemented first, before the system can be deployed publicly. \\
+
+The platform will be deployed on a virtual machine provided by the IRB-department of the Paderborn University.
+The hardware requirements are 8-16 CPU-cores, 256GB of RAM, and 4TB of Storage for different datasets and benchmarks. \\
+
+Different benchmarks will be performed on the \tsp{} under test.
+All benchmarks performed will be marko benchmakrs, which 
+Synthetic benchmarks will be generated with WatDiv\cite{watdiv} and FEASIBLE\cite{feasible} will be used to generate benchmarks from datasets of varied sizes and structures.
+
+
 At least two \tsp{} will be evaluated with the framework of which one should be Tentris\cite{tentris}.
 The goal of this use-case is to assess how well the system helps automating the execution and evaluation of benchmarks.
 This includes examining which steps could be further automated and which interfaces could be added to get specific data.
