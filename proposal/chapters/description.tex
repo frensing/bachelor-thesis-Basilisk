@@ -7,7 +7,7 @@ The special kind of database developed to store knowledge graphs are called \tsp
 
 Since knowledge graphs can contain huge amounts of data which can also be subject to many changes, \tsp{} need to be able to handle many different workloads.
 Some scenarios need to handle huge amount of data being added, while others need to handle a lot of changes on the current data.
-To better test and compare \tsp{} in these diverse scenarios, benchmarks are performed to allow an appropriate comparison between different \tsp{}\cite{Representative_Benchmark}.
+To better test and compare \tsp{} in these diverse scenarios, benchmarks are performed to allow an appropriate comparison between different \tsp{}\cite{saleemHowRepresentativeSPARQL2019}.
 
 Benchmarks in general are used to measure and compare the performance of computer programs and systems with a defined set of operations.
 Often they are designed to mimic and reproduce a particular type of workload to the system.
@@ -18,8 +18,8 @@ Today benchmarks and the evaluation of their results are usually done manually a
 Thus, performance regressions are  found very late or never.
 
 
-Several benchmarks for \tsp{} have been proposed \cite{Representative_Benchmark}.
-\iguana{} is a benchmark-independent execution framework \cite{IGUANA} that can measure the performance of \tsp{} under several parallel query request.
+Several benchmarks for \tsp{} have been proposed \cite{saleemHowRepresentativeSPARQL2019}.
+\iguana{} is a benchmark-independent execution framework \cite{conradsIguanaGenericFramework2017} that can measure the performance of \tsp{} under several parallel query request.
 Currently the benchmark execution framework needs to be installed and benchmarks need to be started manually.
 Basilisk is a continuous benchmarking service for \tsp{} which internally uses \iguana{} to perform the benchmarks.
 The idea is that the Basilisk service will check automatically for new versions of \tsp{} and start benchmarks with the \iguana{} framework.

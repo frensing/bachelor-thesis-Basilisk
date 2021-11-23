@@ -9,10 +9,31 @@ The hardware requirements are 8-16 CPU-cores, 256GB of RAM, and 4TB of Storage f
 
 Different benchmarks will be performed on the \tsp{} under test.
 All benchmarks performed will be marko benchmakrs, which 
-Synthetic benchmarks will be generated with WatDiv\cite{watdiv} and FEASIBLE\cite{feasible} will be used to generate benchmarks from datasets of varied sizes and structures.
+Synthetic benchmarks will be generated with WatDiv\cite{alucDiversifiedStressTesting2014} and FEASIBLE\cite{saleemFEASIBLEFeatureBasedSPARQL2015} will be used to generate benchmarks from datasets of varied sizes and structures.
+\todo{continue}
 
 
-At least two \tsp{} will be evaluated with the framework of which one should be Tentris\cite{tentris}.
+The metrics that are calculated after each benchmark, are the ones provided by the IGUANA framework \cite{MetricsIguanaDocumentation}\cite{conradsIguanaGenericFramework2017}, since the IGUANA framework is used in the Basilisk platform to perform the benchmarks.
+These metrics provided can be seen in table \ref{table:iguana_metrics}:
+
+\begin{table}[tbhp]
+	\begin{tabular}{lp{10cm}}
+		\toprule
+		Name            & Description                                                  \\ \midrule
+		NoQ             & number of successfully executed Queries                      \\
+		QMPH            & number of executed Query Mixes per Hour                      \\
+		NoQPH           & NoQ per hour                                                 \\
+		QPS             & queries per second                                           \\
+		penalized QPS   & failed queries get a penalty that is included in this metric \\
+		AvgQPS          & average QPS                                                  \\
+		penalizedAvgQPS & AvgQPS with penalty included                                 \\ \bottomrule
+	\end{tabular}
+	\caption{Metric provided by the IGUANA framework\cite{MetricsIguanaDocumentation}.}
+	\label{table:iguana_metrics}
+\end{table}
+
+
+At least two \tsp{} will be evaluated with the framework of which one should be Tentris\cite{bigerlTentrisTensorBasedTriple2020}.
 The goal of this use-case is to assess how well the system helps automating the execution and evaluation of benchmarks.
 This includes examining which steps could be further automated and which interfaces could be added to get specific data.
 
