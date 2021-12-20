@@ -7,12 +7,11 @@ Since Basilisk is not yet fully developed, the missing parts will be designed an
 The platform will be deployed on a virtual machine provided by the IRB-department of the Paderborn University.
 The hardware requirements are 8-16 CPU-cores, 256GB of RAM, and 4TB of Storage for different datasets and benchmarks. \\
 
-Different benchmarks will be performed on the \tsp{} under test.
-Synthetic benchmarks will be generated with WatDiv\cite{alucDiversifiedStressTesting2014}.
-FEASIBLE\cite{saleemFEASIBLEFeatureBasedSPARQL2015} will be used to generate benchmarks from real-world datasets of varied sizes and structures.
-Real-world datasets that will be used are a subset of the WikiData and DBpedia.
-For these datasets there are query logs contained in LSQ\cite{saleemLSQLinkedSPARQL2015} which will be provided to the FEASIBLE framework.
-Other benchmarks that will be available on the platform are LUBM\cite{guoLUBMBenchmarkOWL2005} and SP²Bench\cite{schmidtSP2BenchSPARQLPerformance2008}.\\
+Three different benchmarks will be pre-configured on the platform, which were generated with WatDiv\cite{alucDiversifiedStressTesting2014} and FEASIBLE\cite{saleemFEASIBLEFeatureBasedSPARQL2015}.
+Those benchmarks will all be macro benchmarks, since they will test the performance of the \tsp{} as a whole system handling datasets and queries.
+Synthetic benchmarks were be generated with WatDiv and benchmarks from real-world datasets were generated with FEASIBLE.
+As a dataset for real-world data a subset of WikiData was used.
+If time permits and it is easy to implement, other benchmarks like LUBM\cite{guoLUBMBenchmarkOWL2005} or SP²Bench\cite{schmidtSP2BenchSPARQLPerformance2008} could also be made available as pre-configured benchmark.\\
 
 
 The metrics that are calculated after each benchmark, are the ones provided by the IGUANA framework \cite{MetricsIguanaDocumentation}\cite{conradsIguanaGenericFramework2017}, since the IGUANA framework is used in the Basilisk platform to perform the benchmarks.
