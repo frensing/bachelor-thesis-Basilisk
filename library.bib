@@ -37,7 +37,7 @@
 }
 
 @incollection{bigerlTentrisTensorBasedTriple2020,
-  title = {Tentris – {{A Tensor}}-{{Based Triple Store}}},
+  title = {Tentris – {{A Tensor-Based Triple Store}}},
   booktitle = {The {{Semantic Web}} – {{ISWC}} 2020},
   author = {Bigerl, Alexander and Conrads, Felix and Behning, Charlotte and Sherif, Mohamed Ahmed and Saleem, Muhammad and Ngonga Ngomo, Axel-Cyrille},
   editor = {Pan, Jeff Z. and Tamma, Valentina and d’ Amato, Claudia and Janowicz, Krzysztof and Fu, Bo and Polleres, Axel and Seneviratne, Oshani and Kagal, Lalana},
@@ -58,7 +58,7 @@
 }
 
 @incollection{conradsIguanaGenericFramework2017,
-  title = {Iguana: A {{Generic Framework}} for {{Benchmarking}} the {{Read}}-{{Write Performance}} of {{Triple Stores}}},
+  title = {Iguana: {{A Generic Framework}} for {{Benchmarking}} the {{Read-Write Performance}} of {{Triple Stores}}},
   shorttitle = {Iguana},
   booktitle = {The {{Semantic Web}} – {{ISWC}} 2017},
   author = {Conrads, Felix and Lehmann, Jens and Saleem, Muhammad and Morsey, Mohamed and Ngonga Ngomo, Axel-Cyrille},
@@ -80,7 +80,7 @@
 }
 
 @article{guoLUBMBenchmarkOWL2005,
-  title = {{{LUBM}}: A Benchmark for {{OWL}} Knowledge Base Systems},
+  title = {{{LUBM}}: {{A}} Benchmark for {{OWL}} Knowledge Base Systems},
   shorttitle = {{{LUBM}}},
   author = {Guo, Yuanbo and Pan, Zhengxiang and Heflin, Jeff},
   date = {2005-10-01},
@@ -101,12 +101,30 @@
 }
 
 @article{HashingHypertrieSpace2018,
-  title = {Hashing the {{Hypertrie}}: Space- and {{Time}}-{{Efficient Indexing}} for {{SPARQL}} in {{Tensors}}},
+  title = {Hashing the {{Hypertrie}}: {{Space-}} and {{Time-Efficient Indexing}} for {{SPARQL}} in {{Tensors}}},
   date = {2018},
   pages = {10},
   abstract = {Time-efficient solutions for querying RDF knowledge graphs depend on indexing structures with low response times to answer SPARQL queries rapidly. Hypertries—an indexing structure recently developed for tensor-based triple stores—have achieved significant runtime improvements over several mainstream storage solutions for RDF knowledge graphs. However, the space footprint of this novel data structure is still often larger than that of many mainstream solutions. In this work, we show how to reduce the memory footprint of hypertries and thereby further speed up query processing in hypertrie-based RDF storage solutions. Our approach relies on three strategies: (1) the elimination of duplicates via hashing, (2) the compression of non-branching paths, and (3) the storage of single-entry leaf nodes in their parent nodes. We evaluate these strategies by comparing them with baseline hypertries as well as popular triple stores such as Virtuoso, Fuseki, GraphDB, Blazegraph and gStore. We rely on four datasets/benchmark generators in our evaluation: SWDF, DBpedia, WatDiv, and WikiData. Our results suggest that our modifications significantly reduce the memory footprint of hypertries by up to 70\% while leading to a relative improvement of up to 39\% with respect to average Queries per Second and up to 740\% with respect to Query Mixes per Hour.},
   langid = {english},
   file = {C\:\\Users\\Fabian\\Zotero\\storage\\L3W2XAVC\\2018 - Hashing the Hypertrie Space- and Time-Efficient I.pdf}
+}
+
+@article{hoganKnowledgeGraphs2021,
+  title = {Knowledge {{Graphs}}},
+  author = {Hogan, Aidan and Blomqvist, Eva and Cochez, Michael and D’amato, Claudia and Melo, Gerard De and Gutierrez, Claudio and Kirrane, Sabrina and Gayo, José Emilio Labra and Navigli, Roberto and Neumaier, Sebastian and Ngomo, Axel-Cyrille Ngonga and Polleres, Axel and Rashid, Sabbir M. and Rula, Anisa and Schmelzeisen, Lukas and Sequeda, Juan and Staab, Steffen and Zimmermann, Antoine},
+  date = {2021-07-02},
+  journaltitle = {ACM Computing Surveys},
+  shortjournal = {ACM Comput. Surv.},
+  volume = {54},
+  number = {4},
+  pages = {71:1--71:37},
+  issn = {0360-0300},
+  doi = {10.1145/3447772},
+  url = {https://doi.org/10.1145/3447772},
+  urldate = {2021-12-20},
+  abstract = {In this article, we provide a comprehensive introduction to knowledge graphs, which have recently garnered significant attention from both industry and academia in scenarios that require exploiting diverse, dynamic, large-scale collections of data. After some opening remarks, we motivate and contrast various graph-based data models, as well as languages used to query and validate knowledge graphs. We explain how knowledge can be represented and extracted using a combination of deductive and inductive techniques. We conclude with high-level future research directions for knowledge graphs.},
+  keywords = {embeddings,graph algorithms,graph databases,graph neural networks,graph query languages,Knowledge graphs,ontologies,rule mining,shapes},
+  file = {C\:\\Users\\Fabian\\Zotero\\storage\\ZBB7QR25\\Hogan et al. - 2021 - Knowledge Graphs.pdf}
 }
 
 @online{MetricsIguanaDocumentation,
@@ -143,7 +161,7 @@
 }
 
 @inproceedings{raasveldtFairBenchmarkingConsidered2018,
-  title = {Fair {{Benchmarking Considered Difficult}}: Common {{Pitfalls In Database Performance Testing}}},
+  title = {Fair {{Benchmarking Considered Difficult}}: {{Common Pitfalls In Database Performance Testing}}},
   shorttitle = {Fair {{Benchmarking Considered Difficult}}},
   booktitle = {Proceedings of the {{Workshop}} on {{Testing Database Systems}}},
   author = {Raasveldt, Mark and Holanda, Pedro and Gubner, Tim and Mühleisen, Hannes},
@@ -155,14 +173,14 @@
   url = {https://dl.acm.org/doi/10.1145/3209950.3209955},
   urldate = {2021-11-22},
   abstract = {Performance benchmarking is one of the most commonly used methods for comparing different systems or algorithms, both in scientific literature and in industrial publications. While performance measurements might seem objective on the surface, there are many different ways to influence benchmark results to favor one system over the other, either by accident or on purpose. In this paper, we perform a study of the common pitfalls in DBMS performance comparisons, and give advice on how they can be spotted and avoided so a fair performance comparison between systems can be made. We illustrate the common pitfalls with a series of mock benchmarks, which show large differences in performance where none should be present.},
-  eventtitle = {{{SIGMOD}}/{{PODS}} '18: International {{Conference}} on {{Management}} of {{Data}}},
+  eventtitle = {{{SIGMOD}}/{{PODS}} '18: {{International Conference}} on {{Management}} of {{Data}}},
   isbn = {978-1-4503-5826-2},
   langid = {english},
   file = {C\:\\Users\\Fabian\\Zotero\\storage\\H885JGPR\\Raasveldt et al. - 2018 - Fair Benchmarking Considered Difficult Common Pit.pdf}
 }
 
 @inproceedings{saleemFEASIBLEFeatureBasedSPARQL2015,
-  title = {{{FEASIBLE}}: A {{Feature}}-{{Based SPARQL Benchmark Generation Framework}}},
+  title = {{{FEASIBLE}}: {{A Feature-Based SPARQL Benchmark Generation Framework}}},
   shorttitle = {{{FEASIBLE}}},
   booktitle = {The {{Semantic Web}} - {{ISWC}} 2015},
   author = {Saleem, Muhammad and Mehmood, Qaiser and Ngonga Ngomo, Axel-Cyrille},
@@ -183,7 +201,7 @@
 }
 
 @inproceedings{saleemHowRepresentativeSPARQL2019,
-  title = {How {{Representative Is}} a {{SPARQL Benchmark}}? An {{Analysis}} of {{RDF Triplestore Benchmarks}}},
+  title = {How {{Representative Is}} a {{SPARQL Benchmark}}? {{An Analysis}} of {{RDF Triplestore Benchmarks}}},
   shorttitle = {How {{Representative Is}} a {{SPARQL Benchmark}}?},
   booktitle = {The {{World Wide Web Conference}}},
   author = {Saleem, Muhammad and Szárnyas, Gábor and Conrads, Felix and Bukhari, Syed Ahmad Chan and Mehmood, Qaiser and Ngonga Ngomo, Axel-Cyrille},
@@ -195,14 +213,14 @@
   url = {https://dl.acm.org/doi/10.1145/3308558.3313556},
   urldate = {2021-11-22},
   abstract = {Triplestores are data management systems for storing and querying RDF data. Over recent years, various benchmarks have been proposed to assess the performance of triplestores across different performance measures. However, choosing the most suitable benchmark for evaluating triplestores in practical settings is not a trivial task. This is because triplestores experience varying workloads when deployed in real applications. We address the problem of determining an appropriate benchmark for a given real-life workload by providing a fine-grained comparative analysis of existing triplestore benchmarks. In particular, we analyze the data and queries provided with the existing triplestore benchmarks in addition to several real-world datasets. Furthermore, we measure the correlation between the query execution time and various SPARQL query features and rank those features based on their significance levels. Our experiments reveal several interesting insights about the design of such benchmarks. With this fine-grained evaluation, we aim to support the design and implementation of more diverse benchmarks. Application developers can use our result to analyze their data and queries and choose a data management system.},
-  eventtitle = {{{WWW}} '19: The {{Web Conference}}},
+  eventtitle = {{{WWW}} '19: {{The Web Conference}}},
   isbn = {978-1-4503-6674-8},
   langid = {english},
   file = {C\:\\Users\\Fabian\\Zotero\\storage\\MLXVXXMQ\\Saleem et al. - 2019 - How Representative Is a SPARQL Benchmark An Analy.pdf}
 }
 
 @inproceedings{saleemLSQLinkedSPARQL2015,
-  title = {{{LSQ}}: The {{Linked SPARQL Queries Dataset}}},
+  title = {{{LSQ}}: {{The Linked SPARQL Queries Dataset}}},
   shorttitle = {{{LSQ}}},
   booktitle = {The {{Semantic Web}} - {{ISWC}} 2015},
   author = {Saleem, Muhammad and Ali, Muhammad Intizar and Hogan, Aidan and Mehmood, Qaiser and Ngomo, Axel-Cyrille Ngonga},
@@ -222,7 +240,7 @@
 }
 
 @online{schmidtSP2BenchSPARQLPerformance2008,
-  title = {{{SP2Bench}}: A {{SPARQL Performance Benchmark}}},
+  title = {{{SP2Bench}}: {{A SPARQL Performance Benchmark}}},
   shorttitle = {{{SP2Bench}}},
   author = {Schmidt, Michael and Hornung, Thomas and Lausen, Georg and Pinkel, Christoph},
   date = {2008-10-21},
@@ -239,7 +257,7 @@
 }
 
 @article{voigtAnotherTripleStore2012,
-  title = {Yet {{Another Triple Store Benchmark}}? Practical {{Experiences}} with {{Real}}-{{World Data}}},
+  title = {Yet {{Another Triple Store Benchmark}}? {{Practical Experiences}} with {{Real-World Data}}},
   author = {Voigt, Martin and Mitschick, Annett and Schulz, Jonas},
   date = {2012},
   pages = {10},
