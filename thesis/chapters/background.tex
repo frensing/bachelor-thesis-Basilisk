@@ -46,8 +46,39 @@ Queries can contain optional graph patterns, conjunctions, disjunctions, as well
 
 \section{Benchmark}
 \label{sec:benchmark}
+Benchmarks for databases consist data set and sets of operations which will be performed on the data set.
+These operations are designed to simulate a particular type of workload to the system.
+The goal of a benchmark is to measure different metrics for a better comparison between various systems.
+Metrics used for databases and \tsp{} are \eg, number of executed queries and queries per second\cite{MetricsIguanaDocumentation}.
+
 
 
 \section{IGUANA}
 \label{sec:iguana}
-? Needed ?
+IGUANA is a SPARQL benchmark execution framework\cite{conradsIguanaGenericFramework2017}.
+The framework uses the SPARQL endpoint of the \ts{} under test to load, update and query the data.
+It allows the measurement of the performance during loading and updating of data as well as parallel requests to the \ts{}.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
