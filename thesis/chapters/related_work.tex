@@ -4,14 +4,32 @@
 % - description of existing techniques and approaches
 %%%%%%%%%%%%%%%%%%
 
-This chapter reviews the state of the art of \ts{} benchmarking.
+This chapter reviews the state of the art of \ts{} benchmarking.\\
 
 Several benchmarks have been proposed and developed.
 Many of these existing benchmarks each focus on different goals and scenarios to test the \tsp{}.
-The LUBM Benchmark\cite{guoLUBMBenchmarkOWL2005} is a synthetic benchmark which focuses on the reasoning capabilities of the \tsp{} under test.
+
+\section{Synthetic Benchmarks}
+\label{sec:synthetic_benchmarks}
+The LUBM Benchmark\cite{guoLUBMBenchmarkOWL2005} is a synthetic benchmark which focuses on the reasoning and inferencing capabilities of the \tsp{} under test.
 The test data is about the university domain and can be generated to arbitrary size.
 The benchmark provides fourteen extensional queries that represent and test a variety of properties.
 
 Another synthetic benchmark is SP²Bench\cite{schmidtSP2BenchSPARQLPerformance2008}.
+The data generated is placed in the DBLP scenario and it is tried that key characteristics and word distributions are close to the original DBLP dataset.
+The provided queries are mostly complex and the mean size of the result sets is above one million\cite{saleemFEASIBLEFeatureBasedSPARQL2015}.
+They also test for SPARQL features like union and optional graph patterns.
 
+The WatDiv suite generates a synthetic benchmarks and consists of multiple tools\cite{alucDiversifiedStressTesting2014}.
+First the data generator which generates scalable and customizable datasets based on the WatDiv data model schema.
+The query template generator generates diverse query templates which will then be used to generate actual queries.
+The queries get generate with the query generator which instantiates the templates with actual RDF terms from the generated dataset.
+For each template multiple queries can be generated.
+The benchmark only focuses on SELECT queries that does not make use of Union and Optional patterns
+
+\section{Benchmarks Using Real Data}
+\label{sec:benchmarks_real_data}
+FEASIBLE is a benchmark generation framework which generates datasets and queries from provide query logs\cite{saleemFEASIBLEFeatureBasedSPARQL2015}.
+This has the advantage that the data used for the benchmark could stem from queries about a special real world topic rather than an abstract synthetic model.
+FEASIBLE can also generate queries for the other SPARQL query types beside SELECT.
 
