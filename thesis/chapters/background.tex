@@ -6,7 +6,11 @@
 
 This chapter explains the fundamental topics required to understand this thesis.
 
-\section{Knowledge Graph} 
+\section{Semantic Web Topics}
+The following topics come from the research area of Semantic Web.
+Since this thesis focuses mostly on the implementation and deployment of the Basilisk framework, these topics are only introduced to give a basic understanding if the context in which the Basilisk framework is used.
+
+\subsection{Knowledge Graph} 
 \label{sec:knowledge_graph}
 Knowledge Graphs are graphs intended to represent knowledge of the real world or smaller scenarios.
 The knowledge stored in Knowledge Graphs is modeled in a graph-based structure. 
@@ -30,7 +34,7 @@ Since a graph structure is hard to store in a classic relational database a diff
 The special kind of database developed to store knowledge graphs are called \tsp{}.
 
 
-\section{\ts{}}
+\subsection{\ts{}}
 \label{sec:triplestores}
 \tsp{} are a special kind of database developed to easily store and access knowledge graphs through queries.
 Example of \tsp{} are Tentris\cite{bigerlTentrisTensorBasedTriple2020}, GraphDB\footnote{\url{https://graphdb.ontotext.com/}}, Virtuoso\footnote{\url{https://virtuoso.openlinksw.com/}}, or Jena TDB\footnote{\url{https://jena.apache.org/documentation/tdb/}}.
@@ -38,13 +42,26 @@ Example of \tsp{} are Tentris\cite{bigerlTentrisTensorBasedTriple2020}, GraphDB\
 This thesis focuses on \tsp{} that accept SPARQL queries, since the used benchmark framework \iguana{} is using the SPARQL endpoint to perform benchmarks\cite{conradsIguanaGenericFramework2017}.
 
 
-\section{SPARQL}
+\subsection{SPARQL}
 \label{sec:sparql}
 SPARQL (SPARQL Protocol and RDF Query Language)\cite{harrisSPARQLQueryLanguage} is a query language for manipulating and retrieving data stored in \tsp{}.
 Queries can contain optional graph patterns, conjunctions, disjunctions, as well as aggregation functions
 
 
-\section{Benchmark}
+\subsection{IGUANA}
+\label{sec:iguana}
+IGUANA is a SPARQL benchmark execution framework\cite{conradsIguanaGenericFramework2017}.
+The framework uses the SPARQL endpoint of the \ts{} under test to load, update and query the data.
+It allows the measurement of the performance during loading and updating of data as well as parallel requests to the \ts{}.
+IGUANA is independent of any benchmarks which allows it to run in different configurations and with different existing benchmarks and datasets.
+
+
+
+\section{Software Development}
+The following topic can be grouped under the field of software development.
+
+
+\subsection{Benchmark}
 \label{sec:benchmark}
 Benchmarks for databases consist data set and sets of operations which will be performed on the data set.
 These operations are designed to simulate a particular type of workload to the system.
@@ -56,16 +73,19 @@ Micro benchmarks focus on testing the performance of single components of a syst
 Macro benchmarks test the performance of a system as a whole.
 The benchmarks performed by the Basilisk platform set up in this thesis will only perform macro benchmarks.
 
-
-\section{IGUANA}
-\label{sec:iguana}
-IGUANA is a SPARQL benchmark execution framework\cite{conradsIguanaGenericFramework2017}.
-The framework uses the SPARQL endpoint of the \ts{} under test to load, update and query the data.
-It allows the measurement of the performance during loading and updating of data as well as parallel requests to the \ts{}.
-IGUANA is independent of any benchmarks which allows it to run in different configurations and with different existing benchmarks and datasets.
+\subsection{Microservice}
+\label{sec:microservice}
+A microservice is an independently deployable piece of software that only implements functionalities that are closely related to the main task of the service \cite{dragoniMicroservicesYesterdayToday2017}.
+The microservice interacts via messages through a defined protocol with other services.
 
 
 
+\subsection{Microservice Architecture}
+\label{sec:microservice_architecture}
+A microservice architecture is a way of designing a software application as a set of microservices which interact with each other to provide the designed functionality \cite{dragoniMicroservicesYesterdayToday2017}\cite{MicroservicesHttpsMartinfowler}.
+The functionality of the application gets split up into microservices which interact only through a defined protocol of messages.
+This allows for a distributed system in which the individual service could be implemented in different programming languages.
+Also the microservices can be individually deployed and managed.
 
 
 
