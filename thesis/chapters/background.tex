@@ -8,10 +8,10 @@ This chapter explains the fundamental topics required to understand this thesis.
 
 \section{Semantic Web Topics}
 The following topics come from the research area of Semantic Web.
-Since this thesis focuses mostly on the implementation and deployment of the Basilisk framework, these topics are only introduced to give a basic understanding if the context in which the Basilisk framework is used.
+Since this thesis focuses mostly on the implementation and deployment of the Basilisk framework, these topics are mostly introduced to give a basic understanding of the context in which the Basilisk framework is used.
 
-\subsection{Knowledge Graph} 
-\label{sec:knowledge_graph}
+\subsection{Knowledge Graphs} 
+\label{sec:knowledge_graphs}
 Knowledge Graphs are graphs intended to represent knowledge of the real world or smaller scenarios.
 The knowledge stored in Knowledge Graphs is modeled in a graph-based structure. 
 Nodes represent entities which are connected by various types of relations, represented by labeled edges in the graph.
@@ -20,7 +20,6 @@ This has the benefit to represent complex relations between different nodes and 
 The simplest knowledge graph consists of three elements.
 The subject entity, the object entity and the labeled edge between them describing their relation.
 This atomic data entity is called triple.
-
 In figure \ref{fig:example-knowledge-graph} a simple example of a knowledge graph is shown.
 
 \begin{figure}[tbph]
@@ -45,7 +44,7 @@ This thesis focuses on \tsp{} that accept SPARQL queries, since the used benchma
 \subsection{SPARQL}
 \label{sec:sparql}
 SPARQL (SPARQL Protocol and RDF Query Language)\cite{harrisSPARQLQueryLanguage} is a query language for manipulating and retrieving data stored in \tsp{}.
-Queries can contain optional graph patterns, conjunctions, disjunctions, as well as aggregation functions
+Queries can contain optional graph patterns, conjunctions, disjunctions, as well as aggregation functions.
 
 
 \subsection{IGUANA}
@@ -63,7 +62,7 @@ The following topic can be grouped under the field of software development.
 
 \subsection{Benchmark}
 \label{sec:benchmark}
-Benchmarks for databases consist data set and sets of operations which will be performed on the data set.
+Benchmarks for databases consist of a data set and a set of operations or queries which will be performed on the data set.
 These operations are designed to simulate a particular type of workload to the system.
 The goal of a benchmark is to measure different metrics for a better comparison between various systems.
 Metrics used for databases and \tsp{} are \eg, number of executed queries and queries per second\cite{MetricsIguanaDocumentation}.
@@ -71,21 +70,19 @@ Metrics used for databases and \tsp{} are \eg, number of executed queries and qu
 A distinction is made between micro and macro benchmarks.
 Micro benchmarks focus on testing the performance of single components of a system.
 Macro benchmarks test the performance of a system as a whole.
-The benchmarks performed by the Basilisk platform set up in this thesis will only perform macro benchmarks.
+The benchmarks performed by the Basilisk platform, which will be set up in this thesis, will only perform macro benchmarks.
 
 \subsection{Microservice}
 \label{sec:microservice}
 A microservice is an independently deployable piece of software that only implements functionalities that are closely related to the main task of the service \cite{dragoniMicroservicesYesterdayToday2017}.
 The microservice interacts via messages through a defined protocol with other services.
 
-
-
 \subsection{Microservice Architecture}
 \label{sec:microservice_architecture}
 A microservice architecture is a way of designing a software application as a set of microservices which interact with each other to provide the designed functionality \cite{dragoniMicroservicesYesterdayToday2017}\cite{MicroservicesHttpsMartinfowler}.
 The functionality of the application gets split up into microservices which interact only through a defined protocol of messages.
-This allows for a distributed system in which the individual service could be implemented in different programming languages.
-Also the microservices can be individually deployed and managed.
+This allows for a distributed system in which the individual service could be implemented in different programming languages and also could be located on different servers.
+Microservices can be individually deployed and managed.
 
 
 
