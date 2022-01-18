@@ -8,7 +8,8 @@
 In this chapter we give an overview of the current software architecture on which the Basilisk platform is build.
 
 The basic architecture pattern of the Basilisk platform is the microservice architecture (see chapter \ref{sec:microservice_architecture} for a short description). 
-This means that the platform is divided into multiple services which can run on different hardware systems and interact with each other via a message queue system.
+This means that the platform is divided into multiple services on which the workload and the different tasks are divided.
+The services can be run on different hardware systems and they interact with each other via a message queue system.
 \\
 
 
@@ -22,6 +23,7 @@ Figure \ref{fig:basilisk_high_level_design} gives an overview of the microservic
 \\
 
 The next sections explain the three main services, namely Hooks Checking Service (\ref{sec:hooks_checking_service}), Jobs Managing Service (\ref{sec:jobs_managing_service}), and \ts{} Benchmarking Service (\ref{sec:ts_benchmarking_service}).
+All services are implemented with Java and are using the Spring Boot framework.
 
 \section{Hooks Checking Service}
 \label{sec:hooks_checking_service}
