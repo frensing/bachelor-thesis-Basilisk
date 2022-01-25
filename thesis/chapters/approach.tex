@@ -3,6 +3,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%
 % - description of the designed system
 % - analysis and review of the current software architecture
+% - gerne in die Tiefe gehen
 %%%%%%%%%%%%%%%%%%%%%%%
 
 In this chapter we give an overview of the current software architecture on which the Basilisk platform is build.
@@ -13,7 +14,7 @@ The services can be run on different hardware systems and they interact with eac
 \\
 
 
-Figure \ref{fig:basilisk_high_level_design} gives an overview of the microservice architecture for the Basilisk framework and the most important messages send between the services.
+Figure \ref{fig:basilisk_high_level_design} gives an overview of the microservice architecture for the Basilisk platform and the most important messages send between the services.
 \begin{figure}[tbph]
 	\centering
 	\includegraphics[width=1.1\textwidth]{figures/basilisk_high_level_design.pdf}
@@ -22,20 +23,58 @@ Figure \ref{fig:basilisk_high_level_design} gives an overview of the microservic
 \end{figure}
 \\
 
+
+\section{Main Services}
+\label{sec:main_services}
 The next sections explain the three main services, namely Hooks Checking Service (\ref{sec:hooks_checking_service}), Jobs Managing Service (\ref{sec:jobs_managing_service}), and \ts{} Benchmarking Service (\ref{sec:ts_benchmarking_service}).
-All services are implemented with Java and are using the Spring Boot framework.
 
 
-\section{Hooks Checking Service}
+\subsection{Hooks Checking Service}
 \label{sec:hooks_checking_service}
 The main task of the hooks checking service is to observe Github and Dockerhub repositories for new releases or changes.
 
+\subsubsection{API}
+\label{sec:hooks_api}
 
-\section{Jobs Managing Service}
+
+\subsection{Jobs Managing Service}
 \label{sec:jobs_managing_service}
 The Jobs Managing Service processes the requests coming from the web-frontend, checks if the Hooks Checking Service has found a new version for a benchmark and creates jobs for new benchmarks.
 
+\subsubsection{API}
+\label{sec:jobs_api}
 
-\section{\ts{} Benchmarking Service}
+
+\subsection{\ts{} Benchmarking Service}
 \label{sec:ts_benchmarking_service}
 Lastly the \ts{} Benchmarking Service executes the benchmarks given to it and saves the results to a database.
+
+\subsubsection{API}
+\label{sec:benchmarking_api}
+
+
+\section{Message Queue System}
+\label{sec:message_queue}
+The messages send between the services are transmitted via the RabbitMQ\footnote{\url{https://www.rabbitmq.com/}} message broker software.
+
+
+\section{Programming Language and Frameworks}
+\label{sec:prog_lang_and_framework}
+All services are implemented with Java and are using the Spring Boot framework.
+
+\subsection{Package Structure}
+\label{sec:folder_structure}
+The package structure used for the service implementation is similar in all three services.
+
+\paragraph{config}
+In the config folder important Spring Beans are defined and configured.
+Also the configuration for the RabbitMQ message queues is defined here.
+The classes in this package are annotated with the @Configuration marker which informs Spring that these classes declare @Bean methods for generating Spring Beans.
+Beans are defined in Spring as the objects that form the backbone of the application.
+
+\paragraph{core}
+
+
+
+\section{Frontend}
+\label{sec:frontend}
