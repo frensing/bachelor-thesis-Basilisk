@@ -65,11 +65,14 @@ All services are implemented with Java and are using the Spring Boot framework.
 \subsection{Package Structure}
 \label{sec:folder_structure}
 The package structure used for the service implementation is similar in all three services.
+It is strongly influence through the use of the Spring Boot framework.
+The Spring and Spring Boot framework are shortly described in chapter \ref{sec:spring}.
+In the following the most important packages of the services are described.
 
 \paragraph{config}
 In the config folder important Spring Beans are defined and configured.
 Also the configuration for the RabbitMQ message queues is defined here.
-The classes in this package are annotated with the @Configuration marker which informs Spring that these classes declare @Bean methods for generating Spring Beans.
+The classes in this package are marked with the @Configuration annotation which informs the Spring framework that these classes declare @Bean methods for generating Spring Beans.
 Beans are defined in Spring as the objects that form the backbone of the application.
 
 \paragraph{core}
