@@ -8,7 +8,7 @@ This chapter explains the fundamental topics required to understand this thesis.
 
 \section{Semantic Web Topics}
 The following topics come from the research area of Semantic Web.
-Since this thesis focuses mostly on the implementation and deployment of the Basilisk framework, these topics are mostly introduced to give a basic understanding of the context in which the Basilisk framework is used.
+Since this thesis focuses mostly on the implementation and deployment of the Basilisk platform, these topics are mostly introduced to give a basic understanding of the context in which the Basilisk platform is used.
 
 \subsection{Knowledge Graphs} 
 \label{sec:knowledge_graphs}
@@ -33,6 +33,13 @@ Since a graph structure is hard to store in a classic relational database a diff
 The special kind of database developed to store knowledge graphs are called \tsp{}.
 
 
+\subsection{RDF}
+
+\todo{fill}
+
+\todo{example}
+
+
 \subsection{\ts{}}
 \label{sec:triplestores}
 \tsp{} are a special kind of database developed to easily store and access knowledge graphs through queries.
@@ -47,18 +54,15 @@ SPARQL (SPARQL Protocol and RDF Query Language)\cite{harrisSPARQLQueryLanguage} 
 Queries can contain optional graph patterns, conjunctions, disjunctions, as well as aggregation functions.
 
 
-\subsection{IGUANA}
-\label{sec:iguana}
-IGUANA is a SPARQL benchmark execution framework\cite{conradsIguanaGenericFramework2017}.
-The framework uses the SPARQL endpoint of the \ts{} under test to load, update and query the data.
-It allows the measurement of the performance during loading and updating of data as well as parallel requests to the \ts{}.
-IGUANA is independent of any benchmarks which allows it to run in different configurations and with different existing benchmarks and datasets.
+\todo{Example Query}
 
 
 
 \section{Software Development}
-The following topic can be grouped under the field of software development.
-
+The following topics can be grouped under the field of software development.
+For the topic of benchmarks (section \ref{sec:benchmark}) we focus on database benchmarks and especially \ts{} benchmarks, since this is the main goal of the Basilisk platform.
+The sections Microservice and Microservice Architecture (\ref{sec:microservice}, \ref{sec:microservice_architecture}) explain the basic idea and concept of the microservice architecture style.
+In the sections RabbitMQ and Spring (\ref{sec:rabbitmq}, \ref{sec:spring}) we give a short introduction and description of the main technologies that are used for the development of the Basilisk platform.
 
 \subsection{Benchmark}
 \label{sec:benchmark}
@@ -83,6 +87,18 @@ A microservice architecture is a way of designing a software application as a se
 The functionality of the application gets split up into microservices which interact only through a defined protocol of messages.
 This allows for a distributed system in which the individual service could be implemented in different programming languages and also could be located on different servers.
 Microservices can be individually deployed and managed.
+
+
+\subsection{RabbitMQ}
+\label{sec:rabbitmq}
+
+\todo{fill}
+
+
+\subsection{Spring and Spring Boot}
+\label{sec:spring}
+
+\todo{fill}
 
 
 
