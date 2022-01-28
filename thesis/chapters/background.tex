@@ -34,10 +34,24 @@ The special kind of database developed to store knowledge graphs are called \tsp
 
 
 \subsection{RDF}
+The Resource Description Framework is a framework for describing data and knowledge in a standardized way \cite{RDFConceptsAbstract}.
+The information is written down as subject-predicate-object triples, representing the basic structure that is also present in Knowledge Graphs (\ref{sec:knowledge_graphs}).
+The elements of those triples can be IRIs (internationalized resource identifiers), blank nodes or datatyped literals.
 
-\todo{fill}
+RDF graphs can be encoded with different syntax styles.
+A popular syntax is TURTLE \cite{RDFTurtle} which is a compact way of writing down a RDF graph structure.
+Using the example of section \ref{sec:knowledge_graphs}, the knowledge graph would be represented with the TURTLE syntax seen in figure \ref{fig:rdf_turtle}.
+The first two lines of the TURTLE document define abbreviations for the used IRIs so that the triple in line three is more readable.
 
-\todo{example}
+\begin{figure}[tbph]
+	\begin{lstlisting}
+@prefix dbr: <http://dbpedia.org/resource/> .
+@prefix dbo: <http://dbpedia.org/ontology/> .
+dbr:Germany dbo:capital dbr:Berlin .
+	\end{lstlisting}
+	\caption{Example of an RDF graph in TURTLE syntax.}
+	\label{fig:rdf_turtle}
+\end{figure}
 
 
 \subsection{\ts{}}
@@ -45,7 +59,7 @@ The special kind of database developed to store knowledge graphs are called \tsp
 \tsp{} are a special kind of database developed to easily store and access knowledge graphs through queries.
 Example of \tsp{} are Tentris\cite{bigerlTentrisTensorBasedTriple2020}, GraphDB\footnote{\url{https://graphdb.ontotext.com/}}, Virtuoso\footnote{\url{https://virtuoso.openlinksw.com/}}, or Jena TDB\footnote{\url{https://jena.apache.org/documentation/tdb/}}.
 
-This thesis focuses on \tsp{} that accept SPARQL queries, since the used benchmark framework \iguana{} is using the SPARQL endpoint to perform benchmarks\cite{conradsIguanaGenericFramework2017}.
+This thesis focuses on \tsp{} that accept SPARQL queries, since the used benchmark framework \iguana{} is using the SPARQL endpoint to perform benchmarks (see section \ref{sec:iguana}).
 
 
 \subsection{SPARQL}
