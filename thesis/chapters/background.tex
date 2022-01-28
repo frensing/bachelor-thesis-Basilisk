@@ -34,7 +34,8 @@ The special kind of database developed to store knowledge graphs are called \tsp
 
 
 \subsection{RDF}
-The Resource Description Framework is a framework for describing data and knowledge in a standardized way \cite{RDFConceptsAbstract}.
+\label{sec:rdf}
+The Resource Description Framework is a framework for describing data and knowledge in a standardized way \cite{RDFConceptsAbstract} and it is part of the W3C standard.
 The information is written down as subject-predicate-object triples, representing the basic structure that is also present in Knowledge Graphs (\ref{sec:knowledge_graphs}).
 The elements of those triples can be IRIs (internationalized resource identifiers), blank nodes or datatyped literals.
 
@@ -64,12 +65,40 @@ This thesis focuses on \tsp{} that accept SPARQL queries, since the used benchma
 
 \subsection{SPARQL}
 \label{sec:sparql}
-SPARQL (SPARQL Protocol and RDF Query Language)\cite{harrisSPARQLQueryLanguage} is a query language for manipulating and retrieving data stored in \tsp{}.
+SPARQL (SPARQL Protocol and RDF Query Language)\cite{harrisSPARQLQueryLanguage} is a query language for manipulating and retrieving RDF data stored in \tsp{}.
+Just like RDF, SPARQL is part of the W3C recommendations for technologies in the semantic web.
+
+The syntax for SPARQL queries looks similar to the SQL syntax, since its main parts are also a \texttt{SELECT} clause stating which variables to query for, following by an \texttt{WHERE} clause giving restrictions.
+
 Queries can contain optional graph patterns, conjunctions, disjunctions, as well as aggregation functions.
+These extension can help formulate more complex queries.
 
+Following the example from section \ref{sec:knowledge_graphs} and \ref{sec:rdf} there are two example SPARQL queries in figure \ref{fig:sparql_example}.
+Executed against the DBPedia SPARQL endpoint\footnote{\url{https://dbpedia.org/sparql}} the following results can be found:
 
-\todo{Example Query}
+The first example query requests the variable which matches the \texttt{WHERE} clause searching for the capital of Germany, which is \texttt{dbr:Berlin}.
+The second query requests all relationships that can be found between Germany and Berlin, which will return \texttt{dbo:capital}, which we expected, but also \texttt{dbo:wikiPageLink}, which means that there is a link from the Wikipage of Germany to the Wikipage of Berlin.
 
+\begin{figure}[tbph]
+	\begin{lstlisting}
+PREFIX dbr: <http://dbpedia.org/resource/>
+PREFIX dbo: <http://dbpedia.org/ontology/>
+
+SELECT ?capital
+WHERE {
+	dbr:Germany dbo:capital ?capital .
+}
+
+---
+
+SELECT ?relation
+WHERE {
+	dbr:Germany ?relation dbr:Berlin .
+}
+	\end{lstlisting}
+	\caption{SPARQL query examples}
+	\label{fig:sparql_example}
+\end{figure}
 
 
 \section{Software Development}
