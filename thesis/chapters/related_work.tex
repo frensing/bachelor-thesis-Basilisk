@@ -9,9 +9,15 @@ This chapter reviews the state of the art of \ts{} benchmarking.\\
 Several benchmarks have been proposed and developed.
 Many of these existing benchmarks focus on different goals and scenarios to test the \tsp{}.
 Benchmarking in general is explained in section \ref{sec:benchmark}.
+Section \ref{sec:benchmark_frameworks} gives a short introduction to benchmark execution frameworks.
 
 \section{Synthetic Benchmarks}
 \label{sec:synthetic_benchmarks}
+Synthetic benchmarks are benchmarks where the data is artificially generated.
+Often the generation is influenced by real world scenarios to generate data comparable to real world datasets\cite{guoLUBMBenchmarkOWL2005}.
+These synthetic benchmarks have the advantage, that they can be generated to arbitrary sizes.
+The main point of criticism is that the generated scenarios can easily be abstract and not representative of a real world situation \cite{saleemFEASIBLEFeatureBasedSPARQL2015}.\\
+
 The LUBM Benchmark\cite{guoLUBMBenchmarkOWL2005} is a synthetic benchmark which focuses on the reasoning and inferencing capabilities of the \tsp{} under test.
 The test data is about the university domain and can be generated to arbitrary size.
 The benchmark provides fourteen extensional queries that represent and test a variety of properties.
@@ -30,21 +36,31 @@ The benchmark only focuses on SELECT queries that does not make use of Union and
 
 \section{Benchmarks Using Real Data}
 \label{sec:benchmarks_real_data}
+Benchmarks using real data are benchmarks for which copies of real datasets and queries are used to perform a benchmarks.
+The real queries are often taken from query logs of \tsp{} and the datasets are based on real datasets\cite{morseyDBpediaSPARQLBenchmark2011}\cite{saleemFEASIBLEFeatureBasedSPARQL2015}.
+
 FEASIBLE is a benchmark generation framework which generates datasets and queries from provided query logs\cite{saleemFEASIBLEFeatureBasedSPARQL2015}.
 This has the advantage that the data used for the benchmark could stem from queries about a specialized real world topics rather than an abstract synthetic model.
 FEASIBLE can also generate queries for the other SPARQL query types beside SELECT.
 
 \section{Benchmark Execution Frameworks}
+\label{sec:benchmark_frameworks}
 % Most benchmarks come with their own execution framework \todo{cite!}
+Benchmark execution frameworks, as the name suggests, help in the execution of database benchmarks.
+Their tasks are to load the data, execute the test queries and measure the defined metrics to evaluate the system under test.
 
-\todo{fill}
+Many benchmarks provide their own execution environments, which makes the comparison between benchmarks difficult, since those environments are specialized for the given benchmark and are not easily interchangeable\cite{conradsIguanaGenericFramework2017}.
+
+The next sections focus on benchmark-independent execution frameworks.
+
 
 \subsection{IGUANA}
 \label{sec:iguana}
-IGUANA is a SPARQL benchmark execution framework\cite{conradsIguanaGenericFramework2017}.
-The framework uses the SPARQL endpoint of the \ts{} under test to load, update and query the data.
+IGUANA is a SPARQL benchmark-independent execution framework\cite{conradsIguanaGenericFramework2017}.
+The framework gets a dataset and a set of queries and operations as input and then uses the SPARQL endpoint of the \ts{} to load and update the data and to perform the benchmark queries.
 It allows the measurement of the performance during loading and updating of data as well as parallel requests to the \ts{}.
-IGUANA is independent of any benchmarks which allows it to run in different configurations and with different existing benchmarks and datasets.
+IGUANA is independent of any benchmarks which allows it to run in different configurations and with various existing benchmarks and datasets.
+This includes synthetic benchmarks (\ref{sec:synthetic_benchmarks}) and benchmarks based on real data (\ref{sec:benchmarks_real_data}).
 
 \todo{setup / benchmark execution}
 
