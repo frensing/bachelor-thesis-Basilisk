@@ -37,7 +37,7 @@ The benchmark only focuses on SELECT queries that does not make use of Union and
 \section{Benchmarks Using Real Data}
 \label{sec:benchmarks_real_data}
 Benchmarks using real data are benchmarks for which copies of real datasets and queries are used to perform a benchmarks.
-The real queries are often taken from query logs of \tsp{} and the datasets are based on real datasets\cite{morseyDBpediaSPARQLBenchmark2011}\cite{saleemFEASIBLEFeatureBasedSPARQL2015}.
+The real queries are often taken from query logs of \tsp{} and the datasets are based on real datasets\cite{morseyDBpediaSPARQLBenchmark2011, saleemFEASIBLEFeatureBasedSPARQL2015}.
 
 FEASIBLE is a benchmark generation framework which generates datasets and queries from provided query logs\cite{saleemFEASIBLEFeatureBasedSPARQL2015}.
 This has the advantage that the data used for the benchmark could stem from queries about a specialized real world topics rather than an abstract synthetic model.
@@ -56,17 +56,22 @@ The next sections focus on benchmark-independent execution frameworks.
 
 \subsection{IGUANA}
 \label{sec:iguana}
-IGUANA is a SPARQL benchmark-independent execution framework\cite{conradsIguanaGenericFramework2017}.
+\iguana{} is a SPARQL benchmark-independent execution framework\cite{conradsIguanaGenericFramework2017}.
 The framework gets a dataset and a set of queries and operations as input and then uses the SPARQL endpoint of the \ts{} to load and update the data and to perform the benchmark queries.
 It allows the measurement of the performance during loading and updating of data as well as parallel requests to the \ts{}.
-IGUANA is independent of any benchmarks which allows it to run in different configurations and with various existing benchmarks and datasets.
+\iguana{} is independent of any benchmarks which allows it to run in different configurations and with various existing benchmarks and datasets.
 This includes synthetic benchmarks (\ref{sec:synthetic_benchmarks}) and benchmarks based on real data (\ref{sec:benchmarks_real_data}).
-
-\todo{setup / benchmark execution}
-
-
+The benchmark process is highly configurable by passing a configuration file to \iguana{}.
 
 
 \subsection{Hobbit Framework}
-Hobbit framework 
-\todo{Fill}
+The HOBBIT framework is a distributed benchmarking platform designed to be able to scale up benchmarking for big linked data applications\cite{roderHOBBITPlatformBenchmarking}.
+It is a big framework which needs to be deployed on a local cluster or online computing services like Azure\footnote{\url{https://azure.microsoft.com/}} or AWS\footnote{\url{https://aws.amazon.com/}}.
+The deployment of the platform and deploying new benchmarks to the platform can be challenging for new users of the system\cite{roderHOBBITPlatformBenchmarking}.
+The data for benchmarks has to be stored in docker containers, generated or downloaded before an benchmark, which increases the complexity of the system.
+The data is then send over message queues to the benchmarked system, which is not really efficient.
+
+With the Basilisk platform we try to develop a specialized solution for continuous benchmarking of \tsp{} which does not need the technical complexity present in the HOBBIT framework.
+Basilisk focuses on a smaller use-case of benchmarking SPARQL endpoints continuously.
+\todo{review}
+
