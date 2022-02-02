@@ -7,12 +7,18 @@
 %%%%%%%%%%%%%%%%%%%%%%%
 
 In this chapter we give an overview of the current software architecture on which the Basilisk platform is build.
+\\
+
+The main idea for the Basilisk platform is that a user can register a \ts{} for a continuous benchmark by linking the repository on GitHub or a docker image from DockerHub containing the \ts{}, which will then be observed by Basilisk.
+If there is a new release of the \ts{}, Basilisk will fetch and build the new docker container to perform a benchmark.
+The measured results of the benchmark will be stored in a database and are then available through the web frontend to review.
+\todo[inline]{right position for this explanation?}
+
 
 The basic architecture pattern of the Basilisk platform is the microservice architecture (see chapter \ref{sec:microservice_architecture} for a short description). 
 This means that the platform is divided into multiple services on which the workload and the different tasks are divided.
 The services can be run on different hardware systems and they interact with each other via a message queue system.
 \\
-
 
 Figure \ref{fig:basilisk_high_level_design} gives an overview of the microservice architecture for the Basilisk platform and the most important messages send between the services.
 \begin{figure}[tbph]
@@ -26,6 +32,8 @@ Figure \ref{fig:basilisk_high_level_design} gives an overview of the microservic
 \section{Main Services}
 \label{sec:main_services}
 The next sections explain the three main services, namely Hooks Checking Service (\ref{sec:hooks_checking_service}), Jobs Managing Service (\ref{sec:jobs_managing_service}), and \ts{} Benchmarking Service (\ref{sec:ts_benchmarking_service}).
+
+This explanation follows the flow of actions that happen while configuring a continuous benchmark and the actions that happen when a benchmark is initiated.
 
 
 
