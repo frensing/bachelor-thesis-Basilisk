@@ -19,14 +19,14 @@ The benchmarks performed by the Basilisk platform, which will be set up in this 
 \subsection{Microservice}
 \label{sec:microservice}
 A microservice is an independently deployable piece of software that only implements functionalities that are closely related to the main task of the service \cite{dragoniMicroservicesYesterdayToday2017}.
-The microservice interacts via messages through a defined protocol with other services.
+All Microservices can be individually deployed and managed and they interact via messages through a defined protocol with other services.
+The idea is that individual microservices can be combined like modules to create any desired complex software.
 
 \subsection{Microservice Architecture}
 \label{sec:microservice_architecture}
 A microservice architecture is a way of designing a software application as a set of microservices which interact with each other to provide the designed functionality \cite{dragoniMicroservicesYesterdayToday2017, MicroservicesHttpsMartinfowler}.
-The functionality of the application gets split up into microservices which interact only through a defined protocol of messages.
+The functionality of the application gets split up into microservices which interact only through a defined message protocol.
 This allows for a distributed system in which the individual service could be implemented in different programming languages and also could be located on different servers.
-Microservices can be individually deployed and managed.
 
 
 \subsection{RabbitMQ}
@@ -40,6 +40,24 @@ Since RabbitMQ is a widely used message broker, the Spring framework (\ref{sec:s
 
 \subsection{Spring and Spring Boot}
 \label{sec:spring}
-Spring is a widespread open-source Java framework which facilitates the development process for various kinds of java applications and systems.
+Spring\footnote{\url{https://spring.io/}} is a widespread open-source Java framework which facilitates the development process for various kinds of java applications and systems.
 
+Spring Boot\footnote{\url{https://spring.io/projects/spring-boot}} is an extension to the Spring framework that follow the convention-over-configuration design paradigm.
+This means that it comes with preconfigured standard libraries for the Spring platform to ease the development for many standard applications like web-apps or microservices.
+
+Spring and Spring Boot come with different annotations to decorate classes and methods that automatically configure those and tell the Spring framework how to handle and interact with their objects.
+
+The Spring framework and Spring Boot use different software design conventions to structure the code and classes.
+The package structure found in the source code of Basilisk microservices tries to represent those different design conventions.
+\todo{review}
+
+
+\subsection{Software Design Patterns}
+\label{sec:software_design_patterns}
+
+
+\subsubsection{Repository Pattern}
+\todo{fill}
+
+\subsubsection{Domain Driven Design}
 \todo{fill}
