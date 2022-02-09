@@ -9,6 +9,12 @@
 In this chapter we give an overview of the current software architecture on which the Basilisk platform is build.
 \\
 
+The purpose of the Basilisk platform is to provide an easy way to continuously perform benchmarks for \tsp{}.
+\todo{better introduction}
+\tsp{} are often developed in teams who collaborate in Git repositories.
+Releases of those \tsp{} are then 
+
+
 The main idea for the Basilisk platform is that a user can register a \ts{} for a continuous benchmark by setting up a hook to the repository on GitHub or a docker image from Docker Hub containing the \ts{}, which will then be observed by Basilisk.
 If there is a new release of the \ts{}, Basilisk will fetch and build the new docker container to perform a benchmark.
 The measured results of the benchmark will be stored in a database and are then available through the web frontend to review.
@@ -59,21 +65,23 @@ When the \ac{hcs} notices a new release for a repository it observes, it updates
 \label{sec:jobs_managing_service}
 The \acf{jms} processes the requests coming from the web-frontend, checks if the Hooks Checking Service has found a new version for a benchmark and creates jobs for new benchmarks.
 
-\subsubsection{API}
-\label{sec:jobs_api}
+
+
+%\subsubsection{API}
+%\label{sec:jobs_api}
 
 
 \subsection{\acl{tbs}}
 \label{sec:ts_benchmarking_service}
 Lastly the \ac{tbs} executes the benchmarks given to it and saves the results to a database.
 
-\subsubsection{API}
-\label{sec:benchmarking_api}
+%\subsubsection{API}
+%\label{sec:benchmarking_api}
 
 
 \section{Message Queue System}
 \label{sec:message_queue}
-The messages send between the services are transmitted via the RabbitMQ\footnote{\url{https://www.rabbitmq.com/}} message broker software.
+The messages send between the services are transmitted via the RabbitMQ (\ref{sec:rabbitmq}) message broker software.
 
 
 \section{Programming Language and Frameworks}

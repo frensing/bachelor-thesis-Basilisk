@@ -63,17 +63,16 @@ It allows the measurement of the performance during loading and updating of data
 \iguana{} is independent of any benchmarks which allows it to run in different configurations and with various existing benchmarks and datasets.
 This includes synthetic benchmarks (\ref{sec:synthetic_benchmarks}) and benchmarks based on real data (\ref{sec:benchmarks_real_data}).
 The benchmark process is highly configurable by passing a configuration file to \iguana{}.
-\todo{review}
 
 
-\subsection{Hobbit Framework}
-The HOBBIT framework is a distributed benchmarking platform designed to be able to scale up benchmarking for big linked data applications\cite{roderHOBBITPlatformBenchmarking}.
+\subsection{HOBBIT Framework}
+The \textsc{Hobbit} framework is a distributed benchmarking platform designed to be able to scale up benchmarking for big linked data applications\cite{roderHOBBITPlatformBenchmarking}.
 It is a big framework which needs to be deployed on a local cluster or online computing services like Azure\footnote{\url{https://azure.microsoft.com/}} or AWS\footnote{\url{https://aws.amazon.com/}}.
 The deployment of the platform and deploying new benchmarks to the platform can be challenging for new users of the system\cite{roderHOBBITPlatformBenchmarking}.
 The data for benchmarks has to be stored in docker containers, generated or downloaded before an benchmark, which increases the complexity of the system.
-The data is then send over message queues to the benchmarked system, which is not really efficient.
+The data is then send over message queues to the benchmarked system.
 
-With the Basilisk platform we try to develop a specialized solution for continuous benchmarking of \tsp{} which does not need the technical complexity present in the HOBBIT framework.
-Basilisk focuses on a smaller use-case of benchmarking SPARQL endpoints continuously.
-\todo{review}
+With the Basilisk platform we try to develop a specialized solution for continuous benchmarking of \tsp{} which does not need the technical complexity present in the \textsc{Hobbit} framework.
+Implementing this functionality into the \textsc{Hobbit} framework would introduce another level of complexity to the system.
+Basilisk focuses on a smaller use-case of benchmarking SPARQL endpoints continuously with as little overhead as possible.
 
