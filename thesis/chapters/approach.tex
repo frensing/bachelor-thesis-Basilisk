@@ -11,20 +11,22 @@ In this chapter we give an overview of the current software architecture on whic
 
 The purpose of the Basilisk platform is to provide an easy way to continuously perform benchmarks on \tsp{}.
 \tsp{} are often developed in teams who collaborate in Git repositories.
-Releases of those \tsp{} are then published on GitHub or as a Docker image on Docker Hub.
-Basilisk will offer the possibility to automatically benchmark a new \tsp{} release.
+Releases of those \tsp{} are then published on \gh{} or as a Docker image on \dockh{}.
+The idea for the Basilisk platform is to offer the possibility to automatically perform benchmarks for a new \ts{} release.
 
 Benchmarks are also relevant during the development process.
 An benchmark performed automatically for \eg{} a new pull request is a good way to estimate if a newly developed feature will impact the performance of the \ts{} before the changes are merged.
 
-On the Basilisk platform a user can register a \ts{} for a continuous benchmark by setting up a hook to the repository on GitHub or a docker image from Docker Hub containing the \ts{}, which will then be observed by Basilisk.
-If there is a new release of the \ts{}, Basilisk will fetch and build the new docker container to perform a benchmark.
-The measured results of the benchmark will be stored in a database and are then available through the web frontend to review.
+On the Basilisk platform a user can register a \ts{} for a continuous benchmark by setting up a hook to the repository on \gh{} or a docker image from \dockh{} containing the \ts{}, which will then be observed by Basilisk.
+If there is a new release of the \ts{}, Basilisk will internally generate a new benchmark job.
+This benchmark job will then be executed by fetching and building a new docker container containing the newest release of the \ts{}.
+On this container the benchmark will be performed.
+The measured results of the benchmark will be stored in a \ts{} and are then available through the web frontend for review.
 \\
 
 The basic architecture pattern of the Basilisk platform is the microservice architecture (see chapter \ref{sec:microservice_architecture} for a short description). 
 This means that the platform is divided into multiple services on which the workload and the different tasks are divided.
-The services can be run on different hardware systems and they interact with each other via a message queue system.
+The services could be run on different hardware systems and they interact with each other via a message queue system.
 \\
 
 Figure \ref{fig:basilisk_high_level_design} gives an overview of the microservice architecture for the Basilisk platform and the most important messages send between the services.
@@ -40,40 +42,75 @@ Figure \ref{fig:basilisk_high_level_design} gives an overview of the microservic
 
 \section{Main Services}
 \label{sec:main_services}
-The next sections explain the three main services, namely \acl{hcs} (\ref{sec:hooks_checking_service}), \acl{jms} (\ref{sec:jobs_managing_service}), and \acl{tbs} (\ref{sec:ts_benchmarking_service}).
+The next sections explain the three main services, namely \acl{hcs} (section \ref{sec:hooks_checking_service}), \acl{jms} (section \ref{sec:jobs_managing_service}), and \acl{tbs} (section \ref{sec:ts_benchmarking_service}).
 
 This explanation follows the flow of actions that happen while configuring a continuous benchmark and the actions that happen when a benchmark is initiated.
 
 
 \subsection{\acl{hcs}}
 \label{sec:hooks_checking_service}
-The main task of the \ac{hcs} is to observe Github and Docker Hub repositories for new releases or changes.
+The main task of the \ac{hcs} is to observe \gh{} and \dockh{} repositories of \tsp{} for new releases or changes.
 
-When a user wants to set up a new continuous benchmark, the \ac{hcs} needs to be informed which repository (GitHub or Docker Hub) needs to be observed for changes.
-This happens through API calls from the frontend to the hooks checking service providing the repository name and owner.
+When a user wants to set up a new continuous benchmark, the \ac{hcs} needs to be informed which repository (\gh{} or \dockh{}) has to be observed for changes.
+This happens through REST API calls to the hooks checking service providing the repository name and owner.
 The \ac{hcs} will then create a hook for the repository to get notice about changes.
 A hook is in general a piece of code or software that attaches itself to a software component to intercept messages and react to those messages, \eg, with function calls.
-In the case of the \ac{hcs} the hooks can be seen as bookmarks for the repositories to regularly check for new versions and releases.
-Each hook stores the latest known version of an repository to easily compare for new versions.
+In the case of the \ac{hcs} the hooks can be seen as bookmarks for the repositories.
+Each hook stores the latest known version of an repository.
+The service will query the saved repositories regularly and compare their current version to the version stored in the hook.
 
-When the \ac{hcs} notices a new release for a repository it observes, it updates the corresponding hook to the newest version.
+When the \ac{hcs} notices a new release for a repository, it updates the corresponding hook to the newest version.
 Then it sends a message about the new version to the \aclp{jrq} from which the \acl{jms} retrieves the message.
 
-\subsubsection{API}
+\subsubsection{API and Messaging}
 \label{sec:hooks_api}
-The \ac{hcs} is controlled over a REST API, which is also used by the frontend.
-The most important endpoints are for adding links repositories.
-Also the continuous checking of repositories can be started or stopped over the API.
+The \ac{hcs} is controlled by the user over a REST API.
+
+The continuous checking of the repositories can be started and stopped over a REST endpoint.
+The other most important endpoints are for adding and deleting \gh{} and \dockh{} repositories.
+\\
+
+The communication between the \ac{hcs} and the \acl{jms} is done over RabbitMQ messages, over the \aclp{jrq}.
+The messages contain different events that can occur in the \ac{hcs}.
+For example an event is send when adding or deleting a repository, or a new release is detected.
 
 
 \subsection{\acl{jms}}
 \label{sec:jobs_managing_service}
-The \acf{jms} processes the requests coming from the web-frontend, checks if the Hooks Checking Service has found a new version for a benchmark and creates jobs for new benchmarks.
+The main task for the \acf{jms} is to create benchmark jobs, when a new release was found by the \ac{hcs}.
+Other important functionality of the \ac{jms} is the management of configurations needed for the benchmarks.
+
+There are three configuration types needed.
+
+First the platform needs the configuration for the \ts{}.
+This configuration include for example the SPARQL endpoint as well as the user and password for the connection to the endpoint.
+This is needed by the \iguana{} framework to properly connect to the \ts{} under test\cite{IguanaDocumentationConfiguration}.
+
+Secondly the platform needs configurations for datasets and query configurations.
+The dataset configuration simply consists of the dataset name and the URL for the location of the dataset.
+The query configuration consists similarly of a name for the queries and the URL for the location of the query file.
+
+These configurations are added over the REST API of the \ac{jms}.
+\\
+
+When the \ac{hcs} sends an event regarding a new release of a repository, the \ac{jms} will create benchmark jobs for the new release.
+A benchmark job consists of the current version of the repository, a query configuration and a dataset.
+For the event a benchmark job will be created for each query configuration and dataset.
+
+These benchmark jobs will then be send to the \acl{tbs} over the \acl{bjq}.
 
 
+\subsubsection{API and Messaging}
+\label{sec:jobs_api}
+The \ac{jms} communicates with the \ac{hcs} and the \acl{tbs} over message queues.
+The service receives repository events from the \ac{hcs} and sends benchmark job events to the \acl{tbs} over the \ac{bjq}.
+\\
 
-%\subsubsection{API}
-%\label{sec:jobs_api}
+Interaction of the user is handled over the REST API.
+Over the API the different configurations can be added.
+
+Currently the API is not yet implemented.
+This will be done during the implementation phase of this thesis.
 
 
 \subsection{\acl{tbs}}
@@ -103,11 +140,8 @@ All services are implemented with Java and are using the Spring Boot framework.
 The package structure used for the service implementation is similar in all three services.
 It is strongly influence through the use of the Spring Boot framework.
 The Spring and Spring Boot framework are shortly described in chapter \ref{sec:spring}.
-\\
+
+\section{Architecture Review}
+\label{sec:architecture_review}
 
 
-
-
-
-\section{Frontend}
-\label{sec:frontend}
