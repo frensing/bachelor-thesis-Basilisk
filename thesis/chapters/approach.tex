@@ -40,6 +40,16 @@ Figure \ref{fig:basilisk_high_level_design} gives an overview of the microservic
 \end{figure}
 \\
 
+\section{Programming Language and Frameworks}
+\label{sec:prog_lang_and_framework}
+All services of the Basilisk platform are implemented with Java and are using the Spring Boot framework.
+The services use Java version 11 and Spring Boot version 2.6.3.
+
+The package structure used for the implementation of the services is similar in all three services.
+It is strongly influenced by the structure recommended for the Spring Boot framework.
+The Spring and Spring Boot framework are shortly described in chapter \ref{sec:spring}.
+
+
 \section{Main Services}
 \label{sec:main_services}
 The next sections explain the three main services, namely \acl{hcs} (section \ref{sec:hooks_checking_service}), \acl{jms} (section \ref{sec:jobs_managing_service}), and \acl{tbs} (section \ref{sec:ts_benchmarking_service}).
@@ -47,7 +57,9 @@ The next sections explain the three main services, namely \acl{hcs} (section \re
 This explanation follows the flow of actions that happen while configuring a continuous benchmark and the actions that happen when a benchmark is initiated.
 
 The explanations are based on provided diagrams, code review and analysis, and information provided by former developers of the project.
-\todo{okay to say this?}
+
+
+
 
 
 \subsection{\acl{hcs}}
@@ -73,7 +85,7 @@ The continuous checking of the repositories can be started and stopped over a RE
 The other most important endpoints are for adding and deleting \gh{} and \dockh{} repositories.
 \\
 
-The communication between the \ac{hcs} and the \acl{jms} is done over RabbitMQ messages, over the \aclp{jrq}.
+The communication between the \ac{hcs} and the \acl{jms} is done over RabbitMQ (\ref{sec:rabbitmq}) messages, over the \aclp{jrq}.
 The messages contain different events that can occur in the \ac{hcs}.
 For example an event is send when adding or deleting a repository, or a new release is detected.
 
@@ -110,16 +122,13 @@ When an endpoint is triggered, \eg, to abort a running job, the \ac{jms} sends a
 
 \subsubsection{API and Messaging}
 \label{sec:jobs_api}
-The \ac{jms} communicates with the \ac{hcs} and the \acl{tbs} over message queues.
+The \ac{jms} communicates with the \ac{hcs} and the \acl{tbs} over RabbitMQ message queues.
 The service receives repository events from the \ac{hcs} and sends benchmark job events to the \acl{tbs} over the \ac{bjq}.
 \\
 
 Interaction of the user is handled over the REST API.
-Over the API the different configurations can be added.
-
-Currently the API is not yet implemented.
-This will be done during the implementation phase of this thesis.
-\todo[inline]{Here? or in \ref{sec:architecture_review} Review?}
+The API offers endpoints for adding and deleting the different configurations of \tsp{}, datasets and queries
+A second set of endpoints are for querying the job status of running and pending jobs, and for stopping individual jobs.
 
 
 \subsection{\acl{tbs}}
@@ -151,28 +160,6 @@ The \ac{tbs} sends short events containing the status of benchmark jobs, \eg, a 
 
 
 
-\section{Message Queue System}
-\label{sec:message_queue}
-The messages send between the services are transmitted via the RabbitMQ (\ref{sec:rabbitmq}) message broker.
-
-There are two groups of queues.
-The first group consists of the \aclp{jrq} through which the \ac{hcs} and \ac{jms} communicate.
-
-The second group consists of the \aclp{bjq} through which the \ac{jms} and the \ac{tbs} communicate.
-
-
-
-\section{Programming Language and Frameworks}
-\label{sec:prog_lang_and_framework}
-All services are implemented with Java and are using the Spring Boot framework.
-
-The package structure used for the implementation of the services is similar in all three services.
-It is strongly influence by the structure recommended for the Spring Boot framework.
-The Spring and Spring Boot framework are shortly described in chapter \ref{sec:spring}.
-
-\todo[inline]{Is this chapter needed? The queues are explained in API / Messaging sections of each service}
-
-
 \section{Architecture Review}
 \label{sec:architecture_review}
 In this section we review the architecture three services of the Basilisk platform.
@@ -187,6 +174,17 @@ This makes it difficult to connect a repository to a \ts{} configuration, since 
 
 The current implementations tries to solve this problem, by sending events about repository creations from the \ac{hcs} to the \ac{jms}.
 This results in the duplication of the repository storage in both services.
+This contradicts the idea of microservice, which should be separated as much as possible from each other.
+
+Therefore we recommend restructuring the management of repositories.
+
+
+\subsection{Code Refactoring}
+\label{sec:code_refactor}
+During the code analysis some inconsistencies in the code style and duplicate code snippets have been found.
+In other parts the code structured differs to the design patterns recommended for Spring and Spring Boot.
+
+In general an in-depth code refactoring is recommended to increase readability of the source code. 
 
 
 \subsection{Missing Implementations}
@@ -246,6 +244,13 @@ This consists of setting up the Docker containers which contain the \tsp{} for b
 \end{itemize}
 
 Then the usage of the \iguana{} framework needs to be implemented.
+The framework needs to be setup to write the benchmark results to the \ac{jsts}
+\\
+
+To have a better control of the running jobs and the benchmarking service in general we recommend to add a small REST API.
+This API could be similar to the one of the \ac{hcs}, that starts and stops the continuous checking.
+The API for the \ac{tbs} can function like a switch, which indicates if a new benchmarking job will be started or not.
+If it is set to off, the current benchmarking job will be finished, but no new job will be started.
 
 Lastly, after the benchmark, some cleanup of the Docker containers needs to be implemented.
 
