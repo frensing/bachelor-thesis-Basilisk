@@ -38,9 +38,9 @@ The first two lines of the TURTLE document define abbreviations for the used IRI
 
 \begin{figure}[tbph]
 	\begin{lstlisting}
-		@prefix dbr: <http://dbpedia.org/resource/> .
-		@prefix dbo: <http://dbpedia.org/ontology/> .
-		dbr:Germany dbo:capital dbr:Berlin .
+@prefix dbr: <http://dbpedia.org/resource/> .
+@prefix dbo: <http://dbpedia.org/ontology/> .
+dbr:Germany dbo:capital dbr:Berlin .
 	\end{lstlisting}
 	\caption{Example of an RDF graph in TURTLE syntax.}
 	\label{fig:rdf_turtle}
@@ -73,20 +73,20 @@ The second query requests all relationships that can be found between Germany an
 
 \begin{figure}[tbph]
 	\begin{lstlisting}
-		PREFIX dbr: <http://dbpedia.org/resource/>
-		PREFIX dbo: <http://dbpedia.org/ontology/>
-		
-		SELECT ?capital
-		WHERE {
-			dbr:Germany dbo:capital ?capital .
-		}
-		
-		---
-		
-		SELECT ?relation
-		WHERE {
-			dbr:Germany ?relation dbr:Berlin .
-		}
+PREFIX dbr: <http://dbpedia.org/resource/>
+PREFIX dbo: <http://dbpedia.org/ontology/>
+
+SELECT ?capital
+WHERE {
+	dbr:Germany dbo:capital ?capital .
+}
+
+---
+
+SELECT ?relation
+WHERE {
+	dbr:Germany ?relation dbr:Berlin .
+}
 	\end{lstlisting}
 	\caption{SPARQL query examples}
 	\label{fig:sparql_example}
