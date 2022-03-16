@@ -29,17 +29,6 @@ This means that the platform is divided into multiple services on which the work
 The services could be run on different hardware systems and they interact with each other via a message queue system.
 \\
 
-Figure \ref{fig:basilisk_high_level_design} gives an overview of the microservice architecture for the Basilisk platform and the most important messages send between the services.
-\todo{graphic}
-\begin{figure}[tbph]
-	\centering
-	\textbf{TODO: better graphic}
-	%\includegraphics[width=1.1\textwidth]{figures/basilisk_high_level_design.pdf}
-	\caption{High level design of the Basilisk framework}
-	\label{fig:basilisk_high_level_design}
-\end{figure}
-\\
-
 \section{Programming Language and Frameworks}
 \label{sec:prog_lang_and_framework}
 All services of the Basilisk platform are implemented with Java and are using the Spring Boot framework.
@@ -57,8 +46,16 @@ The next sections explain the three main services, namely \acl{hcs} (section \re
 This explanation follows the flow of actions that happen while configuring a continuous benchmark and the actions that happen when a benchmark is initiated.
 
 The explanations are based on provided diagrams, code review and analysis, and information provided by former developers of the project.
+\\
 
-
+Figure \ref{fig:basilisk_high_level_design_approach} gives an overview of the three microservices of the Basilisk platform.
+It shows the most important messages send between the services and the interactions with \gh{} and \dockh{}.
+\begin{figure}[tbph]
+	\centering
+	\includegraphics[width=1\textwidth]{figures/high-level-design-approach.pdf}
+	\caption{Overview of the three microservices}
+	\label{fig:basilisk_high_level_design_approach}
+\end{figure}
 
 
 
@@ -83,7 +80,13 @@ The \ac{hcs} is controlled by the user over a REST API.
 
 The continuous checking of the repositories can be started and stopped over a REST endpoint.
 The other most important endpoints are for adding and deleting \gh{} and \dockh{} repositories.
-\\
+Figure \ref{fig:rest_apis_approach_hcs} shows these endpoints.
+\begin{figure}[tbph]
+	\centering
+	\includegraphics[width=.57\textwidth]{figures/rest-apis-approach-hcs.pdf}
+	\caption{REST API of the \acl{hcs}}
+	\label{fig:rest_apis_approach_hcs}
+\end{figure}
 
 The communication between the \ac{hcs} and the \acl{jms} is done over RabbitMQ (\ref{sec:rabbitmq}) messages, over the \aclp{jrq}.
 The messages contain different events that can occur in the \ac{hcs}.
@@ -129,6 +132,13 @@ The service receives repository events from the \ac{hcs} and sends benchmark job
 Interaction of the user is handled over the REST API.
 The API offers endpoints for adding and deleting the different configurations of \tsp{}, datasets and queries
 A second set of endpoints are for querying the job status of running and pending jobs, and for stopping individual jobs.
+Figure \ref{fig:rest_apis_approach_jms} shows these endpoints.
+\begin{figure}[tbph]
+	\centering
+	\includegraphics[width=.57\textwidth]{figures/rest-apis-approach-jms.pdf}
+	\caption{REST API of the \acl{jms}}
+	\label{fig:rest_apis_approach_jms}
+\end{figure}
 
 
 \subsection{\acl{tbs}}
