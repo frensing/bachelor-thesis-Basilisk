@@ -192,9 +192,9 @@ Therefore we recommend restructuring the management of repositories.
 \subsection{Code Refactoring}
 \label{sec:code_refactor}
 During the code analysis some inconsistencies in the code style and duplicate code snippets have been found.
-In other parts the code structured differs to the design patterns recommended for Spring and Spring Boot.
+In other parts the code structured differs to the design patterns recommended for the Spring and Spring Boot framework.
 
-In general an in-depth code refactoring is recommended to increase readability of the source code. 
+In general an in-depth code refactoring is recommended to increase readability and maintainability of the source code. 
 
 
 \subsection{Missing Implementations}
@@ -224,6 +224,10 @@ The following REST endpoints have to be added:
 	\item Adding / removing query configurations
 \end{itemize}
 
+The structure for the internal data models has logical errors and is in parts incomplete.
+The resulting database model for the internal database is contradicting itself on some points and needs a restructure.
+\\
+
 Since the \ac{jms} also manages the running and pending benchmark jobs, the REST API and internal logic for managing these jobs needs to be implemented too.
 
 \begin{itemize}
@@ -235,10 +239,10 @@ Since the \ac{jms} also manages the running and pending benchmark jobs, the REST
 
 
 \subsubsection{\acl{tbs}}
-The implementation of the \acl{tbs} is currently only a bare structure.
-Big parts of the logic needs to be implemented.
+The implementation of the \acl{tbs} is currently only a bare structure of basic classes.
+Big parts of the logic still needs to be implemented.
 
-Currently the existing classes are mainly for storing configurations and basic message queue interactions.
+The existing classes are mainly for storing data models, configurations and basic message queue interactions.
 These classes do not carry much functionality.
 
 The main functionality needs to be implemented.
@@ -254,7 +258,7 @@ This consists of setting up the Docker containers which contain the \tsp{} for b
 \end{itemize}
 
 Then the usage of the \iguana{} framework needs to be implemented.
-The framework needs to be setup to write the benchmark results to the \ac{jsts}
+The framework needs to be setup to write the benchmark results to the \acl{jsts}.
 \\
 
 To have a better control of the running jobs and the benchmarking service in general we recommend to add a small REST API.

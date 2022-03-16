@@ -6,8 +6,8 @@
 
 This chapter reviews the state of the art of \ts{} benchmarking.\\
 
-Several benchmarks have been proposed and developed.
-Many of these existing benchmarks focus on different goals and scenarios to test the \tsp{}.
+Several benchmarks have been proposed and developed to test \tsp{}.
+Many of these existing benchmarks focus on different goals and scenarios.
 Section \ref{sec:synthetic_benchmarks} and \ref{sec:benchmarks_real_data} explain the different benchmark types used to benchmark \tsp{}.
 Section \ref{sec:benchmark_frameworks} gives a short introduction to benchmark execution frameworks.
 Benchmarking in general is explained in section \ref{sec:benchmark}.
@@ -17,10 +17,12 @@ Benchmarking in general is explained in section \ref{sec:benchmark}.
 Synthetic benchmarks are benchmarks where the data is artificially generated.
 Often the generation is influenced by real world scenarios to generate data comparable to real world datasets\cite{guoLUBMBenchmarkOWL2005}.
 These synthetic benchmarks have the advantage, that they can be generated to arbitrary sizes.
-The main point of criticism is that the generated scenarios can easily be abstract and not representative of a real world situation \cite{saleemFEASIBLEFeatureBasedSPARQL2015}.\\
+The main point of criticism for synthetic benchmarks is that the generated data can easily become too abstract.
+Often the generated scenarios are not representative of a real world scenario \cite{saleemFEASIBLEFeatureBasedSPARQL2015}.
+\\
 
 The LUBM Benchmark\cite{guoLUBMBenchmarkOWL2005} is a synthetic benchmark which focuses on the reasoning and inferencing capabilities of the \tsp{} under test.
-The test data is about the university domain and can be generated to arbitrary size.
+The test data is located in the university domain and can be generated to arbitrary size.
 The benchmark provides fourteen extensional queries that represent and test a variety of properties.
 
 Another synthetic benchmark is SP²Bench\cite{schmidtSP2BenchSPARQLPerformance2008}.
@@ -33,7 +35,7 @@ First the data generator which generates scalable and customizable datasets base
 The query template generator generates diverse query templates which will then be used to generate actual queries.
 The queries get generate with the query generator which instantiates the templates with actual RDF terms from the generated dataset.
 For each template multiple queries can be generated.
-The benchmark only focuses on SELECT queries that does not make use of Union and Optional patterns.
+The benchmark only focuses on SELECT queries that does not make use of the union and optional pattern features of SPARQL.
 
 \section{Benchmarks Using Real Data}
 \label{sec:benchmarks_real_data}
@@ -50,27 +52,30 @@ FEASIBLE can also generate queries for the other SPARQL query types beside SELEC
 Benchmark execution frameworks, as the name suggests, help in the execution of database benchmarks.
 Their tasks are to load the data, execute the test queries and measure the defined metrics to evaluate the system under test.
 
-Many benchmarks provide their own execution environments, which makes the comparison between benchmarks difficult, since those environments are specialized for the given benchmark and are not easily interchangeable\cite{conradsIguanaGenericFramework2017}.
+Many benchmarks provide their own execution environments, which makes the comparison between benchmarks difficult.
+Often those environments are specialized for the given benchmark and are not easily interchangeable\cite{conradsIguanaGenericFramework2017}.
 
 The next sections focus on benchmark-independent execution frameworks.
 
 
 \subsection{IGUANA}
 \label{sec:iguana}
-\iguana{} is a SPARQL benchmark-independent execution framework\cite{conradsIguanaGenericFramework2017}.
-The framework gets a dataset and a set of queries and operations as input and then uses the SPARQL endpoint of the \ts{} to load and update the data and to perform the benchmark queries.
+\iguana{} is a SPARQL, benchmark-independent execution framework\cite{conradsIguanaGenericFramework2017}.
+The framework gets a dataset and a set of queries and operations as input and then uses the SPARQL endpoint of the \ts{} to load and update the data, and to perform the benchmark queries.
 It allows the measurement of the performance during loading and updating of data as well as parallel requests to the \ts{}.
 \iguana{} is independent of any benchmarks which allows it to run in different configurations and with various existing benchmarks and datasets.
 This includes synthetic benchmarks (\ref{sec:synthetic_benchmarks}) and benchmarks based on real data (\ref{sec:benchmarks_real_data}).
-The benchmark process is highly configurable by passing a configuration file to \iguana{}.
+The benchmark process is highly configurable by passing a configuration file to the \iguana{} framework.
 
 
 \subsection{HOBBIT Framework}
-The \textsc{Hobbit} framework is a distributed benchmarking platform designed to be able to scale up benchmarking for big linked data applications\cite{roderHOBBITPlatformBenchmarking}.
+The \textsc{Hobbit} framework is a distributed benchmarking platform designed to be able to scale up benchmarking for big linked-data applications\cite{roderHOBBITPlatformBenchmarking}.
 It is a big framework which needs to be deployed on a local cluster or online computing services like Azure\footnote{\url{https://azure.microsoft.com/}} or AWS\footnote{\url{https://aws.amazon.com/}}.
 The deployment of the platform and deploying new benchmarks to the platform can be challenging for new users of the system\cite{roderHOBBITPlatformBenchmarking}.
-The data for benchmarks has to be stored in docker containers, generated or downloaded before an benchmark, which increases the complexity of the system.
+The data for benchmarks has to be stored in docker containers
+Or it needs to be generated or downloaded before an benchmark, which increases the complexity of the system.
 The data is then send over message queues to the benchmarked system.
+\\
 
 With the Basilisk platform we try to develop a specialized solution for continuous benchmarking of \tsp{} which does not need the technical complexity present in the \textsc{Hobbit} framework.
 Implementing this functionality into the \textsc{Hobbit} framework would introduce another level of complexity to the system.
