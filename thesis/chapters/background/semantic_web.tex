@@ -1,6 +1,7 @@
 \section{Semantic Web Topics}
+\label{sec:sw_topics}
 The following topics come from the research area of Semantic Web.
-Since this thesis focuses mostly on the implementation and deployment of the Basilisk platform, these topics are mostly introduced to give a basic understanding of the context in which the Basilisk platform is used.
+Since this thesis focuses mostly on the implementation and deployment of the Basilisk platform, these topics are mostly introduced to give a basic understanding to the context in which the Basilisk platform will be used.
 
 \subsection{Knowledge Graphs} 
 \label{sec:knowledge_graphs}
@@ -27,7 +28,8 @@ The special kind of database developed to store knowledge graphs are called \tsp
 
 \subsection{RDF}
 \label{sec:rdf}
-The Resource Description Framework is a framework for describing data and knowledge in a standardized way \cite{RDFConceptsAbstract} and it is part of the W3C standard.
+The Resource Description Framework (RDF) is a framework for describing data and knowledge in a standardized way\cite{RDFConceptsAbstract}. 
+It is part of the W3C standard.
 The information is written down as subject-predicate-object triples, representing the basic structure that is also present in Knowledge Graphs (\ref{sec:knowledge_graphs}).
 The elements of those triples can be IRIs (internationalized resource identifiers), blank nodes or datatyped literals.
 
@@ -52,7 +54,7 @@ dbr:Germany dbo:capital dbr:Berlin .
 \tsp{} are a special kind of database developed to easily store and access knowledge graphs through queries.
 Example of \tsp{} are Tentris\cite{bigerlTentrisTensorBasedTriple2020}, GraphDB\footnote{\url{https://graphdb.ontotext.com/}}, Virtuoso\footnote{\url{https://virtuoso.openlinksw.com/}}, or Jena TDB\footnote{\url{https://jena.apache.org/documentation/tdb/}}.
 
-This thesis focuses on \tsp{} that accept SPARQL queries, since the used benchmark framework \iguana{} is using the SPARQL endpoint to perform benchmarks (see section \ref{sec:iguana}).
+This thesis focuses on \tsp{} that have a SPAQRL endpoind and accept SPARQL queries, since the used benchmark framework \iguana{} is using the SPARQL endpoint to perform benchmarks (see section \ref{sec:iguana}).
 
 
 \subsection{SPARQL}
@@ -60,7 +62,7 @@ This thesis focuses on \tsp{} that accept SPARQL queries, since the used benchma
 SPARQL (SPARQL Protocol and RDF Query Language)\cite{harrisSPARQLQueryLanguage} is a query language for manipulating and retrieving RDF data stored in \tsp{}.
 Just like RDF, SPARQL is part of the W3C recommendations for technologies in the semantic web.
 
-The syntax for SPARQL queries looks similar to the SQL syntax, since its main parts are also a \texttt{SELECT} clause stating which variables to query for, following by an \texttt{WHERE} clause giving restrictions.
+The syntax for SPARQL queries looks similar to the SQL syntax, since its main parts are also a \texttt{SELECT} clause stating which variables to query for, following by an \texttt{WHERE} clause giving restrictions and conditions.
 
 Queries can contain optional graph patterns, conjunctions, disjunctions, as well as aggregation functions.
 These extension can help formulate more complex queries.

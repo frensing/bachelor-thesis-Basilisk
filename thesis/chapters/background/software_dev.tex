@@ -1,12 +1,13 @@
 \section{Software Development}
+\label{sec:software_dev}
 The following topics can be grouped under the field of software development.
-For the topic of benchmarks (section \ref{sec:benchmark}) we focus on database benchmarks and especially \ts{} benchmarks, since this is the main goal of the Basilisk platform.
+For the topic of benchmarks (section \ref{sec:benchmark}) we focus on database benchmarks and especially \ts{} benchmarks, since this is the main task of the Basilisk platform.
 The sections Microservice and Microservice Architecture (\ref{sec:microservice}, \ref{sec:microservice_architecture}) explain the basic idea and concept of the microservice architecture style.
 In the sections RabbitMQ and Spring (\ref{sec:rabbitmq}, \ref{sec:spring}) we give a short introduction and description of the main technologies that are used for the development of the Basilisk platform.
 
 \subsection{Benchmark}
 \label{sec:benchmark}
-Benchmarks for databases consist of a data set and a set of operations or queries which will be performed on the data set.
+Benchmarks for databases consist of a dataset and a set of operations or queries which will be performed on the dataset.
 These operations are designed to simulate a particular type of workload to the system.
 The goal of a benchmark is to measure different metrics for a better comparison between various systems.
 Metrics used for databases and \tsp{} are \eg, number of executed queries and queries per second\cite{IguanaDocumentationMetrics}.
@@ -14,12 +15,13 @@ Metrics used for databases and \tsp{} are \eg, number of executed queries and qu
 A distinction is made between micro and macro benchmarks.
 Micro benchmarks focus on testing the performance of single components of a system.
 Macro benchmarks test the performance of a system as a whole.
-The benchmarks performed by the Basilisk platform, which will be set up in this thesis, will only perform macro benchmarks.
+The benchmarks performed by the Basilisk platform will only be macro benchmarks.
 
 \subsection{Microservice}
 \label{sec:microservice}
 A microservice is an independently deployable piece of software that only implements functionalities that are closely related to the main task of the service \cite{dragoniMicroservicesYesterdayToday2017}.
-All Microservices can be individually deployed and managed and they interact via messages through a defined protocol with other services.
+All Microservices can be individually deployed and managed.
+They interact via messages through a defined protocol with other services.
 The idea is that individual microservices can be combined like modules to create any desired complex software.
 
 \subsection{Microservice Architecture}
@@ -35,6 +37,7 @@ RabbitMQ is an open-source message broker that supports different messaging prot
 The system supports a variety of asynchronous messaging techniques \eg, delivery acknowledgment, flexible routing\cite{RabbitMQWebsiteHttps}.
 
 In the context of the Basilisk platform we only need the most basic functionalities of message queues with a single producer and a single consumer.
+\todo[inline]{check if still true? advanced functionality for tbs?}
 Since RabbitMQ is a widely used message broker, the Spring framework (\ref{sec:spring}) already comes with the needed libraries to work with the RabbitMQ system.
 
 
@@ -54,13 +57,31 @@ The package structure found in the source code of the Basilisk microservices is 
 
 \subsection{Software Design Patterns}
 \label{sec:software_design_patterns}
+Software design patterns are used by developers to structure code.
+The idea is that code of different projects share reusable structures of best practices for commonly occurring implementation problems.
+Further more patterns are used to improve the understanding and readability of the code\cite{fowlerPatternsEnterpriseApplication2003}.
+
+As stated in section \ref{sec:spring} Spring Boot requires the usage of different software design paradigms and patterns which give the source code a common structure.
+
+The following sections introduce design patterns which are used in the source code of the Basilisk platform.
 
 
 \subsubsection{Repository Pattern}
-\todo{fill}
+The repository pattern is used to abstract the interaction to a data storage.
+This data storage can be an relational database or a data storage of any kind\cite{fowlerRepositoryPatternHttps, bansalDAOVsRepository2020}.
+
+The business logic of an application only interacts with a so called repository without actually knowing which kind of data storage is used.
+The repository then handles the storage and access of objects with the data storage.
+
+This has the advantage that the actual storage system can easily be changed.
+When the storage system is changed, only the repository class needs to be adjusted.
+The business logic can still use the same interface of the repository class to access its data.
 
 \subsubsection{Domain Driven Design}
-\todo{fill}
+Domain driven 
+
+
+\todo[inline]{fill}
 
 \subsection{Stateful / Stateless Microservices}
-\todo{fill}
+\todo[inline]{fill}
