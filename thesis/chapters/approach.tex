@@ -17,8 +17,9 @@ The idea for the Basilisk platform is to offer the possibility to automatically 
 Benchmarks are also relevant during the development process.
 An benchmark performed automatically for \eg{} a new pull request is a good way to estimate if a newly developed feature will impact the performance of the \ts{} before the changes are merged.
 
-On the Basilisk platform a user can register a \ts{} for a continuous benchmark by setting up a hook to the repository on \gh{} or a docker image from \dockh{} containing the \ts{}, which will then be observed by Basilisk.
-If there is a new release of the \ts{}, Basilisk will internally generate a new benchmark job.
+On the Basilisk platform a user can register a \ts{} for a continuous benchmark by setting up a hook to the repository on \gh{} or \dockh{}.
+The repository will then be observed by the Basilisk platform.
+If there is a new release of the \ts{}, Basilisk will generate a new benchmark job.
 This benchmark job will then be executed by fetching and building a new docker container containing the newest release of the \ts{}.
 On this container the benchmark will be performed.
 The measured results of the benchmark will be stored in a \ts{} and are then available through the web frontend for review.
@@ -147,13 +148,14 @@ The \ac{tbs} executes the benchmark jobs send by the \ac{jms} and saves the benc
 
 To execute a benchmark the service needs a running instance of the \ts{} under test on which the benchmark will be executed.
 This instance is build from the information and configurations provided in the benchmark job.
-The \ac{tbs} will query the provided repository (\gh{} or \dockh{}) for the version, specified in the job.
+The \ac{tbs} will query the provided repository (\gh{} or \dockh{}) for the version specified in the job.
 
-If the repository is from \gh{}, the \ac{tbs} downloads the source code for the provided commit and looks for a Dockerfile.
-It then builds and runs a Docker Container from that Dockerfile.
+If the repository is from \gh{}, the \ac{tbs} downloads the source code for the provided commit and searches for a Dockerfile.
+It then builds and runs a Docker container from that Dockerfile.
 
 If the repository is from \dockh{}, the \ac{tbs} pulls the image with the provided tag.
 It then runs the image as a Docker Container.
+\\
 
 After starting the Docker Container the \ac{tbs} starts the \iguana{} framework.
 \iguana{} will perform the benchmark with the provided configuration from the benchmark job.
@@ -172,15 +174,14 @@ The \ac{tbs} sends short events containing the status of benchmark jobs, \eg, a 
 
 \section{Architecture Review}
 \label{sec:architecture_review}
-In this section we review the architecture three services of the Basilisk platform.
+In this section we review the architecture of the three services of the Basilisk platform.
 We point out possible problems with current implementations and list missing implementations that need to be added.
 
-\todo[inline]{Not yet final.. only a first collection of thoughts and implementation todos}
 
 \subsection{Management of Repositories and Configurations}
 \label{sec:management_repo_config}
 Currently the observed repositories are managed and stored in the \ac{hcs} while the configurations for the \tsp{} are managed and stored in the \ac{jms}.
-This makes it difficult to connect a repository to a \ts{} configuration, since they are stored in different services.
+This makes it difficult to internally link a repository to a \ts{} configuration, since they are stored in different services.
 
 The current implementations tries to solve this problem, by sending events about repository creations from the \ac{hcs} to the \ac{jms}.
 This results in the duplication of the repository storage in both services.
