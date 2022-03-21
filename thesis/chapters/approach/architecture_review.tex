@@ -4,6 +4,14 @@ In this section we review the architecture of the three services of the Basilisk
 We point out possible problems with current implementations and list missing implementations that need to be added.
 
 
+\subsection{Code Refactoring}
+\label{sec:code_refactor}
+During the code analysis some inconsistencies in the code style and duplicate code snippets have been found.
+In other parts the code structured differs to the design patterns recommended for the Spring and Spring Boot framework.
+
+In general an in-depth code refactoring is recommended to increase readability and maintainability of the source code. 
+
+
 \subsection{Management of Repositories and Configurations}
 \label{sec:management_repo_config}
 Currently the observed repositories are managed and stored in the \ac{hcs} while the configurations for the \tsp{} are managed and stored in the \ac{jms}.
@@ -16,12 +24,25 @@ This contradicts the idea of microservice, which should be separated as much as 
 Therefore we recommend restructuring the management of repositories.
 
 
-\subsection{Code Refactoring}
-\label{sec:code_refactor}
-During the code analysis some inconsistencies in the code style and duplicate code snippets have been found.
-In other parts the code structured differs to the design patterns recommended for the Spring and Spring Boot framework.
 
-In general an in-depth code refactoring is recommended to increase readability and maintainability of the source code. 
+\subsection{Data Model Restructure}
+\label{sec:review_data_model}
+The \ac{jms} manages and stores the different configuration types needed for a benchmark job.
+
+The configurations are stored in an internal database.
+Figure \ref{fig:jms_db_schema} shows the current database schema.
+
+\begin{figure}[tbph]
+	\centering
+	\includegraphics[width=.7\textwidth]{figures/jms_db_schema.png}
+	\caption{Diagram of the current database schema used in the \ac{jms}}
+	\label{fig:jms_db_schema}
+\end{figure}
+
+The schema has logical errors and is in parts incomplete.
+\todo[inline]{formulate problems better}
+The resulting database model for the internal database is contradicting itself on some points and needs a restructure.
+\\
 
 
 \subsection{Missing Implementations}
@@ -31,7 +52,7 @@ After reviewing the source code the following overview was created:
 
 \subsubsection{\acl{hcs}}
 The implementation of the \acl{hcs} is quite complete.
-Only small additions have to be implemented.
+Small additions have to be implemented.
 
 \begin{itemize}
 	\item The REST endpoints for deleting \gh{} and \dockh{} repositories needs to be added.
@@ -51,10 +72,6 @@ The following REST endpoints have to be added:
 	
 	\item Adding / removing query configurations
 \end{itemize}
-
-The structure for the internal data models has logical errors and is in parts incomplete.
-The resulting database model for the internal database is contradicting itself on some points and needs a restructure.
-\\
 
 Since the \ac{jms} also manages the running and pending benchmark jobs, the REST API and internal logic for managing these jobs needs to be implemented too.
 
@@ -109,7 +126,7 @@ This is for example the OAuth-Key needed for accessing private \gh{} repositorie
 
 \subsection{Frontend}
 \label{sec:review_frontend}
-\todo[inline]{Was in dieser Section schreiben?}
+\todo[inline,color=green]{Was in dieser Section schreiben?}
 The frontend introduces a new programming languages and frameworks.
 A short review of the current source code resulted in the following findings:
 \begin{itemize}

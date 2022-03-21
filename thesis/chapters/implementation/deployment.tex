@@ -1,0 +1,22 @@
+\section{Deployment}
+\label{sec:deployment}
+After the implementation phase, the Basilisk platform is deployed on a virtual server.
+The virtual server used is provided by the IRB (Informatik Rechnerbetrieb) of the computer science department at Paderborn University.
+Figure \ref{fig:vm_specs} show the specification of the VM.
+The VM was chosen to be powerful and to have a lot of memory and storage.
+Database benchmarks are often memory intensive and require a lot of storage for the different datasets.
+
+
+\begin{figure}[tbph]
+	\centering
+	\begin{tabular}{ll}
+		\toprule
+		\textbf{Specifications} &                             \\ \midrule
+		CPUs                    & 16 cores                    \\ \midrule
+		Memory                  & 128GB                       \\ \midrule
+		Storage                 & 4.17TB                      \\ \midrule
+		Operating System        & Debian GNU/Linux 11 (64bit) \\ \bottomrule
+	\end{tabular}
+	\caption{Specification of the virtual machine on which the platform is deployed.}
+	\label{fig:vm_specs}
+\end{figure}
