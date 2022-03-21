@@ -4,11 +4,93 @@
 
 
 This section describes the implementation of the concepts explained in chapter \ref{ch:approach}.
-Parts of the system were already implemented.
+Parts of the system were already implemented by other developers before this thesis.
+
+As stated in section \ref{sec:architecture_review} some parts of the functionality are still missing and need to be implemented.
+This chapter documents the design and implementation of the explained shortcomings.
+\\
+
+In section \ref{sec:solution_design} we describe how we design the missing parts and how we plan to implement them into the platform.
+In section \ref{sec:solution_implementation} we document the implementation process.
+Possible problems or new insights found during this process are explained and dealt with.
+
+
+\todo[inline]{Präsenz oder Vergangenheitsform?}
+
+
+\todo[inline]{Projekt management? Agile Software entwicklung?}
+
+
+\section{Thesis Time Schedule}
+\label{sec:time_schedule}
+The time schedule of the thesis had to be altered to allow more time for designing and implementing the Basilisk platform.
+
+Before starting this thesis it was hard to quantify how much implementation work was still needed.
+After the architecture review (\ref{sec:architecture_review}) it became clear that the implementation workload was greater than anticipated in the thesis proposal.
+
+Therefore we an alteration of the time schedule of the thesis is needed.
+Further we discussed the task priorities.
+First priority is the development of the core functionality for the platform.
+This means the main services are required to successfully perform a benchmark job and save the measured metrics to a \ts{}.
+
+With a lower priority, functionalities like user management (\ref{sec:review_user_management}) will be dealt with.
+
+The least priority has the Basilisk frontend (\ref{sec:basilisk_frontend}), since it is not needed to successfully run the platform.
+Secondly it introduces more programming languages and frameworks to the project.
+The time schedule can not provide enough time to fully understand this new technology stack.
+
+
+
+\section{Solution Design}
+\label{sec:solution_design}
 
 
 
 
+\section{Solution Implementation}
+\label{sec:solution_implementation}
+
+
+In this section we give an high-level description of the implementation process.
+During the implementation process the improvements and extensions that was found in section \ref{sec:architecture_review} and designed in section \ref{sec:solution_design} are implemented into the code base.
+\\
+
+The following sections follow the implementation process
+
+
+
+\subsection{Code Refactoring}
+\label{sec:impl_code_refactor}
+As stated in section \ref{sec:code_refactor}, an in-depth code refactoring is recommended.
+We start the implementation with this refactoring to create a clean code base for all future implementations.
+
+Code refactoring is the process of restructuring the source code of an application without changing its functionality\cite{fowlerRefactoringImprovingDesign2019a}.
+
+
+
+
+\section{Deployment}
+\label{sec:deployment}
+After the implementation phase, the Basilisk platform is deployed on a virtual server.
+The virtual server used is provided by the IRB (Informatik Rechnerbetrieb) of the computer science department at Paderborn University.
+Figure \ref{fig:vm_specs} show the specification of the VM.
+The VM was choosen to be powerful and to have a lot of memory and storage.
+Database benchmarks are often memory intensive and require a lot of storage for the different datasets.
+
+
+\begin{figure}[tbph]
+	\centering
+	\begin{tabular}{ll}
+		\toprule
+		\textbf{Specifications} &                             \\ \midrule
+		CPUs                    & 16 cores                    \\ \midrule
+		Memory                  & 128GB                       \\ \midrule
+		Storage                 & 4.17TB                      \\ \midrule
+		Operating System        & Debian GNU/Linux 11 (64bit) \\ \bottomrule
+	\end{tabular}
+	\caption{Specification of the server on which the platform is deployed.}
+	\label{fig:vm_specs}
+\end{figure}
 
 %%%%%%%%%%%%%%%%
 % - Solution design and implementation
