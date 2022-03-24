@@ -10,7 +10,7 @@ In this section we describe the designed solutions for the shortcomings listed i
 Section \ref{sec:management_repo_config} already explains the problem of storing and managing repositories, the corresponding hooks and the \ts{}-configurations between the \acf{hcs} and the \acf{jms}.
 
 We discussed different possible solutions, of moving functionality or merging the functionality of the two services into one.
-\todo[inline,color=green]{Ist so ein Satz okay? oder nur das Ergebnis erklären?}
+\todo[inline,color=green]{Ist so ein Satz okay der den Denkprozess erklärt? oder nur das Ergebnis erklären?}
 
 In the designed solution, the management and storing of the repositories is moved into the \ac{jms}.
 This includes the corresponding REST endpoints and internal logic of the \ac{hcs} that are needed for the management.
@@ -59,6 +59,8 @@ Secondly the relationship between \ac{ts} configurations and repositories is inv
 Now each setup repository points to a \ac{ts} configuration.
 This means a \ac{ts} configuration can be used for different observed repository setups.
 
+\todo[inline]{changes to benchmark job and dataset/query configs?}
+
 
 
 \subsection{Hooks for Pull Requests in \gh{} Repositories}
@@ -87,5 +89,12 @@ Therefore the message handling in the \ac{hcs} and \ac{jms} needs to be adjusted
 
 The benchmark jobs and the \acl{tbs} does not need to be changed.
 It is not relevant for a benchmark if the repository, from which the docker container is build, is different too the observed repository.
+
+
+\subsection{Missing Implementations}
+\todo[inline,color=green]{Soll ich auch beschreiben, wie ich die fehlenden REST APIs "designed" habe? Oder reicht kurzer Text im Implementation Teil?}
+- JMS extend APIs?
+
+- TBS design docker setup flow??
 
 

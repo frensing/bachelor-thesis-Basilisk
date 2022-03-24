@@ -122,8 +122,9 @@ If it is set to off, the current benchmarking job will be finished, but no new j
 
 Lastly, after the benchmark, some cleanup of the Docker containers needs to be implemented.
 
-\subsubsection{User Management and Security}
+\subsection{User Management and Security}
 \label{sec:review_user_management}
+The Basilisk platform has no user management or any kind of access control implemented.
 Currently the REST APIs of the services allow interactions with any user.
 If the platform is needed to run publicly, some user management and further security measures are needed.
 That includes registering new users and user groups with different user rights.
@@ -135,7 +136,7 @@ This is for example the OAuth-Key needed for accessing private \gh{} repositorie
 
 \subsection{Frontend}
 \label{sec:review_frontend}
-\todo[inline,color=green]{Was in dieser Section schreiben?}
+\todo[inline,color=green]{Gleiche Frage: Wie festhalten, dass das Frontend nicht weiter entwicklet wird? (Im Rahmen dieser Thesis).. Deshalb auch nur knappes Review des aktuellen Stands, da neues Prog-Sprache und Frameworks}
 The frontend introduces a new programming languages and frameworks.
 A short review of the current source code resulted in the following findings:
 \begin{itemize}
