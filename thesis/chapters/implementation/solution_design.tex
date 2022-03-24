@@ -5,12 +5,6 @@ The Basilisk platform is missing some key functionality to successfully run benc
 In this section we describe the designed solutions for the shortcomings listed in section \ref{sec:architecture_review}.
 
 
-\subsection{Restructure of Data Models in the \acl{jms}}
-\label{sec:data_model_restructure_jms}
-
-
-
-
 \subsection{Management of Repositories and Configurations}
 \label{sec:management_repo_config_design}
 Section \ref{sec:management_repo_config} already explains the problem of storing and managing repositories, the corresponding hooks and the \ts{}-configurations between the \acf{hcs} and the \acf{jms}.
@@ -44,6 +38,29 @@ Figure \ref{fig:repo_management_restructure} shows the restructured REST APIs an
 \end{figure}
 
 
+
+\subsection{Restructure of Data Models in the \acl{jms}}
+\label{sec:data_model_restructure_jms}
+In section \ref{sec:review_data_model} we reviewed the data model used for storing and managing the different configuration types inside the \ac{jms}.
+To mitigate the stated problems with the data model, we designed the database schema shown in figure \ref{fig:design_jms_db_schema}.
+
+\begin{figure}[tbph]
+	\centering
+	\includegraphics[width=.95\textwidth]{figures/jms_db_schema_design.png}
+	\caption{Diagram of the proposed database schema for the \ac{jms}}
+	\label{fig:design_jms_db_schema}
+\end{figure}
+
+In this design we introduce two different repository types.
+One for \gh{} and one for \dockh{}.
+This ensures that a repository is always correctly referenced when creating a new benchmark job.
+
+Secondly the relationship between \ac{ts} configurations and repositories is inverted. 
+Now each setup repository points to a \ac{ts} configuration.
+This means a \ac{ts} configuration can be used for different observed repository setups.
+
+
+
 \subsection{Hooks for Pull Requests in \gh{} Repositories}
 Currently the Basilisk platform can not check for new pull request published to an observed repository.
 This functionality would greatly support the continuous benchmarking during the development process of \tsp{}.
@@ -65,7 +82,8 @@ Since the repository containing the changes has a different URL to the original 
 
 The solution we designed for this issue is an extended message.
 This message gets send in the situation in which the pull requests originates from a different repository.
-Therefore the message handling in the \ac{hcs} and \ac{jms} needs to be adjusted.
+The message contains the URL, repository and branch name for the \gh{} repository.
+Therefore the message handling in the \ac{hcs} and \ac{jms} needs to be adjusted to handle this new message type.
 
 The benchmark jobs and the \acl{tbs} does not need to be changed.
 It is not relevant for a benchmark if the repository, from which the docker container is build, is different too the observed repository.

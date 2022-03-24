@@ -40,9 +40,18 @@ Figure \ref{fig:jms_db_schema} shows the current database schema.
 \end{figure}
 
 The schema has logical errors and is in parts incomplete.
-\todo[inline]{formulate problems better}
-The resulting database model for the internal database is contradicting itself on some points and needs a restructure.
-\\
+Following we list some inconsistencies and possible problems that could arise:
+\begin{itemize}
+	\item The only way to identify an repository as \gh{} or \dockh{} repo is to check in the \ts{} configuration.
+		This is because there is currently only one type of repository which gets interpreted differently, depending if it is used as a \gh{} or \dockh{} repo.
+		If a repository is wrongly assigned to the false type, the resulting benchmark job would not be executable. 
+	
+	\item Each \ts{} configuration can have exactly one \gh{} and \dockh{} repository.
+		In reality it is more likely to define more repositories per \ts{} configuration.
+		For example, the \gh{} repo could be observed for new releases, the \gh{} repo could be observed for pull requests, or independent branches of the \gh{} repo could be observed for changes.
+\end{itemize} 
+
+Therefore the data model for the \ac{jms} needs a restructure to better cover real world requirements.
 
 
 \subsection{Missing Implementations}
