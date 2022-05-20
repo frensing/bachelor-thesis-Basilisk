@@ -102,7 +102,7 @@ Figure \ref{fig:rest_apis_approach_jms} shows these endpoints.
 
 \subsection{\acl{tbs}}
 \label{sec:ts_benchmarking_service}
-The \ac{tbs} executes the benchmark jobs send by the \ac{jms} and saves the benchmark results to a \ts{}.
+The \ac{tbs} executes the benchmark jobs send by the \ac{jms} and saves the benchmark results to the \acl*{jsts}.
 
 To execute a benchmark the service needs a running instance of the \ts{} under test on which the benchmark will be executed.
 This instance is build from the information and configurations provided in the benchmark job.
@@ -118,7 +118,7 @@ It then runs the image as a Docker Container.
 After starting the Docker Container the \ac{tbs} starts the \iguana{} framework.
 \iguana{} will perform the benchmark with the provided configuration from the benchmark job.
 
-When the benchmark is finished the results are written to a \ts{} called \acl*{jsts}
+When the benchmark is finished the results are written to the \acl*{jsts}
 
 \subsubsection{API and Messaging}
 \label{sec:benchmarking_api}

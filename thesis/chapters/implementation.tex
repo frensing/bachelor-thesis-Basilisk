@@ -10,8 +10,8 @@ As stated in section \ref{sec:architecture_review} some parts of the functionali
 This chapter documents the design and implementation of the explained shortcomings.
 \\
 
-Section \ref{sec:time_schedule}
-\todo[inline]{write intro}
+The following sections of the thesis differ slightly from the proposed time schedule and task list, which was originally planned in the thesis proposal.
+In Section \ref{sec:time_schedule} we explain why we had to alter the original thesis schedule based on the findings of the architecture review in section \ref{sec:architecture_review}.
 
 
 In section \ref{sec:revised_solution_design} we describe how the missing parts of the platform are designed and implemented.
@@ -21,17 +21,17 @@ Possible problems or new insights found during this process are explained and de
 
 \section{Thesis Time Schedule}
 \label{sec:time_schedule}
-The time schedule of the thesis had to be altered to allow more time for designing and implementing the Basilisk platform.
+The time schedule of the thesis had to be altered to allow for more time designing and implementing the Basilisk platform.
 
 Before starting this thesis it was hard to quantify how much implementation work was still needed.
-After the architecture review (\ref{sec:architecture_review}) it became clear that the implementation workload was greater than anticipated in the thesis proposal.
+After the in-depth architecture review (\ref{sec:architecture_review}) it became clear that the implementation workload was greater than anticipated in the thesis proposal.
 
-Therefore we an alteration of the time schedule of the thesis is needed.
+Therefore an alteration of the time schedule and work plan for the thesis is needed.
 Further we discussed the task priorities.
 First priority is the development of the core functionality for the platform.
-This means the main services are required to successfully perform a benchmark job and save the measured metrics to a \ts{}.
+This means the main services are required to successfully register new versions of observed repositories, perform benchmark jobs and save the measured metrics to a \ts{}.
 
-\todo[inline,color=green]{Folgende Punkte sind nicht relevant für Funktionalität und werden wohl zeittechnisch nicht bearbeitet werden können: Weitere Section dafür einfügen und Problem weiter erläutern?}
+
 With a lower priority, functionalities like user management (\ref{sec:review_user_management}) will be dealt with.
 The least priority has the Basilisk frontend (\ref{sec:basilisk_frontend}), since it is not necessarily needed to run the platform.
 Secondly it introduces more programming languages and frameworks to the project.

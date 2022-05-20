@@ -19,6 +19,7 @@ Code refactoring is the process of restructuring the source code of an applicati
 \label{sec:management_repo_config_design}
 Section \ref{sec:management_repo_config} already explains the problem of storing and managing repositories, the corresponding hooks and the \ts{}-configurations between the \acf{hcs} and the \acf{jms}.
 
+Different solutions were considered...
 We discussed different possible solutions, of moving functionality or merging the functionality of the two services into one.
 \todo[inline,color=green]{Ist so ein Satz okay der den Denkprozess erklärt? oder nur das Ergebnis erklären?}
 
@@ -38,6 +39,8 @@ The functionality used when a new release is found, does not need to be changed.
 When a new release is found, the \ac{hcs} still sends a message containing the relevant information to the \ac{jms}.
 \\
 
+\todo[inline]{explain REST restructure in Text, graphic only for show}
+
 Figure \ref{fig:repo_management_restructure} shows the restructured REST APIs and the adjusted messaging between \ac{hcs} and \ac{jms}.
 
 \begin{figure}[tbph]
@@ -56,20 +59,23 @@ To mitigate the stated problems with the data model, we designed the database sc
 
 \begin{figure}[tbph]
 	\centering
-	\includegraphics[width=.95\textwidth]{figures/jms_db_schema_design.png}
+	\includegraphics[width=.75\textwidth]{figures/jms_db_schema_design.png}
 	\caption{Diagram of the proposed database schema for the \ac{jms}}
 	\label{fig:design_jms_db_schema}
 \end{figure}
 
-In this design we introduce two different repository types.
-One for \gh{} and one for \dockh{}.
-This ensures that a repository is always correctly referenced when creating a new benchmark job.
+This design takes advantage of persistence technology that is already part of the Spring framework.
+The models for the \gh{} and \dockh{} are inherited from an abstract repository class, since the basic information like repository name and owner are needed for both repository types.
+The Spring framework automatically manages the different repositories and identifies them through the stored \texttt{DTYPE}.
 
 Secondly the relationship between \ac{ts} configurations and repositories is inverted. 
-Now each setup repository points to a \ac{ts} configuration.
+Now each repository points to a \ac{ts} configuration.
 This means a \ac{ts} configuration can be used for different observed repository setups.
 
-\todo[inline]{changes to benchmark job and dataset/query configs?}
+Lastly the benchmark job and dataset models are cleaned up.
+Now each benchmark specifies a datasets and a query file as well as multiple parameters which are later used by \iguana{} during the execution of an benchmark job.
+
+The individual repositories and benchmarks are then linked inside a benchmark job.
 
 
 \subsection{Hooks for Pull Requests in \gh{} Repositories}

@@ -24,6 +24,16 @@ This contradicts the idea of microservice, which should be separated as much as 
 Therefore we recommend restructuring the management of repositories.
 
 
+\subsection{Creation and Management of Benchmark Jobs}
+\label{sec:creation_of_benchmark_jobs}
+When a new release is found by the \ac{hcs}, the \acl{jms} will create and manage benchmark jobs which will be executed by the \ac{tbs}.
+Currently the \ac{jms} will create multiple jobs.
+For each query file a job will be created for each dataset.
+This means that each dataset is mixed with each query file, which could lead to queries executed on the wrong datasets.
+
+A benchmark should only use a defined pair of a matching query file and dataset.
+Therefore the logic for creating the benchmark jobs needs to be changed, as well as the data model for storing the benchmark jobs.
+
 
 \subsection{Data Model Restructure}
 \label{sec:review_data_model}
@@ -43,12 +53,18 @@ The schema has logical errors and is in parts incomplete.
 Following we list some inconsistencies and possible problems that could arise:
 \begin{itemize}
 	\item The only way to identify an repository as \gh{} or \dockh{} repo is to check in the \ts{} configuration.
-		This is because there is currently only one type of repository which gets interpreted differently, depending if it is used as a \gh{} or \dockh{} repo.
-		If a repository is wrongly assigned to the false type, the resulting benchmark job would not be executable. 
+		If a repository is wrongly assigned to the false type, the resulting benchmark job would not be executable, because \gh{} and \dockh{} needs to be handled differently during a benchmark as explained in section \ref{sec:ts_benchmarking_service}.
 	
-	\item Each \ts{} configuration can have exactly one \gh{} and \dockh{} repository.
-		In reality it is more likely to define more repositories per \ts{} configuration.
-		For example, the \gh{} repo could be observed for new releases, the \gh{} repo could be observed for pull requests, or independent branches of the \gh{} repo could be observed for changes.
+	\item Each \ts{} configuration can have exactly one \gh{} or \dockh{} repository.
+		This means for every repository a new \ts{} configuration needs to be added.
+		There would be less duplicate configurations if multiple repositories could point to the same configuration.
+		For example, a hook could be set up to observe a \gh{} repository for new releases and another hook could be set up to observe the same \gh{} repo for pull requests.
+		In this case both hooks should use the same \ts{} configuration, since it is the same \ts{} which gets benchmarked.
+		
+	\item As explained in section \ref{sec:creation_of_benchmark_jobs}, the 	creation and storage of benchmark jobs needs to be changed.
+		Currently the data model structure for benchmark jobs, datasets and query files is too complicated and not easy to understand.
+		Since the creation process of the jobs needs to be changed, the data model will also need changes and a cleanup of the model relationships.
+	
 \end{itemize} 
 
 Therefore the data model for the \ac{jms} needs a restructure to better cover real world requirements.
@@ -66,7 +82,7 @@ Small additions have to be implemented.
 \begin{itemize}
 	\item The REST endpoints for deleting \gh{} and \dockh{} repositories needs to be added.
 	
-	\item Currently Pull Requests in \gh{} repositories can not be observed.
+	\item Currently Pull Requests for \gh{} repositories can not be observed.
 \end{itemize}
 
 
@@ -93,10 +109,10 @@ Since the \ac{jms} also manages the running and pending benchmark jobs, the REST
 
 
 \subsubsection{\acl{tbs}}
-The implementation of the \acl{tbs} is currently only a bare structure of basic classes.
+The implementation of the \acl{tbs} currently contains only a few classes for the data models, and simple structures of service classes.
 Big parts of the logic still needs to be implemented.
 
-The existing classes are mainly for storing data models, configurations and basic message queue interactions.
+The existing classes are mainly for storing and manipulating data models, configurations and basic message queue interactions.
 These classes do not carry much functionality.
 
 The main functionality needs to be implemented.
@@ -120,7 +136,7 @@ This API could be similar to the one of the \ac{hcs}, that starts and stops the 
 The API for the \ac{tbs} can function like a switch, which indicates if a new benchmarking job will be started or not.
 If it is set to off, the current benchmarking job will be finished, but no new job will be started.
 
-Lastly, after the benchmark, some cleanup of the Docker containers needs to be implemented.
+Lastly, after the performing of a benchmark, the cleanup of the Docker containers needs to be implemented.
 
 \subsection{User Management and Security}
 \label{sec:review_user_management}
@@ -136,7 +152,6 @@ This is for example the OAuth-Key needed for accessing private \gh{} repositorie
 
 \subsection{Frontend}
 \label{sec:review_frontend}
-\todo[inline,color=green]{Gleiche Frage: Wie festhalten, dass das Frontend nicht weiter entwicklet wird? (Im Rahmen dieser Thesis).. Deshalb auch nur knappes Review des aktuellen Stands, da neues Prog-Sprache und Frameworks}
 The frontend introduces a new programming languages and frameworks.
 A short review of the current source code resulted in the following findings:
 \begin{itemize}
