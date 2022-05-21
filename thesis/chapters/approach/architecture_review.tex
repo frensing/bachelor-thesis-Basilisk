@@ -93,9 +93,12 @@ The following REST endpoints have to be added:
 \begin{itemize}
 	\item Adding / removing \ts{} configurations
 	
-	\item Adding / removing dataset configurations
-	
-	\item Adding / removing query configurations
+	\item Adding / removing benchmark configurations
+		\begin{itemize}
+			\item Adding / removing dataset configurations
+			
+			\item Adding / removing query configurations
+		\end{itemize}
 \end{itemize}
 
 Since the \ac{jms} also manages the running and pending benchmark jobs, the REST API and internal logic for managing these jobs needs to be implemented too.
@@ -103,7 +106,7 @@ Since the \ac{jms} also manages the running and pending benchmark jobs, the REST
 \begin{itemize}
 	\item List running / pending jobs and their status
 	
-	\item Set the status for a job
+	\item Aborting a benchmark job
 \end{itemize}
 
 

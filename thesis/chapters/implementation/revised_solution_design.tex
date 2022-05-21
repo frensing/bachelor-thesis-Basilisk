@@ -19,27 +19,23 @@ Code refactoring is the process of restructuring the source code of an applicati
 \label{sec:management_repo_config_design}
 Section \ref{sec:management_repo_config} already explains the problem of storing and managing repositories, the corresponding hooks and the \ts{}-configurations between the \acf{hcs} and the \acf{jms}.
 
-Different solutions were considered...
-We discussed different possible solutions, of moving functionality or merging the functionality of the two services into one.
-\todo[inline,color=green]{Ist so ein Satz okay der den Denkprozess erklärt? oder nur das Ergebnis erklären?}
+Different solutions were considered for moving the functionality of merging the functionality of the two services.
 
 In the designed solution, the management and storing of the repositories is moved into the \ac{jms}.
 This includes the corresponding REST endpoints and internal logic of the \ac{hcs} that are needed for the management.
-The different repositories (\gh{} and \dockh{}) will then be added over the REST API of the \ac{jms}.
+The different repositories (\gh{} and \dockh{}) are added over the REST API of the \ac{jms}.
 
 In section \ref{sec:review_missing_impl} (\acl{hcs}) it is listed, that the \ac{hcs} is missing the REST endpoints for deleting repositories.
-Since the repository management is moved to the \ac{jms}, these endpoints also need to be added there.
+Since the repository management is moved to the \ac{jms}, these endpoints are also added there.
 \\
 
-The \ac{jms} will communicate with the \ac{hcs} over RabbitMQ message queues.
-Through these messages the \ac{hcs} will get the needed information about the repositories it should observe.
-These include the URL and for \gh{} repositories details like the observed branch and potentially an OAuth token.
+The \ac{jms} communicates with the \ac{hcs} over RabbitMQ message queues.
+Through these messages the \ac{hcs} gets the needed information about the repositories it should observe.
+These include the URL and for \gh{} repositories details like the observed branch and potentially an OAuth token for authenticating with the API.
 
 The functionality used when a new release is found, does not need to be changed.
-When a new release is found, the \ac{hcs} still sends a message containing the relevant information to the \ac{jms}.
+When a new release is found, the \ac{hcs} still sends a message containing the relevant information about the release to the \ac{jms}.
 \\
-
-\todo[inline]{explain REST restructure in Text, graphic only for show}
 
 Figure \ref{fig:repo_management_restructure} shows the restructured REST APIs and the adjusted messaging between \ac{hcs} and \ac{jms}.
 
@@ -74,11 +70,24 @@ This means a \ac{ts} configuration can be used for different observed repository
 
 Lastly the benchmark job and dataset models are cleaned up.
 Now each benchmark specifies a datasets and a query file as well as multiple parameters which are later used by \iguana{} during the execution of an benchmark job.
+Each benchmark is now a single entry in the benchmark table.
 
 The individual repositories and benchmarks are then linked inside a benchmark job.
 
 
+\subsection{Creation and Management of Benchmark Jobs}
+\label{sec:creation_of_benchmark_jobs_design}
+Section \ref{sec:creation_of_benchmark_jobs} describes how the creation of benchmark jobs needed to be changed in the \ac{jms}.
+As explained in section \ref{sec:data_model_restructure_jms}, benchmarks are now stored in a database table and have a single dataset and query file.
+
+When a new message about a new release arrives, the \ac{jms} will now create a benchmark job for each benchmark that is configured in Basilisk.
+\\
+
+To manage the created benchmark jobs, new API-endpoints are created to get a list of all benchmark jobs and to abort jobs that have not yet been started.
+
+
 \subsection{Hooks for Pull Requests in \gh{} Repositories}
+\label{sec:pullrequests_hcs_design}
 Currently the Basilisk platform can not check for new pull request published to an observed repository.
 This functionality would greatly support the continuous benchmarking during the development process of \tsp{}.
 
@@ -106,10 +115,29 @@ The benchmark jobs and the \acl{tbs} does not need to be changed.
 It is not relevant for a benchmark if the repository, from which the docker container is build, is different too the observed repository.
 
 
-\subsection{Missing Implementations}
-\todo[inline,color=green]{Soll ich auch beschreiben, wie ich die fehlenden REST APIs "designed" habe? Oder reicht kurzer Text im Implementation Teil?}
-- JMS extend APIs?
+\subsection{Missing Implementations of the \acl{jms}}
+In this section we describe how the missing implementations are developed that are listed in section \ref{sec:review_missing_impl}.
 
-- TBS design docker setup flow??
+The tasks for the \ac{hcs} are already dealt with in sections \ref{sec:management_repo_config_design} and \ref{sec:pullrequests_hcs_design}.
+Also the tasks for the \ac{jms} regarding the management and aborting of benchmark jobs are dealt with in section \ref{sec:creation_of_benchmark_jobs_design}.
+
+Lastly only the REST APIs for adding and removing the configurations of \tsp{} and benchmarks needed to be added to the \ac{jms}.
+Since the basic functionality of those endpoints are similar to the endpoints for adding and removing repositoriesm, it is straight forward to implement those endpoints.
+The configuration and relationships of the added data models are based on the data model designed in section \ref{sec:data_model_restructure_jms}.
+
+\subsection{\acl{tbs}}
+The implementation of the \acl{tbs} was lacking big parts of its functionality.
+
+The benchmarking process can be divided into two branches for the setup of \tsp{}.
+\tsp{} from \dockh{} repositories are easier to setup than \tsp{} stored in \gh{} repositories.
+For a benchmark of a \ts{} that is configured as a \dockh repository, the only task is to pull the docker image from \dockh{}.
+The creation of a docker image from a \gh{} repository is more complicated and error-prone.
+First the source code of the repository has to be downloaded. 
+Then the Dockerfile needs to be located and a build needs to be initiated.
+
+After the creation of the docker image, the benchmark process is the same for both repository types.
+
+Since the image creation from a \gh{} repository is more complicated we focused on the benchmark process of \dockh{} repositories.
+\\
 
 
