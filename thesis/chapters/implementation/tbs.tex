@@ -3,16 +3,21 @@ The implementation of the \acl{tbs} was lacking big parts of its functionality.
 To explain the implementation steps, we follow the benchmarking process that is used when a new benchmark job is send to the \ac{tbs}.
 \\
 
+The \ac{jms} sends the created benchmark jobs via the message queues of RabbitMq.
+The \ac{tbs} stores these jobs internally in a job queue.
+Benchmark jobs can be manually aborted by the user over the REST API of the \ac{jms}.
+When a benchmark job is aborted, the \ac{jms} will send a message to the \ac{tbs}.
+If the job has not been processed yet, the \ac{tbs} will skip the job when looking for the next job to run.
+\\
 
-\todo[inline]{Waiting for jobs, getting aborted}
-
-First a Docker image needs to be created, that contains the \ts{} that will be benchmarked.
+When a benchmark job is started, the \ac{tbs} needs to create a Docker image first, that contains the \ts{} that will be benchmarked.
 Secondly a container is build and configured from the image.
 The configuration is stored in the data model of the \ac{jms} and is provided with the benchmark job to the \ac{tbs}.
 Then the \iguana{} configuration file is created and the framework gets started.
 After \iguana{} performed the benchmark on the Container, \iguana{} writes the results to the \ac{jsts} and the \ac{tbs} stops and removes the Docker container.
 
 The implementation of this process is explained in the following sections.
+
 
 \subsubsection{Creation of Docker Images}
 The setup and creation of the Docker images containing the \ts{} for a benchmarking job can be divided into two branches.
