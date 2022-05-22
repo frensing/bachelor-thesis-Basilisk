@@ -112,7 +112,7 @@ The message contains the URL, repository and branch name for the \gh{} repositor
 Therefore the message handling in the \ac{hcs} and \ac{jms} needs to be adjusted to handle this new message type.
 
 The benchmark jobs and the \acl{tbs} does not need to be changed.
-It is not relevant for a benchmark if the repository, from which the docker container is build, is different too the observed repository.
+It is not relevant for a benchmark if the repository, from which the Docker container is build, is different too the observed repository.
 
 
 \subsection{Missing Implementations of the \acl{jms}}
@@ -125,19 +125,6 @@ Lastly only the REST APIs for adding and removing the configurations of \tsp{} a
 Since the basic functionality of those endpoints are similar to the endpoints for adding and removing repositoriesm, it is straight forward to implement those endpoints.
 The configuration and relationships of the added data models are based on the data model designed in section \ref{sec:data_model_restructure_jms}.
 
-\subsection{\acl{tbs}}
-The implementation of the \acl{tbs} was lacking big parts of its functionality.
 
-The benchmarking process can be divided into two branches for the setup of \tsp{}.
-\tsp{} from \dockh{} repositories are easier to setup than \tsp{} stored in \gh{} repositories.
-For a benchmark of a \ts{} that is configured as a \dockh repository, the only task is to pull the docker image from \dockh{}.
-The creation of a docker image from a \gh{} repository is more complicated and error-prone.
-First the source code of the repository has to be downloaded. 
-Then the Dockerfile needs to be located and a build needs to be initiated.
-
-After the creation of the docker image, the benchmark process is the same for both repository types.
-
-Since the image creation from a \gh{} repository is more complicated we focused on the benchmark process of \dockh{} repositories.
-\\
-
-
+%%%%%%%%%% Triplestore Benchmark Service
+\input{chapters/implementation/tbs.tex}
