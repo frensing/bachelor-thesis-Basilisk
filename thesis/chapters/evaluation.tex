@@ -5,7 +5,74 @@ This chapter evaluates the added value to the benchmarking process that is creat
 \\
 
 The main goal of the platform is to simplify the process of benchmarking a known \tsp{} and to automate the detection and the execution of a benchmark for new releases of configured \tsp{}.
-Therefore we compare the setup process for a benchmark performed by the Basilisk platform to the process of a benchmark execution using the \iguana{} framework manually.
+Therefore we compare the setup process for a benchmark performed by the Basilisk platform to the process of executing a benchmark manually using the \iguana{} framework.
+
+To Benchmark the capabilities of the platform, we setup continuous benchmarks for two different \tsp{}.
+The first \ts{} is \tentris{}\cite{bigerlTentrisTensorBasedTriple2020} which is developed by the DICE-research group.
+The second \ts{} benchmarked in this thesis is Oxigraph\footnote{\url{https://github.com/oxigraph/oxigraph}}.
+
+\section{Initial Benchmark Setup}
+In this section we compare the steps needed for setting up an initial \ts{} benchmark using the \iguana{} framework.
+In general the execution of a benchmark requires a running \ts{}, the \iguana{} framework and a dataset and query file.
+
+The next two sections describe the initial setup for a manual benchmark run and the recommended process to create a Basilisk configuration for a \ts{}.
+
+
+\subsection{Manual Benchmark Setup}
+\label{sec:eval_manual_benchmark_setup}
+To manually run a benchmark, first the \ts{} needs to be installed and started.
+For a manual testrun this can be done either as a full installation or by using a Docker container.
+Often it is easier to use a ready-to-run docker container that contains all needed dependencies and a running installation of the \ts{}.
+When the \ts{} is running, the dataset needs to be loaded into the \ts{}.
+This can be done either by providing the dataset during startup or by uploading the data through the SPARQL endpoint.
+Lastly the \iguana{} framework needs to be configured by providing a configuration file containing the query file and SPARQL endpoint.
+
+
+\subsection{Basilisk Benchmark Setup}
+When a \ts{} is fully configured in the Basilisk platform, the platform will automatically provide all four requirements for an benchmark, when a new job is created.
+
+To create a working configuration for the platform we recommend to develop and test a local setup first.
+The process to create this initial test setup is similar to the setup of a manual benchmark explained in section \ref{sec:eval_manual_benchmark_setup}.
+But in this case we need to use a Docker container, since Basilisk is only working with a container setup.
+
+The local setup should consist of a \ts{} running in an Docker container, which is also reachable over the SPARQL endpoint.
+To make sure that \iguana{} is able to perform an benchmark, it is also advised to start a short benchmark with a simple \iguana{} configuration.
+When a working setup is found, the setup can be transferred into the Basilisk platform.
+
+
+\subsection{Comparison}
+The initial setup to perform one benchmark for one \ts{} version is the same for the manual process aswell as for the Basilisk process.
+In both scenarios the \ts{} and \iguana{} is setup and run manually.
+Additionally, the configuration needs to be transferred to the Basilisk platform before a benchmark can actually be started.
+
+
+\section{Setup of further Benchmarks}
+The real advantage of the Basilisk platform can be seen when further benchmarks have to be run on an already configured \ts{}.
+This can be a benchmark using a different dataset and query file or it can be a benchmark of a different version of a \ts{}.
+
+Both scenarios are evaluated in the following sections.
+
+\subsection{Using a different Benchmark}
+In the scenario of using a different benchmark, a new dataset and query file are used.
+For the manual setup described in section \ref{sec:eval_manual_benchmark_setup} multiple steps have to be done to update the dataset and query file.
+First The dataset needs to be loaded into the \ts{} and the \iguana{} configuration needs to be adjusted to user the new query file.
+\\
+
+In case of the Basilisk setup, only the new dataset and query file have to be configured in the platform.
+When a new benchmark job is executed, the \iguana{} configuration is automatically generated using the new benchmark setup.
+
+
+\subsection{Benchmarking a new Version}
+If a new version of a \ts{} should be benchmarked, again multiple steps are needed for the manual benchmark process.
+First the new version has to be downloaded and started as a Docker container.
+Then the dataset needs to be loaded into the \ts{} and lastly the \iguana{} configuration needs to be updated to the new SPARQL endpoint location.
+\\
+
+The Basilisk configuration does not need to be changed.
+If a new version has to be benchmarked, either the platform has already noticed the new version and created a new benchmark job automatically or the user can create a manual benchmark job by providing the benchmark that should be used and the \ts{} version.
+The platform will then automatically setup the container and configure \iguana{} to run the benchmark job.
+Of course, this will only work if the other versions of the \ts{} can use the same basic configuration for startup, loading the dataset and providing the SPARQL endpoint.
+
 
 
 
