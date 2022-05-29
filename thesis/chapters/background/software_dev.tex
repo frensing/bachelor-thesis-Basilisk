@@ -54,33 +54,33 @@ The Spring framework and Spring Boot use different software design conventions t
 The package structure found in the source code of the Basilisk microservices is influenced by Spring Boot and tries to represent those different design conventions.
 
 
-\subsection{Software Design Patterns}
-\label{sec:software_design_patterns}
-Software design patterns are used by developers to structure code.
-The idea is that code of different projects share reusable structures of best practices for commonly occurring implementation problems.
-Further more patterns are used to improve the understanding and readability of the code\cite{fowlerPatternsEnterpriseApplication2003}.
+%\subsection{Software Design Patterns}
+%\label{sec:software_design_patterns}
+%Software design patterns are used by developers to structure code.
+%The idea is that code of different projects share reusable structures of best practices for commonly occurring implementation problems.
+%Further more patterns are used to improve the understanding and readability of the code\cite{fowlerPatternsEnterpriseApplication2003}.
+%
+%As stated in section \ref{sec:spring} Spring Boot requires the usage of different software design paradigms and patterns which give the source code a common structure.
+%
+%The following sections introduce design patterns which are used in the source code of the Basilisk platform.
+%
+%
+%\subsubsection{Repository Pattern}
+%The repository pattern is used to abstract the interaction to a data storage.
+%This data storage can be an relational database or a data storage of any kind\cite{fowlerRepositoryPatternHttps, bansalDAOVsRepository2020}.
+%
+%The business logic of an application only interacts with a so called repository without actually knowing which kind of data storage is used.
+%The repository then handles the storage and access of objects with the data storage.
+%
+%This has the advantage that the actual storage system can easily be changed.
+%When the storage system is changed, only the repository class needs to be adjusted.
+%The business logic can still use the same interface of the repository class to access its data.
+%
+%\subsubsection{Domain Driven Design}
+%Domain driven 
+%
+%
+%\todo[inline]{fill}
 
-As stated in section \ref{sec:spring} Spring Boot requires the usage of different software design paradigms and patterns which give the source code a common structure.
-
-The following sections introduce design patterns which are used in the source code of the Basilisk platform.
-
-
-\subsubsection{Repository Pattern}
-The repository pattern is used to abstract the interaction to a data storage.
-This data storage can be an relational database or a data storage of any kind\cite{fowlerRepositoryPatternHttps, bansalDAOVsRepository2020}.
-
-The business logic of an application only interacts with a so called repository without actually knowing which kind of data storage is used.
-The repository then handles the storage and access of objects with the data storage.
-
-This has the advantage that the actual storage system can easily be changed.
-When the storage system is changed, only the repository class needs to be adjusted.
-The business logic can still use the same interface of the repository class to access its data.
-
-\subsubsection{Domain Driven Design}
-Domain driven 
-
-
-\todo[inline]{fill}
-
-\subsection{Stateful / Stateless Microservices}
-\todo[inline]{fill}
+%\subsection{Stateful / Stateless Microservices}
+%\todo[inline]{fill}
