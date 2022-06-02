@@ -9,32 +9,32 @@ Benchmarking of \tsp{} is in general very time consuming and often requires a lo
 Because of this, \tsp{} are often benchmarked late in the development process.
 To improve this time consuming process and to try to automate the benchmark process as much as possible, the development of the Basilisk platform was started.
 The main task of the platform is defined to continuously benchmark \tsp{}.
-This means that the platform is configured once and will then automatically perform benchmarks on the configured \tsp{}.
+This means that the platform is configured once and will then automatically perform benchmarks on new versions of the configured \tsp{}.
 \\
 
 In this thesis we have continued the development of the Basilisk platform.
 The platform is designed to continuously check for new \ts{} releases and to automatically perform benchmarks if a new release is found.
 \ts{} releases could be found either in \dockh{} or \gh{} repositories.
-The full process of checking for new releases and benchmarking new releases is fully implemented for \dockh{} repositories.
+The complete process of checking for new releases and benchmarking new releases is fully implemented for \dockh{} repositories.
 \\
 
 During this thesis we have performed an in-depth architecture and code review of the platform.
 Based on that review we defined implementation tasks for improving and extending the existing code base.
 
-The main improvements were the restructure of the microservices and the used data models.
+The main improvements were the restructure of the microservices and a restructure of the used data models.
 These changes were implemented before starting on the missing implementations of the benchmark service.
 
-Most of the functionality of the benchmark service dealing with the benchmark jobs themselves was not yet implemented.
-The implemented functionality initializes and performs the benchmarks.
-During this thesis the focus was on completing the process for benchmarking \ts{} released in \dockh{} repositories.
+Most of the functionality of the \acl{tbs} was not yet implemented.
+The implemented functionality initializes the \ts{} inside a Docker container and performs the benchmarks.
+During this thesis we focused on completing the benchmark process for \ts{} releases in \dockh{} repositories.
 To provide the same functionality for \gh{} repositories some further steps are needed which are explained in section \ref{sec:future_work}.
 
-To perform the benchmarks the benchmark-independent \iguana{} framework is used.
+To perform the benchmarks, the benchmark-independent \iguana{} framework is used.
 The configuration for \iguana{} is generated from the information stored in the \ts{} configurations inside the Basilisk platform.
 
-Finally the Basilisk platform was deployed on a VM hosted inside the University network.
+Finally the Basilisk platform was deployed on a VM hosted inside the network of the Paderborn University.
 On this deployment the \tentris{} and Oxigraph \tsp{} were configured and multiple versions of both \tsp{} were successfully benchmarked.
-The user only needs to configure the \tsp{} and to start the system.
+The user only needs to start the system and to configure the \tsp{}.
 No further interactions are needed during the benchmark process.
 When the benchmarks are completed, the results are available in the \acl{jsts}.
 
