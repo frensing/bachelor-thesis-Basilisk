@@ -23,17 +23,16 @@ The implementation of this process is explained in the following sections.
 The setup and creation of the Docker images containing the \ts{} for a benchmarking job can be divided into two branches.
 \tsp{} from \dockh{} repositories are easier to setup than \tsp{} stored in \gh{} repositories.
 
-For a benchmark of a \ts{} that is configured as a \dockh repository, the only task is to pull the Docker image from \dockh{} by providing the repository name and owner and the image tag that marks the new release.
+For a benchmark of a \ts{} that is configured as a \dockh{} repository, the only task is to pull the Docker image from \dockh{} by providing the repository name and owner and the image tag that marks the new release.
 
 The creation of a Docker image from a \gh{} repository is more complicated and error-prone.
 First the source code of the repository has to be downloaded. 
 Then the Dockerfile needs to be located and a build needs to be initiated.
+Since the image creation from a \gh{} repository is more complicated, we focused on the benchmark process of \dockh{} repositories.
+As explained in the time schedule (\ref{sec:time_schedule}) the first priority was to implement a fully running process, which was easier to accomplish for a \dockh{} repository.
 \\
 
 After the creation of the Docker image, the benchmark process is the same for both repository types.
-
-Since the image creation from a \gh{} repository is more complicated, we focused on the benchmark process of \dockh{} repositories.
-As explained in the time schedule (\ref{sec:time_schedule}) the first priority was to implement a fully running process, which was easier to accomplish for a \dockh{} repository.
 
 
 \subsubsection{Creating and Starting a Docker Container}

@@ -13,20 +13,25 @@ This functionality was successfully implemented for \dockh{} repositories and te
 
 \section{Future Work}
 The development performed in this thesis has resulted in a running version of the Basilisk platform.
-Currently the benchmark process for \dockh{} is working and benchmarks are successfully performed.
+Currently the benchmark process for \dockh{} repositories is working and benchmarks are successfully performed.
 
-Because the thesis time schedule had to be altered during the writing process, some developments could not have been fully implemented.
+Because the thesis time schedule had to be altered during the implementation process, some functionalities could not been fully implemented.
+Most of these missing functionalities are not strictly relevant to successfully run the platform, but would be a nice-to-have from a user perspective.
+
+These functionalities are for example, a user management system, extended \ts{} configurations, and the Basilisk frontend.
+The user management system could manage different user roles and access rights for the various system functionalities.
+For example some users could be only allowed to view the job status or create a manual job, while admin user could change the \ts{} configurations.
+The extended \ts{} configurations could define a range or list of version for which a configuration is valid for use.
+If for example a newer \ts{} version requires the dataset to be loaded differently, a new configuration could be setup to be used with that version.
+Lastly the Basilisk frontend would provide a fast and easy way to interact with the benchmark results and could also offer a user interface for setting up and managing the configured \ts{} and benchmarks.
+
+The most important functionality that is still missing in the platform is the performing of benchmark jobs on \gh{} repositories.
+As stated in section \ref{sec:time_schedule} the functionalities for observing \gh{} repositories and creating benchmark jobs are already implemented.
+What is still missing is the functionality for downloading the source code from \gh{} and building a Docker image from the source code files.
+After that the process of starting the image and running the benchmark will be the same as with \dockh{} repositories.
 
 
-- Downloading source code form \gh{} and building the Docker container.
 
-- User management
-
-- Frontend
-
-- sturdier exception handling
-
-- defining for which version a \ts{} can be used (\eg{} v1.0.0 - v.1.1.1)
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%

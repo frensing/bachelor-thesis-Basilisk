@@ -15,22 +15,22 @@ An introduction to benchmarking in general is given in section \ref{sec:benchmar
 \section{Synthetic Benchmarks}
 \label{sec:synthetic_benchmarks}
 Synthetic benchmarks are benchmarks where the data is artificially generated.
-Often the generation is influenced by real world scenarios to generate data comparable to real world datasets\cite{guoLUBMBenchmarkOWL2005}.
+Often the generation is influenced by real world scenarios to generate data comparable to real world datasets \cite{guoLUBMBenchmarkOWL2005}.
 These synthetic benchmarks have the advantage, that they can be generated to arbitrary sizes.
 The main point of criticism for synthetic benchmarks is that the generated data can easily become too abstract.
 Often the generated scenarios are criticized for not being representative of a real world scenario \cite{saleemFEASIBLEFeatureBasedSPARQL2015}.
 \\
 
-The LUBM Benchmark\cite{guoLUBMBenchmarkOWL2005} is a synthetic benchmark which focuses on the reasoning and inferencing capabilities of the \tsp{} under test.
+The LUBM Benchmark \cite{guoLUBMBenchmarkOWL2005} is a synthetic benchmark which focuses on the reasoning and inferencing capabilities of the \tsp{} under test.
 The test data is located in the university domain and can be generated to arbitrary size.
 The benchmark provides fourteen extensional queries that represent and test a variety of properties.
 
-Another synthetic benchmark is SP²Bench\cite{schmidtSP2BenchSPARQLPerformance2008}.
+Another synthetic benchmark is SP²Bench \cite{schmidtSP2BenchSPARQLPerformance2008}.
 The data generated stems from the DBLP scenario. The benchmark generation tries to accomplish that the key characteristics and word distributions are close to the original DBLP dataset.
-The provided queries are mostly complex and the mean size of the result sets is above one million\cite{saleemFEASIBLEFeatureBasedSPARQL2015}.
+The provided queries are mostly complex and the mean size of the result sets is above one million \cite{saleemFEASIBLEFeatureBasedSPARQL2015}.
 They also test for SPARQL features like union and optional graph patterns.
 
-The WatDiv suite generates a synthetic benchmarks and consists of multiple tools\cite{alucDiversifiedStressTesting2014}.
+The WatDiv suite generates a synthetic benchmarks and consists of multiple tools \cite{alucDiversifiedStressTesting2014}.
 First the data generator which generates scalable and customizable datasets based on the WatDiv data model schema.
 The query template generator generates diverse query templates which will then be used to generate actual queries.
 The queries get generate with the query generator which instantiates the templates with actual RDF terms from the generated dataset.
@@ -40,9 +40,9 @@ The benchmark only focuses on SELECT queries that does not make use of the union
 \section{Benchmarks Using Real Data}
 \label{sec:benchmarks_real_data}
 Benchmarks using real data are benchmarks for which copies of real datasets and queries are used to perform a benchmarks.
-The real queries are often taken from query logs of \tsp{} and the datasets are based on real datasets\cite{morseyDBpediaSPARQLBenchmark2011, saleemFEASIBLEFeatureBasedSPARQL2015}.
+The real queries are often taken from query logs of \tsp{} and the datasets are based on real datasets \cite{morseyDBpediaSPARQLBenchmark2011, saleemFEASIBLEFeatureBasedSPARQL2015}.
 
-FEASIBLE is a benchmark generation framework which generates datasets and queries from provided query logs\cite{saleemFEASIBLEFeatureBasedSPARQL2015}.
+FEASIBLE is a benchmark generation framework which generates datasets and queries from provided query logs \cite{saleemFEASIBLEFeatureBasedSPARQL2015}.
 This has the advantage that the data used for the benchmark could stem from queries about a specialized real world topics rather than an abstract synthetic model.
 FEASIBLE can also generate queries for the other SPARQL query types beside SELECT.
 
@@ -53,14 +53,14 @@ Benchmark execution frameworks, as the name suggests, help in the execution of d
 Their tasks are to load the data, execute the test queries and measure the defined metrics to evaluate the system under test.
 
 Many benchmarks provide their own execution environments, which makes the comparison between benchmarks difficult.
-Often those environments are specialized for the given benchmark and are not easily interchangeable\cite{conradsIguanaGenericFramework2017}.
+Often those environments are specialized for the given benchmark and are not easily interchangeable \cite{conradsIguanaGenericFramework2017}.
 
 The next sections focus on benchmark-independent execution frameworks.
 
 
 \subsection{IGUANA}
 \label{sec:iguana}
-\iguana{} is a SPARQL, benchmark-independent execution framework\cite{conradsIguanaGenericFramework2017}.
+\iguana{} is a SPARQL, benchmark-independent execution framework \cite{conradsIguanaGenericFramework2017}.
 The framework gets a dataset and a set of queries and operations as input and then uses the SPARQL endpoint of the \ts{} to load and update the data, and to perform the benchmark queries.
 It allows the measurement of the performance during loading and updating of data as well as parallel requests to the \ts{}.
 \iguana{} is independent of any benchmarks which allows it to run in different configurations and with various existing benchmarks and datasets.
@@ -69,9 +69,9 @@ The benchmark process is highly configurable by passing a configuration file to 
 
 
 \subsection{HOBBIT Framework}
-The \textsc{Hobbit} framework is a distributed benchmarking platform designed to be able to scale up benchmarking for big linked-data applications\cite{roderHOBBITPlatformBenchmarking}.
+The \textsc{Hobbit} framework is a distributed benchmarking platform designed to be able to scale up benchmarking for big linked-data applications \cite{roderHOBBITPlatformBenchmarking}.
 It is a big framework which needs to be deployed on a local cluster or online computing services like Azure\footnote{\url{https://azure.microsoft.com/}} or AWS\footnote{\url{https://aws.amazon.com/}}.
-The deployment of the platform and deploying new benchmarks to the platform can be challenging for new users of the system\cite{roderHOBBITPlatformBenchmarking}.
+The deployment of the platform and deploying new benchmarks to the platform can be challenging for new users of the system \cite{roderHOBBITPlatformBenchmarking}.
 The data for benchmarks has to be stored in docker containers
 Or it needs to be generated or downloaded before an benchmark, which increases the complexity of the system.
 The data is then send over message queues to the benchmarked system.

@@ -8,7 +8,7 @@ Since this thesis focuses mostly on the implementation and deployment of the Bas
 Knowledge Graphs are graphs intended to represent knowledge of the real world or smaller scenarios.
 The knowledge stored in Knowledge Graphs is modeled in a graph-based structure. 
 Nodes represent entities which are connected by various types of relations, represented by labeled edges in the graph.
-This has the benefit to represent complex relations between different nodes and edges\cite{hoganKnowledgeGraphs2021}.
+This has the benefit to represent complex relations between different nodes and edges \cite{hoganKnowledgeGraphs2021}.
 
 The simplest knowledge graph consists of three elements.
 The subject entity, the object entity and the labeled edge between them describing their relation.
@@ -32,7 +32,7 @@ The special kind of database developed to store knowledge graphs are called \tsp
 
 \subsection{RDF}
 \label{sec:rdf}
-The Resource Description Framework (RDF) is a framework for describing data and knowledge in a standardized way\cite{RDFConceptsAbstract}. 
+The Resource Description Framework (RDF) is a framework for describing data and knowledge in a standardized way \cite{RDFConceptsAbstract}. 
 It is part of the W3C standard.
 The information is written down as subject-predicate-object triples, representing the basic structure that is also present in Knowledge Graphs (\ref{sec:knowledge_graphs}).
 The elements of those triples can be IRIs (internationalized resource identifiers), blank nodes or datatyped literals.
@@ -56,14 +56,14 @@ dbr:Germany dbo:capital dbr:Berlin .
 \subsection{\ts{}}
 \label{sec:triplestores}
 \tsp{} are a special kind of database developed to easily store and access knowledge graphs through queries.
-Example of \tsp{} are \tentris{}\cite{bigerlTentrisTensorBasedTriple2020}, GraphDB\footnote{\url{https://graphdb.ontotext.com/}}, Virtuoso\footnote{\url{https://virtuoso.openlinksw.com/}}, or Jena TDB\footnote{\url{https://jena.apache.org/documentation/tdb/}}.
+Example of \tsp{} are \tentris{} \cite{bigerlTentrisTensorBasedTriple2020}, GraphDB\footnote{\url{https://graphdb.ontotext.com/}}, Virtuoso\footnote{\url{https://virtuoso.openlinksw.com/}}, or Jena TDB\footnote{\url{https://jena.apache.org/documentation/tdb/}}.
 
 This thesis focuses on \tsp{} that have a SPAQRL endpoind and accept SPARQL queries, since the used benchmark framework \iguana{} is using the SPARQL endpoint to perform benchmarks (see section \ref{sec:iguana}).
 
 
 \subsection{SPARQL}
 \label{sec:sparql}
-SPARQL (SPARQL Protocol and RDF Query Language)\cite{harrisSPARQLQueryLanguage} is a query language for manipulating and retrieving RDF data stored in \tsp{}.
+SPARQL (SPARQL Protocol and RDF Query Language) \cite{harrisSPARQLQueryLanguage} is a query language for manipulating and retrieving RDF data stored in \tsp{}.
 Just like RDF, SPARQL is part of the W3C recommendations for technologies in the semantic web.
 
 The syntax for SPARQL queries looks similar to the SQL syntax, since its main parts are also a \texttt{SELECT} clause stating which variables to query for, following by an \texttt{WHERE} clause giving restrictions and conditions.

@@ -26,17 +26,24 @@ The time schedule of the thesis had to be altered to allow for more time designi
 Before starting this thesis it was hard to quantify how much implementation work was still needed.
 After the in-depth architecture review (\ref{sec:architecture_review}) it became clear that the implementation workload was greater than anticipated in the thesis proposal.
 
-Therefore an alteration of the time schedule and work plan for the thesis is needed.
+Therefore an alteration of the time schedule and work plan for the thesis was needed.
 Further we discuss the task priorities.
-First priority is the development of the core functionality for the platform.
-This means the main services are required to successfully register new versions of observed repositories, perform benchmark jobs and save the measured metrics to a \ts{}.
+First priority had the development of the core functionality for the platform.
+We wanted to be able to perform the full process for at least one repository type.
+This means the main services are required to successfully check for new versions of observed repositories, create benchmark jobs for theses releases. 
+Then the platform has to perform these jobs on the \tsp{} and save the measured result metrics to a \ts{}.
 
-
-With a lower priority, functionalities like user management (\ref{sec:review_user_management}) will be dealt with.
-The least priority has the Basilisk frontend (\ref{sec:basilisk_frontend}), since it is not necessarily needed to run the platform.
+Functionalities like user management (\ref{sec:review_user_management}) were marked with a lower priority and were unfortunately not developed in this thesis.
+The least priority had the Basilisk frontend (\ref{sec:basilisk_frontend}), since it is not necessarily needed to run the platform.
 Secondly it introduces more programming languages and frameworks to the project.
 Currently time schedule for the thesis can not provide enough time to fully acquire the understanding for this technology stack.
 Therefore the frontend will not be further implemented and deployed in the context of this thesis.
+
+In the end one more functionality had to be left unimplemented.
+This is the performing of benchmark jobs on \gh{} repositories.
+Although the platform is able to observe various configurations of \gh{} repositories and can create benchmark jobs for such, the benchmark process for theses repositories introduced a lot more complexity that we were not able to implement during this thesis.
+
+As stated above the first priority was to implement the full Basilisk process for \dockh{} repositories, which we were able to do.
 
 
 %%%%%%%%%% SOLUTION DESIGN

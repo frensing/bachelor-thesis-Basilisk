@@ -12,7 +12,7 @@ The platform automates the detection of a new release of a configured \ts{} and 
 \\
 
 To evaluate the capabilities of the platform, we setup continuous benchmarks for two different \tsp{}.
-The first \ts{} is \tentris{}\cite{bigerlTentrisTensorBasedTriple2020} which is developed by the DICE-research group.
+The first \ts{} is \tentris{} \cite{bigerlTentrisTensorBasedTriple2020} which is developed by the DICE-research group.
 The second \ts{} benchmarked in this thesis is Oxigraph\footnote{\url{https://github.com/oxigraph/oxigraph}}.
 
 The \tsp{} are chosen because they both are available as a ready-to-run docker image on \dockh{}.
@@ -119,16 +119,26 @@ Only the new benchmark files are registered in case a new benchmark should be pe
 In contrast to this, the manual setup requires a lot of manual changes.
 Each change to a running configuration, basically requires the user to setup the benchmark configuration from the start.
 Either the \ts{} is downloaded and setup again, or the \iguana{} configuration needs manual changes.
+This results in a lot of manual work that is often similar to tasks what have been done for other setups.
 
 
 \section{Basilisk Evaluation}
+The idea of the Basilisk platform is focused on the use-case of automatically benchmarking \tsp{} through their SPARQL endpoints.
+The Basilisk platform fulfills this task of automating the benchmark process of configured \ts{} repositories stored on \dockh{}.
+
 The comparison of the Basilisk platform to the manual benchmark process shows the advantage of using Basilisk to perform multiple benchmarks on different \ts{} versions.
 
 The initial setup of a \ts{} for the Basilisk platform is more complicated and a little more restricted than the manual setup.
-But as soon as the second benchmark is performed, the Basilisk platform has no manual setup time by the user.
+But as soon as the second benchmark is performed, the Basilisk platform has no manual setup time by the user and the whole process is already faster than a manual approach.
 Once the \ts{} is configured, either the benchmark jobs are created automatically by the system, or the user can manually create a job.
+The setup and execution of the benchmark job is then done completely automatic by the platform and no further user interaction is needed.
+\\
 
 Using the system we were able to perform 16 benchmarks on different \tentris{} versions using the SWDF dataset in just one hour.
+It would not been possible to benchmark all versions manually by downloading and setting up the Docker images in a similar time.
+
+In figures \ref{fig:pAvgQPS} and \ref{fig:QMPH} we visualized two measured metrics that were measured during the performed benchmarks of the \tentris{} and Oxigraph versions.
+All benchmark results are available through the SPARQL endpoint of the Fuseki \ts{} in which the results are written after each benchmark.
 
 \begin{figure}[tbph]
 	\centering
@@ -148,8 +158,6 @@ Using the system we were able to perform 16 benchmarks on different \tentris{} v
 
 %This is also the first time the Oxigraph \ts{} is benchmarked independently ??
 
-The idea of the Basilisk platform is focused on the small use-case of automatically benchmarking configured \tsp{} through their SPARQL endpoints.
-Basilisk fulfills its task of automating the benchmark process of known \ts{}.
 
 
 
