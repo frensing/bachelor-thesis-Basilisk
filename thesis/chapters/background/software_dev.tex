@@ -55,7 +55,33 @@ The package structure found in the source code of the Basilisk microservices is 
 
 
 \subsection{Docker}
-\todo[inline]{Docker explanation}
+Docker is a platform for containerizing applications for development and deployment \cite{DockerOverviewHttps2022}.
+Following the idea of a shipping container used on freight, a Docker container can be installed on any system that supports the Docker technology.
+That means that there are no other software requirements than the Docker engine to run a container.
+Inside the container all requirements and libraries are installed that are needed by the application that is run in the container.
+
+The application can only reach the outside of the container and, vice-versa, can be reached from the outside, if the required ports are published.
+This encapsulates the application from unwanted accesses, as well as protects the host system from malicious software that could be run inside a container.
+\\
+
+A Docker container is always build from a Docker image.
+An Docker image is a read-only template to create a Docker container with the running application inside.
+
+There are two main ways to create a Docker image.
+First it could simply be downloaded from \dockh{}.
+The second option is to build the Docker image from a Dockerfile.
+A Dockerfile\footnote{\url{https://docs.docker.com/engine/reference/builder/}} contains the instructions for building a Docker image.
+The Dockerfile first references the base image which is used to build the image.
+This could be for example a standard Ubuntu distribution.
+After the base image, the Dockerfile defines which commands are run or which files should be copied from the host system into the image.
+
+After the image is build or downloaded from \dockh{}, the container can be further configured before it gets started.
+For example ports can be published to make the service running inside the container available to the outside.
+\\
+
+Often multiple containers are needed to deploy a complete service platform.
+For example the Basilisk platform consist of three containerized services, a RabbitMQ container and a container running Fuseki.
+For these situations Docker offers Docker Compose\footnote{\url{https://docs.docker.com/compose/}} files, which help to orchestrate multiple containers in a Docker network.
 
 
 
