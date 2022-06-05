@@ -10,12 +10,12 @@ In the sections RabbitMQ and Spring (\ref{sec:rabbitmq}, \ref{sec:spring}) we gi
 Benchmarks for databases consist of a dataset and a set of operations or queries which will be performed on the dataset.
 These operations are designed to simulate a particular type of workload to the system.
 The goal of a benchmark is to measure different metrics for a better comparison between various systems.
-Metrics used for databases and \tsp{} are \eg, number of executed queries and queries per second \cite{IguanaDocumentationMetrics}.
+Metrics used for databases and \tsp{} are \eg, number of executed queries and queries per second \cite{IguanaDocsMetrics}.
 
 A distinction is made between micro and macro benchmarks.
 Micro benchmarks focus on testing the performance of single components of a system.
 Macro benchmarks test the performance of a system as a whole.
-The benchmarks performed by the Basilisk platform will only be macro benchmarks.
+%The benchmarks performed by the Basilisk platform will only be macro benchmarks.
 
 \subsection{Microservice}
 \label{sec:microservice}
@@ -24,20 +24,21 @@ All Microservices can be individually deployed and managed.
 They interact via messages through a defined protocol with other services.
 The idea is that individual microservices can be combined like modules to create any desired complex software.
 
+A common example is online shop system that is divided into microservices.
+One service of this system could be a service managing the customer data, like contact details and shipping addresses.
+If another service needs this information, it can send a request to this service over defined protocols.
+
+
 \subsection{Microservice Architecture}
 \label{sec:microservice_architecture}
 A microservice architecture is a way of designing a software application as a set of microservices which interact with each other to provide the designed functionality \cite{dragoniMicroservicesYesterdayToday2017, MicroservicesHttpsMartinfowler}.
 The functionality of the application gets split up into microservices which interact only through a defined message protocol.
 This allows for a distributed system in which the individual service could be implemented in different programming languages and also could be located on different servers.
 
-
-\subsection{RabbitMQ}
-\label{sec:rabbitmq}
-RabbitMQ is an open-source message broker that supports different messaging protocols like MQTT, STOMP and AMQP.
-The system supports a variety of asynchronous messaging techniques \eg, delivery acknowledgment, flexible routing \cite{RabbitMQWebsiteHttps}.
-
-In the context of the Basilisk platform we only need the most basic functionalities of message queues with a single producer and a single consumer.
-Since RabbitMQ is a widely used message broker, the Spring framework (\ref{sec:spring}) already comes with the needed libraries to work with the RabbitMQ system.
+Extending the example from section \ref{sec:microservice} we have a microservice architecture with three services.
+One service manages the customer data, a second service manages the incoming orders, and the last service manages the shipping process.
+When an order arrives in the order service, it will send a message to the shipping service, with the order items.
+The shipping service will then request the customers shipping address from the customer-data service.
 
 
 \subsection{Spring and Spring Boot}
@@ -48,10 +49,18 @@ Spring Boot\footnote{\url{https://spring.io/projects/spring-boot}} is an extensi
 This means that the implementation of applications has to follow common design conventions that replace a need for configuration files for many standard scenarios.
 Spring Boot also comes with preconfigured standard libraries for the Spring platform to ease the development for many standard applications like web-apps or microservices.
 
-Spring and Spring Boot come with different annotations to decorate classes and methods that configure these automatically and tell the Spring framework how to handle and interact with their objects.
+Spring and Spring Boot uses different annotations to decorate classes and methods.
+These annotations configure the classes automatically and tell the Spring framework how to handle and interact with their objects.
 
 The Spring framework and Spring Boot use different software design conventions to structure the code and classes.
-The package structure found in the source code of the Basilisk microservices is influenced by Spring Boot and tries to represent those different design conventions.
+
+
+\subsection{RabbitMQ}
+\label{sec:rabbitmq}
+RabbitMQ\footnote{\url{https://www.rabbitmq.com/}} is an open-source message broker that supports different messaging protocols like MQTT, STOMP and AMQP.
+The system supports a variety of asynchronous messaging techniques \eg, delivery acknowledgment, and flexible routing.
+
+Since RabbitMQ is a widely used message broker, the Spring framework (\ref{sec:spring}) already comes with the needed libraries to work with the RabbitMQ system.
 
 
 \subsection{Docker}

@@ -52,11 +52,11 @@ Figure \ref{fig:jms_db_schema} shows the current database schema.
 The schema has logical errors and is in parts incomplete.
 Following we list some inconsistencies and possible problems that could arise:
 \begin{itemize}
-	\item The only way to identify an repository as \gh{} or \dockh{} repo is to check in the \ts{} configuration.
-		If a repository is wrongly assigned to the false type, the resulting benchmark job would not be executable, because \gh{} and \dockh{} needs to be handled differently during a benchmark as explained in section \ref{sec:ts_benchmarking_service}.
+	\item The only way to identify a repository as \gh{} or \dockh{} repo is to check in the \ts{} configuration.
+		If a repository is assigned to the false type, the resulting benchmark job would not be executable, because \gh{} and \dockh{} need to be handled differently during a benchmark as explained in section \ref{sec:ts_benchmarking_service}.
 	
 	\item Each \ts{} configuration can have exactly one \gh{} or \dockh{} repository.
-		This means for every repository a new \ts{} configuration needs to be added.
+		This means that for every repository a new \ts{} configuration needs to be added.
 		There would be less duplicate configurations if multiple repositories could point to the same configuration.
 		For example, a hook could be set up to observe a \gh{} repository for new releases and another hook could be set up to observe the same \gh{} repo for pull requests.
 		In this case both hooks should use the same \ts{} configuration, since it is the same \ts{} which gets benchmarked.
@@ -115,19 +115,19 @@ Since the \ac{jms} also manages the running and pending benchmark jobs, the REST
 The implementation of the \acl{tbs} currently contains only a few classes for the data models, and simple structures of service classes.
 Big parts of the logic still needs to be implemented.
 
-The existing classes are mainly for storing and manipulating data models, configurations and basic message queue interactions.
+Existing classes are mainly for storing and manipulating data models, configurations and basic message queue interactions.
 These classes do not carry much functionality.
 
-The main functionality needs to be implemented.
+The main functionality of the \ac{tbs} needs to be implemented.
 This consists of setting up the Docker containers which contain the \tsp{} for benchmarking:
 
 \begin{itemize}
 	\item Pulling Code from \gh{}
 	\item Pulling images form \dockh{}
 	
-	\item building Docker containers from Dockerfiles / images
+	\item Building Docker containers from Dockerfiles / images
 	
-	\item connection to the Docker containers
+	\item Connection to the Docker containers
 \end{itemize}
 
 Then the usage of the \iguana{} framework needs to be implemented.
@@ -144,7 +144,7 @@ Lastly, after the performing of a benchmark, the cleanup of the Docker container
 \subsection{User Management and Security}
 \label{sec:review_user_management}
 The Basilisk platform has no user management or any kind of access control implemented.
-Currently the REST APIs of the services allow interactions with any user.
+Currently, the REST APIs of the services allow interactions with any user.
 If the platform is needed to run publicly, some user management and further security measures are needed.
 That includes registering new users and user groups with different user rights.
 Some users should only be able to read benchmark results, while other should be able to create repositories and abort jobs.

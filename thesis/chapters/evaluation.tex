@@ -5,14 +5,14 @@ This chapter evaluates the Basilisk platform based on the developments described
 We will compare the manual benchmarking process using \iguana{} to the use of the Basilisk platform and evaluate the added value the platform creates for the benchmarking process.
 \\
 
-The main goal of the platform is to simplify the process of benchmarking a known \tsp{}. 
+The main goal of the platform is to simplify the process of benchmarking known \tsp{}. 
 The platform automates the detection of a new release of a configured \ts{} and  automates the execution of a benchmark job for the new releases.
 %This was not accomplished by any other platform before.
 %In our research we did not find a solution that offers the possibility of running automated benchmarks
 \\
 
 To evaluate the capabilities of the platform, we setup continuous benchmarks for two different \tsp{}.
-The first \ts{} is \tentris{} \cite{bigerlTentrisTensorBasedTriple2020} which is developed by the DICE-research group.
+The first \ts{} is \tentris{}\footnote{\url{https://tentris.dice-research.org/}} which is developed by the DICE-research group.
 The second \ts{} benchmarked in this thesis is Oxigraph\footnote{\url{https://github.com/oxigraph/oxigraph}}.
 
 The \tsp{} are chosen because they both are available as a ready-to-run docker image on \dockh{}.
@@ -44,20 +44,22 @@ The only difference is in the upload of the dataset.
 
 
 \subsection{Basilisk Benchmark Setup}
-When a \ts{} is fully configured in the Basilisk platform, the platform will automatically provide all four requirements for an benchmark, when a new benchmark job is automatically created.
+When a \ts{} is fully configured in the Basilisk platform, the platform will automatically provide all four requirements for a benchmark, when a new benchmark job is automatically created.
 
 To create a working \ts{} configuration for the platform we recommend to develop and test a local setup first.
 The process to create this initial test setup is similar to the setup of a manual benchmark explained in section \ref{sec:eval_manual_benchmark_setup}.
 But in this case we need to use a Docker container, since Basilisk is only working with a container setup.
 
-The local setup should consist of a \ts{} running in an Docker container, which is also reachable over the SPARQL endpoint.
-To make sure that \iguana{} is able to perform an benchmark, it is also advised to start a short benchmark with a simple \iguana{} configuration.
+The local setup should consist of a \ts{} running in a Docker container, which is also reachable over the SPARQL endpoint.
+To make sure that \iguana{} is able to perform a benchmark, it is also advised to start a short benchmark with a simple \iguana{} configuration.
 
-The \iguana{} configurations for the tested \tsp{} will slightly differ for loading the dataset to the \ts{}.
+The \iguana{} configurations for the tested \tsp{} will slightly differ for loading the dataset into the \ts{}.
 In case of \tentris{}, the dataset is configured to be provided inside the Docker container to be loaded on startup.
 For Oxigraph, the dataset does not need to be provided inside the Docker container.
-For the situation that the dataset needs to be loaded after the startup, \iguana{} needs a pre-hook-script that will be executed before the real benchmark starts.
-This script needs to be implemented and tested with the local test setup.
+In this situation the dataset needs to be loaded after the startup.
+\iguana{} needs to be configured with a pre-hook-script that will be executed before the real benchmark starts.
+The task of the pre-hook-script is to take a dataset file as input and upload the file to the running Oxigraph instance.
+This script should be implemented and tested with the local test setup.
 
 When a working setup is found, the setup can be transferred into the Basilisk platform.
 Again, the setup for \tentris{} and Oxigraph are mostly the same.
@@ -86,7 +88,7 @@ Both scenarios are evaluated in the following sections.
 \subsection{Using a different Benchmark}
 In the scenario of using a different benchmark, a new dataset and query file are used.
 For the manual setup described in section \ref{sec:eval_manual_benchmark_setup} multiple steps have to be done to update the dataset and query file.
-First The dataset needs to be loaded into the \ts{}.
+First, the dataset needs to be loaded into the \ts{}.
 This can be done by using the SPARQL endpoint to upload the data or by restarting the \ts{} and providing the new dataset at startup.
 For \tentris{} it is usually easier to restart the \ts{} with the new dataset as a argument on startup.
 Secondly the the \iguana{} configuration needs to be adjusted to use the new query file.
@@ -95,13 +97,13 @@ Secondly the the \iguana{} configuration needs to be adjusted to use the new que
 In case of the Basilisk setup, only the new dataset and query file have to be configured in the platform.
 When a new benchmark job is executed, the \iguana{} configuration is automatically generated using the new benchmark setup.
 If the load-script for Oxigraph is setup correctly the new dataset will also be automatically uploaded to the \ts{}.
-To perfrom the new benchmark, a manual job can be started by sending a request to the API of the \ac{jms}
+To perform the new benchmark, a manual job can be started by sending a request to the API of the \ac{jms}.
 
 
 \subsection{Benchmarking a new Version}
 If a new version of a \ts{} should be benchmarked, again multiple steps are needed for the manual benchmark process.
-First the new version has to be downloaded and started as a Docker container.
-Then the dataset needs to be loaded into the \ts{} and lastly the \iguana{} configuration needs to be updated to the new SPARQL endpoint location.
+The first step is to download the new version and started as a Docker container.
+Then, the dataset needs to be loaded into the \ts{} and lastly the \iguana{} configuration needs to be updated to the new SPARQL endpoint location.
 \\
 
 The Basilisk configuration does not need to be changed.
@@ -117,7 +119,7 @@ As seen in the description of the above scenarios, the \ts{} configuration of th
 Only the new benchmark files are registered in case a new benchmark should be performed.
 
 In contrast to this, the manual setup requires a lot of manual changes.
-Each change to a running configuration, basically requires the user to setup the benchmark configuration from the start.
+Each change to a running configuration basically requires the user to setup the benchmark configuration from the start.
 Either the \ts{} is downloaded and setup again, or the \iguana{} configuration needs manual changes.
 This results in a lot of manual work that is often similar to tasks what have been done for other setups.
 
@@ -128,7 +130,7 @@ The Basilisk platform fulfills this task of automating the benchmark process of 
 
 The comparison of the Basilisk platform to the manual benchmark process shows the advantage of using Basilisk to perform multiple benchmarks on different \ts{} versions.
 
-The initial setup of a \ts{} for the Basilisk platform is more complicated and a little more restricted than the manual setup.
+Setting up the Basilisk platform is initially more complicated and a little more restricted than a manual setup of a \ts{}.
 But as soon as the second benchmark is performed, the Basilisk platform has no manual setup time by the user and the whole process is already faster than a manual approach.
 Once the \ts{} is configured, either the benchmark jobs are created automatically by the system, or the user can manually create a job.
 The setup and execution of the benchmark job is then done completely automatic by the platform and no further user interaction is needed.
@@ -137,21 +139,25 @@ The setup and execution of the benchmark job is then done completely automatic b
 Using the system we were able to perform 16 benchmarks on different \tentris{} versions using the SWDF dataset in just one hour.
 It would not been possible to benchmark all versions manually by downloading and setting up the Docker images in a similar time.
 
-In figures \ref{fig:pAvgQPS} and \ref{fig:QMPH} we visualized two measured metrics that were measured during the performed benchmarks of the \tentris{} and Oxigraph versions.
-All benchmark results are available through the SPARQL endpoint of the Fuseki \ts{} in which the results are written after each benchmark.
+In figures \ref{fig:QMPH} and \ref{fig:pAvgQPS} we visualized two measured metrics that were measured during the performed benchmarks of the \tentris{} and Oxigraph versions.
+Figure \ref{fig:QMPH} shows the number of query mixes that are executed per our on the different \ts{} versions.
+The average of the penalized queries per second are shown in figure \ref{fig:pAvgQPS}.
+A query gets penalized if it failed, \eg{} if the timeout is hit, or the \ts{} returned a wrong return code.
 
-\begin{figure}[tbph]
-	\centering
-	\includegraphics[width=.8\textwidth]{figures/pAvgQPS.pdf}
-	\caption{Measured pAvgQPS of the benchmarked \ts{} versions}
-	\label{fig:pAvgQPS}
-\end{figure}
+All benchmark results are available through the SPARQL endpoint of the Fuseki \ts{} in which the results are written after each benchmark.
 
 \begin{figure}[tbph]
 	\centering
 	\includegraphics[width=.8\textwidth]{figures/QMPH.pdf}
 	\caption{Measured QMPH of the benchmarked \ts{} versions}
 	\label{fig:QMPH}
+\end{figure}
+
+\begin{figure}[tbph]
+	\centering
+	\includegraphics[width=.8\textwidth]{figures/pAvgQPS.pdf}
+	\caption{Measured pAvgQPS of the benchmarked \ts{} versions}
+	\label{fig:pAvgQPS}
 \end{figure}
 
 

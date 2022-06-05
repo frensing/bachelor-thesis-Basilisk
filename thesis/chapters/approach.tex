@@ -6,7 +6,9 @@
 % - gerne in die Tiefe gehen
 %%%%%%%%%%%%%%%%%%%%%%%
 
-In this chapter we give an overview of the current software architecture on which the Basilisk platform is build.
+In this chapter we give an overview of the design of the Basilisk platform.
+We will explain the different processes used in the platform in section \ref{sec:main_services}.
+In section \ref{sec:architecture_review} we will analyze and review the current software architecture and implementation status of the Basilisk platform.
 \\
 
 The purpose of the Basilisk platform is to provide an easy way to continuously perform benchmarks on \tsp{}.
@@ -15,7 +17,7 @@ Releases of those \tsp{} are then published on \gh{} or as a Docker image on \do
 The idea is that the Basilisk platform will automatically check for a new release of a registered \ts{} repository and will then perform benchmarks on this release.
 
 Benchmarks are also relevant during the development process.
-An benchmark performed automatically for \eg{} a new pull request is a good way to estimate if a newly developed feature will impact the performance of the \ts{} before the changes are merged.
+A benchmark performed automatically for \eg{} a new pull request is a good way to estimate if a newly developed feature will impact the performance of the \ts{} before the changes are merged.
 
 On the Basilisk platform a user can register a \ts{} for a continuous benchmark by setting up a hook to the repository on \gh{} or \dockh{}.
 The repository will then be observed by the Basilisk platform.
@@ -27,7 +29,7 @@ The measured results of the benchmark will be stored in a \ts{} and are then ava
 
 The basic architecture pattern of the Basilisk platform is the microservice architecture (see chapter \ref{sec:microservice_architecture} for a short description). 
 This means that the platform is divided into multiple services on which the workload and the different tasks are divided.
-The services could be run on different hardware systems and they interact with each other via a message queue system.
+The services could be run on different hardware systems and they interact with each other via the RabbitMQ (\ref{sec:rabbitmq}) message queue system.
 \\
 
 \section{Programming Language and Frameworks}
@@ -37,7 +39,6 @@ The services use Java version 17 and Spring Boot version 2.6.6.
 
 The package structure used for the implementation of the services is similar in all three services.
 It is strongly influenced by the structure recommended for the Spring Boot framework.
-The Spring and Spring Boot framework are shortly described in chapter \ref{sec:spring}.
 
 
 %%%%%% MAIN SERVICES
@@ -48,14 +49,17 @@ The Spring and Spring Boot framework are shortly described in chapter \ref{sec:s
 \section{Basilisk Frontend}
 \label{sec:basilisk_frontend}
 The Basilisk platform can be extended with a web frontend.
-The frontend is implemented using JavaScript and the JavaScript Framework Vue.js
+The frontend is implemented using JavaScript and the JavaScript Framework Vue.js.
 
 The idea is that the frontend functions as a graphical interface for the REST APIs of the three services explained in  section \ref{sec:main_services}.
 The user can setup new repositories, \tsp{} and datasets.
-Further the user can request information about current benchmark jobs, abort jobs or remove pending jobs.
-Lastly the frontend can request and visualize the benchmark results stored in the \acl{jsts}.
+Further, the user can request information about current benchmark jobs, abort jobs or remove pending jobs.
+Lastly, the frontend can request and visualize the benchmark results stored in the \acl{jsts}.
 
 
 
 %%%%%% ARCHITECTURE REVIEW
 \input{chapters/approach/architecture_review.tex}
+
+
+

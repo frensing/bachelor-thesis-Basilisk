@@ -1,19 +1,21 @@
 \section{Semantic Web Topics}
 \label{sec:sw_topics}
-The following topics come from the research area of Semantic Web.
+The following topics stem from the research area of Semantic Web.
+Semantic Web is the research field that tries to represent information on the internet in a way that makes it processable by computers \cite{hitzlerSemanticWebGrundlagen2008}.
+
 Since this thesis focuses mostly on the implementation and deployment of the Basilisk platform, these topics are mostly introduced to give a basic understanding to the context in which the Basilisk platform will be used.
 
 \subsection{Knowledge Graphs} 
 \label{sec:knowledge_graphs}
-Knowledge Graphs are graphs intended to represent knowledge of the real world or smaller scenarios.
+Knowledge Graphs are graphs intended to represent knowledge of the real world or small scenarios.
 The knowledge stored in Knowledge Graphs is modeled in a graph-based structure. 
 Nodes represent entities which are connected by various types of relations, represented by labeled edges in the graph.
 This has the benefit to represent complex relations between different nodes and edges \cite{hoganKnowledgeGraphs2021}.
 
-The simplest knowledge graph consists of three elements.
+The simplest Knowledge Graph consists of three elements.
 The subject entity, the object entity and the labeled edge between them describing their relation.
 This atomic data entity is called triple.
-In figure \ref{fig:example-knowledge-graph} a simple example of a knowledge graph is shown.
+In figure \ref{fig:example-knowledge-graph} a simple example of a Knowledge Graph is shown.
 
 \begin{figure}[tbph]
 	\centering
@@ -22,12 +24,12 @@ In figure \ref{fig:example-knowledge-graph} a simple example of a knowledge grap
 	\label{fig:example-knowledge-graph}
 \end{figure}
 
-This knowledge graph could be extended in all directions.
+This Knowledge Graph could be extended in all directions.
 For example the "Berlin" entity could get an edge labeled "population" which would be pointing to the population size of Berlin.
 
 Since a graph structure is hard to store in a classic relational database a different type of storage is needed.
 The special kind of database developed to store knowledge graphs are called \tsp{}.
-\tsp{} are explained in section \ref{sec:triplestores}.
+\tsp{} will be explained in section \ref{sec:triplestores}.
 
 
 \subsection{RDF}
@@ -35,11 +37,11 @@ The special kind of database developed to store knowledge graphs are called \tsp
 The Resource Description Framework (RDF) is a framework for describing data and knowledge in a standardized way \cite{RDFConceptsAbstract}. 
 It is part of the W3C standard.
 The information is written down as subject-predicate-object triples, representing the basic structure that is also present in Knowledge Graphs (\ref{sec:knowledge_graphs}).
-The elements of those triples can be IRIs (internationalized resource identifiers), blank nodes or datatyped literals.
+The elements of those triples can be internationalized resource identifiers (IRIs), blank nodes or datatyped literals.
 
 RDF graphs can be encoded with different syntax styles.
 A popular syntax is TURTLE \cite{RDFTurtle} which is a compact way of writing down a RDF graph structure.
-Using the example of section \ref{sec:knowledge_graphs}, the knowledge graph would be represented with the TURTLE syntax seen in figure \ref{fig:rdf_turtle}.
+Using the example of section \ref{sec:knowledge_graphs}, the knowledge graph would be represented with the TURTLE syntax as seen in figure \ref{fig:rdf_turtle}.
 The first two lines of the TURTLE document define abbreviations for the used IRIs so that the triple in line three is more readable.
 
 \begin{figure}[tbph]
@@ -55,8 +57,13 @@ dbr:Germany dbo:capital dbr:Berlin .
 
 \subsection{\ts{}}
 \label{sec:triplestores}
-\tsp{} are a special kind of database developed to easily store and access knowledge graphs through queries.
-Example of \tsp{} are \tentris{} \cite{bigerlTentrisTensorBasedTriple2020}, GraphDB\footnote{\url{https://graphdb.ontotext.com/}}, Virtuoso\footnote{\url{https://virtuoso.openlinksw.com/}}, or Jena TDB\footnote{\url{https://jena.apache.org/documentation/tdb/}}.
+\tsp{} are a special kind of database developed to easily store and access knowledge graphs through queries \cite{rusherTriplestoresHttpsWww}.
+They differ to relational databases, by being purposefully build to only store and access data in set of triples.
+Data is accessed through the query language SPARQL, which gets introduced in section \ref{sec:sparql}.
+Often bigger datasets can be imported or exported using RDF or other syntax.
+
+Example of \tsp{} are \tentris{}\footnote{\url{https://tentris.dice-research.org/}}, GraphDB\footnote{\url{https://graphdb.ontotext.com/}}, Virtuoso\footnote{\url{https://virtuoso.openlinksw.com/}}, or Jena TDB\footnote{\url{https://jena.apache.org/documentation/tdb/}}.
+Since \tentris{} is actively developed, by our research group, we wil focus our tests and evaluations of the platform on this \ts{}.
 
 This thesis focuses on \tsp{} that have a SPAQRL endpoind and accept SPARQL queries, since the used benchmark framework \iguana{} is using the SPARQL endpoint to perform benchmarks (see section \ref{sec:iguana}).
 
@@ -66,14 +73,13 @@ This thesis focuses on \tsp{} that have a SPAQRL endpoind and accept SPARQL quer
 SPARQL (SPARQL Protocol and RDF Query Language) \cite{harrisSPARQLQueryLanguage} is a query language for manipulating and retrieving RDF data stored in \tsp{}.
 Just like RDF, SPARQL is part of the W3C recommendations for technologies in the semantic web.
 
-The syntax for SPARQL queries looks similar to the SQL syntax, since its main parts are also a \texttt{SELECT} clause stating which variables to query for, following by an \texttt{WHERE} clause giving restrictions and conditions.
+The syntax for SPARQL queries looks similar to the SQL syntax, since its main parts are also a \texttt{SELECT} clause stating which variables to query for, followed by a \texttt{WHERE} clause giving restrictions and conditions.
 
 Queries can contain optional graph patterns, conjunctions, disjunctions, as well as aggregation functions.
 These extension can help formulate more complex queries.
 
 Following the example from section \ref{sec:knowledge_graphs} and \ref{sec:rdf} there are two example SPARQL queries in figure \ref{fig:sparql_example}.
 Executed against the DBPedia SPARQL endpoint\footnote{\url{https://dbpedia.org/sparql}} the following results can be found:
-
 The first example query requests the variable which matches the \texttt{WHERE} clause searching for the capital of Germany, which is \texttt{dbr:Berlin}.
 The second query requests all relationships that can be found between Germany and Berlin, which will return \texttt{dbo:capital}, which we expected, but also \texttt{dbo:wikiPageLink}, which means that there is a link from the Wikipage of Germany to the Wikipage of Berlin.
 

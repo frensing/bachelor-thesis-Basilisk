@@ -6,7 +6,7 @@
 
 This chapter reviews the state of the art of \ts{} benchmarking.\\
 
-Several benchmarks have been proposed and developed to test \tsp{}.
+Several benchmarks have been proposed and developed to test \tsp{} \cite{alucDiversifiedStressTesting2014, guoLUBMBenchmarkOWL2005, morseyDBpediaSPARQLBenchmark2011, saleemFEASIBLEFeatureBasedSPARQL2015, schmidtSP2BenchSPARQLPerformance2008}.
 Many of these existing benchmarks focus on different goals and scenarios.
 Section \ref{sec:synthetic_benchmarks} and \ref{sec:benchmarks_real_data} explain the different benchmark types used to benchmark \tsp{}.
 Section \ref{sec:benchmark_frameworks} gives a short introduction to benchmark execution frameworks.
@@ -19,27 +19,29 @@ Often the generation is influenced by real world scenarios to generate data comp
 These synthetic benchmarks have the advantage, that they can be generated to arbitrary sizes.
 The main point of criticism for synthetic benchmarks is that the generated data can easily become too abstract.
 Often the generated scenarios are criticized for not being representative of a real world scenario \cite{saleemFEASIBLEFeatureBasedSPARQL2015}.
+In the following paragraphs we introduce three benchmarks that are often mentioned when considering synthetic \ts{} benchmarks.
 \\
 
 The LUBM Benchmark \cite{guoLUBMBenchmarkOWL2005} is a synthetic benchmark which focuses on the reasoning and inferencing capabilities of the \tsp{} under test.
 The test data is located in the university domain and can be generated to arbitrary size.
-The benchmark provides fourteen extensional queries that represent and test a variety of properties.
+Fourteen extensional queries are provided that represent and test a variety of properties.
 
 Another synthetic benchmark is SP²Bench \cite{schmidtSP2BenchSPARQLPerformance2008}.
-The data generated stems from the DBLP scenario. The benchmark generation tries to accomplish that the key characteristics and word distributions are close to the original DBLP dataset.
+The data generated stems from the DBLP scenario. 
+During the generation process, the generated key characteristics and word distributions are chosen to match the distributions of the original DBLP dataset.
 The provided queries are mostly complex and the mean size of the result sets is above one million \cite{saleemFEASIBLEFeatureBasedSPARQL2015}.
 They also test for SPARQL features like union and optional graph patterns.
 
 The WatDiv suite generates a synthetic benchmarks and consists of multiple tools \cite{alucDiversifiedStressTesting2014}.
-First the data generator which generates scalable and customizable datasets based on the WatDiv data model schema.
+First tool is the data generator which generates scalable and customizable datasets based on the WatDiv data model schema.
 The query template generator generates diverse query templates which will then be used to generate actual queries.
-The queries get generate with the query generator which instantiates the templates with actual RDF terms from the generated dataset.
+The queries get generated with the query generator which instantiates the templates with actual RDF terms from the generated dataset.
 For each template multiple queries can be generated.
 The benchmark only focuses on SELECT queries that does not make use of the union and optional pattern features of SPARQL.
 
 \section{Benchmarks Using Real Data}
 \label{sec:benchmarks_real_data}
-Benchmarks using real data are benchmarks for which copies of real datasets and queries are used to perform a benchmarks.
+Benchmarks using real data are benchmarks for which copies of real datasets and queries are used.
 The real queries are often taken from query logs of \tsp{} and the datasets are based on real datasets \cite{morseyDBpediaSPARQLBenchmark2011, saleemFEASIBLEFeatureBasedSPARQL2015}.
 
 FEASIBLE is a benchmark generation framework which generates datasets and queries from provided query logs \cite{saleemFEASIBLEFeatureBasedSPARQL2015}.
@@ -61,7 +63,7 @@ The next sections focus on benchmark-independent execution frameworks.
 \subsection{IGUANA}
 \label{sec:iguana}
 \iguana{} is a SPARQL, benchmark-independent execution framework \cite{conradsIguanaGenericFramework2017}.
-The framework gets a dataset and a set of queries and operations as input and then uses the SPARQL endpoint of the \ts{} to load and update the data, and to perform the benchmark queries.
+The framework gets a dataset and a set of queries and operations as input and then uses the SPARQL endpoint of the \ts{} to load and update the data, as well as to perform the benchmark queries.
 It allows the measurement of the performance during loading and updating of data as well as parallel requests to the \ts{}.
 \iguana{} is independent of any benchmarks which allows it to run in different configurations and with various existing benchmarks and datasets.
 This includes synthetic benchmarks (\ref{sec:synthetic_benchmarks}) and benchmarks based on real data (\ref{sec:benchmarks_real_data}).
@@ -72,9 +74,8 @@ The benchmark process is highly configurable by passing a configuration file to 
 The \textsc{Hobbit} framework is a distributed benchmarking platform designed to be able to scale up benchmarking for big linked-data applications \cite{roderHOBBITPlatformBenchmarking}.
 It is a big framework which needs to be deployed on a local cluster or online computing services like Azure\footnote{\url{https://azure.microsoft.com/}} or AWS\footnote{\url{https://aws.amazon.com/}}.
 The deployment of the platform and deploying new benchmarks to the platform can be challenging for new users of the system \cite{roderHOBBITPlatformBenchmarking}.
-The data for benchmarks has to be stored in docker containers
-Or it needs to be generated or downloaded before an benchmark, which increases the complexity of the system.
-The data is then send over message queues to the benchmarked system.
+The data for benchmarks has to be stored in docker containers or it needs to be generated or downloaded before a benchmark, which increases the complexity of the system.
+The data is then sent over message queues to the benchmarked system.
 \\
 
 With the Basilisk platform we try to develop a specialized solution for continuous benchmarking of \tsp{} which does not need the technical complexity present in the \textsc{Hobbit} framework.

@@ -13,9 +13,9 @@ This chapter documents the design and implementation of the explained shortcomin
 The following sections of the thesis differ slightly from the proposed time schedule and task list, which was originally planned in the thesis proposal.
 In Section \ref{sec:time_schedule} we explain why we had to alter the original thesis schedule based on the findings of the architecture review in section \ref{sec:architecture_review}.
 
-
 In section \ref{sec:revised_solution_design} we describe how the missing parts of the platform are designed and implemented.
 Possible problems or new insights found during this process are explained and dealt with.
+Lastly we explain how the platform is deployed in section \ref{sec:deployment}.
 
 
 
@@ -27,16 +27,17 @@ Before starting this thesis it was hard to quantify how much implementation work
 After the in-depth architecture review (\ref{sec:architecture_review}) it became clear that the implementation workload was greater than anticipated in the thesis proposal.
 
 Therefore an alteration of the time schedule and work plan for the thesis was needed.
-Further we discuss the task priorities.
+
+Further, we discuss task priorities.
 First priority had the development of the core functionality for the platform.
 We wanted to be able to perform the full process for at least one repository type.
-This means the main services are required to successfully check for new versions of observed repositories, create benchmark jobs for theses releases. 
+This means that the main services are required to successfully check for new versions of observed repositories, create benchmark jobs for theses releases. 
 Then the platform has to perform these jobs on the \tsp{} and save the measured result metrics to a \ts{}.
 
 Functionalities like user management (\ref{sec:review_user_management}) were marked with a lower priority and were unfortunately not developed in this thesis.
 The least priority had the Basilisk frontend (\ref{sec:basilisk_frontend}), since it is not necessarily needed to run the platform.
-Secondly it introduces more programming languages and frameworks to the project.
-Currently time schedule for the thesis can not provide enough time to fully acquire the understanding for this technology stack.
+Secondly, it introduces more programming languages and frameworks to the project.
+The time schedule for the thesis can not provide enough time to fully acquire the understanding for this technology stack.
 Therefore the frontend will not be further implemented and deployed in the context of this thesis.
 
 In the end one more functionality had to be left unimplemented.

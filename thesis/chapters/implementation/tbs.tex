@@ -3,7 +3,7 @@ The implementation of the \acl{tbs} was lacking big parts of its functionality.
 To explain the implementation steps, we follow the benchmarking process that is used when a new benchmark job is send to the \ac{tbs}.
 \\
 
-The \ac{jms} sends the created benchmark jobs via the message queues of RabbitMq.
+The \ac{jms} sends the created benchmark jobs via the message queues of RabbitMQ.
 The \ac{tbs} stores these jobs internally in a job queue.
 Benchmark jobs can be manually aborted by the user over the REST API of the \ac{jms}.
 When a benchmark job is aborted, the \ac{jms} will send a message to the \ac{tbs}.
@@ -11,9 +11,9 @@ If the job has not been processed yet, the \ac{tbs} will skip the job when looki
 \\
 
 When a benchmark job is started, the \ac{tbs} needs to create a Docker image first, that contains the \ts{} that will be benchmarked.
-Secondly a container is build and configured from the image.
+Afterwards, a container is build and configured from the image.
 The configuration is stored in the data model of the \ac{jms} and is provided with the benchmark job to the \ac{tbs}.
-Then the \iguana{} configuration file is created and the framework gets started.
+Then, the \iguana{} configuration file is created and the framework gets started.
 After \iguana{} performed the benchmark on the Container, \iguana{} writes the results to the \ac{jsts} and the \ac{tbs} stops and removes the Docker container.
 
 The implementation of this process is explained in the following sections.
@@ -25,10 +25,10 @@ The setup and creation of the Docker images containing the \ts{} for a benchmark
 
 For a benchmark of a \ts{} that is configured as a \dockh{} repository, the only task is to pull the Docker image from \dockh{} by providing the repository name and owner and the image tag that marks the new release.
 
-The creation of a Docker image from a \gh{} repository is more complicated and error-prone.
+The creation of a Docker image from a \gh{} repository is more complicated than simply downloading an image from \dockh{}.
 First the source code of the repository has to be downloaded. 
-Then the Dockerfile needs to be located and a build needs to be initiated.
-Since the image creation from a \gh{} repository is more complicated, we focused on the benchmark process of \dockh{} repositories.
+Then the Dockerfile needs to be located and a build needs to be initiated, which often requires additional parameters and configurations.
+Because of this increased complexity, we focused on the benchmark process of \dockh{} repositories.
 As explained in the time schedule (\ref{sec:time_schedule}) the first priority was to implement a fully running process, which was easier to accomplish for a \dockh{} repository.
 \\
 
@@ -38,7 +38,7 @@ After the creation of the Docker image, the benchmark process is the same for bo
 \subsubsection{Creating and Starting a Docker Container}
 After the Docker image is available, a Docker container is configured and started.
 
-In the container the \ts{} will run that is the target of the benchmark job.
+The \ts{} which is the target of the benchmark job will be run in the Docker container.
 For a successful benchmark the \ts{} needs to be accessible from the \ac{tbs} and also needs access to the dataset to calculate the results for the benchmark queries.
 
 To be accessible from outside the container, the container is configured to expose and listen to specific ports on the network.
@@ -46,7 +46,7 @@ Through these ports the SPARQL endpoint will be accessible, which \iguana{} uses
 
 To give the \ts{} access to the dataset of the benchmark, the dataset can be provided in two different ways.
 Either it is available inside the Docker container through a published volume provided by the server.
-Then the \ts{} can use the file directly from the file system.
+In this case the \ts{} can use the file directly from the file system.
 The second option is to provide the dataset by uploading it through the SPARQL endpoint of the running \ts{}.
 For this option a shell script needs to be provided by the \ts{} configuration.
 This script is executed by the \iguana{} framework before the benchmark is started.
@@ -62,7 +62,7 @@ This contains the name of the dataset, the address of the SPARQL endpoint and th
 The benchmark configuration contains the location of the query file and possible time limits or thread counts for the \iguana{}-workers.
 Lastly the connection for the \ac{jsts} is provided.
 This connection is used after the benchmark to write the benchmark results to the storage.
-This configuration gets encoded in JSON and is written to a temporary file on the server.
+The \iguana{} configuration gets encoded in JSON and is written to a temporary file on the server.
 \\
 
 The next step is to start the benchmark by starting the \iguana{} framework with the created benchmark configuration.
