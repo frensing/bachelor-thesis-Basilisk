@@ -16,7 +16,7 @@
 \author{Fabian Rensing}
 \thesistype{Bachelor's Thesis}
 \degree{Bachelor of Science}
-\researchgroup{DICE Group}
+\researchgroup{DICE}
 \supervisor{Prof. Dr. Axel-Cyrille Ngonga Ngomo}
 \submissiondate{\today{}}
 
@@ -44,16 +44,37 @@
 %%%%%%%%%
 \input{body}
 
+
 % include the bibliography, and add it as a chapter the table of contents
 \newpage
+\pagestyle{plain}
 \addcontentsline{toc}{chapter}{Bibliography}
 \bibliographystyle{plain}
 \bibliography{../library.bib}
+
+\newpage
+\addcontentsline{toc}{section}{List of Acronyms}
+\section*{List of Acronyms}
+\begin{acronym}[WWWWW]
+	\acro{hcs}[HCS]{Hooks Checking Service}
+	\acro{jms}[JMS]{Job Managing Service}
+	\acro{tbs}[TBS]{Triplestore Benchmarking Service}
+	\acro{jrq}[JRQ]{Job Request Queue}
+	\acro{bjq}[BJQ]{Benchmark Job Queue}
+	\acro{jsts}[JSTS]{Job Storage Triplestore}
+	\acro{lubm}[LUBM]{Lehigh University Benchmark}
+	\acro{sp2bench}[SP²Bench]{SPARQL Performance Benchmark}
+	\acro{watdiv}[WatDiv]{Waterloo SPARQL Diversity Test Suite}
+	\acro{rdf}[RDF]{Resource Description Framework}
+	\acro{iri}[IRI]{Internationalized Resource Identifier}
+	%\acro{pAvgQPS}{penalized average} 
+\end{acronym}
 
 
 %%%%%%%%%
 % the appendices of your thesis go into file appendix.tex
 %%%%%%%%%
+\newpage
 \appendix
 \input{appendix}
 

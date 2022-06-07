@@ -10,9 +10,7 @@ In this section we describe the designed solutions for the shortcomings listed i
 \label{sec:impl_code_refactor}
 As stated in section \ref{sec:code_refactor}, an in-depth code refactoring was recommended.
 Before starting to design and implement new functionality, we performed an in-depth refactoring and restructuring of the code base.
-This created a clean code base on which all future implementations can be built on.
-
-Code refactoring is the process of restructuring the source code of an application without changing its functionality \cite{fowlerRefactoringImprovingDesign2019a}.
+This resulted a clean code base on which all future implementations can be built on.
 
 
 \subsection{Management of Repositories and Configurations}
@@ -115,7 +113,7 @@ The benchmark jobs and the \acl{tbs} did not need to be changed.
 It is not relevant for a benchmark if the repository, from which the Docker container is built, is different from the observed repository.
 
 
-\subsection{Missing Implementations of the \acl{jms}}
+\subsection{Missing Implementations in the \acl{jms}}
 In this section we describe how the missing implementations are developed that are listed in section \ref{sec:review_missing_impl}.
 
 The tasks for the \ac{hcs} are already dealt with in sections \ref{sec:management_repo_config_design} and \ref{sec:pullrequests_hcs_design}.

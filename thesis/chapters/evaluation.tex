@@ -45,6 +45,7 @@ The only difference is in the upload of the dataset.
 
 \subsection{Basilisk Benchmark Setup}
 When a \ts{} is fully configured in the Basilisk platform, the platform will automatically provide all four requirements for a benchmark, when a new benchmark job is automatically created.
+A instance of the \ts{} is started, the \iguana{} framework is configured, the dataset- and the query files are loaded.
 
 To create a working \ts{} configuration for the platform we recommend to develop and test a local setup first.
 The process to create this initial test setup is similar to the setup of a manual benchmark explained in section \ref{sec:eval_manual_benchmark_setup}.
@@ -69,7 +70,7 @@ For Oxigraph, the custom load script is provided and the Basilisk configuration 
 
 \subsection{Comparison of Initial Setups}
 The initial setup to perform one benchmark for one \ts{} version is nearly the same for the manual process aswell as for the Basilisk process.
-In both scenarios the \ts{} and \iguana{} is setup and run manually.
+In both scenarios the \ts{} and \iguana{} are setup and run manually.
 The configuration of the Basilisk platform is more complicated for the case of loading the dataset through the SPARQL endpoint, since a custom load-script is needed.
 Additionally, the configuration needs to be transferred to the Basilisk platform before a benchmark can actually be started.
 
@@ -100,7 +101,7 @@ If the load-script for Oxigraph is setup correctly the new dataset will also be 
 To perform the new benchmark, a manual job can be started by sending a request to the API of the \ac{jms}.
 
 
-\subsection{Benchmarking a new Version}
+\subsection{Benchmarking a new Triplestore Version}
 If a new version of a \ts{} should be benchmarked, again multiple steps are needed for the manual benchmark process.
 The first step is to download the new version and started as a Docker container.
 Then, the dataset needs to be loaded into the \ts{} and lastly the \iguana{} configuration needs to be updated to the new SPARQL endpoint location.
@@ -146,10 +147,12 @@ A query gets penalized if it failed, \eg{} if the timeout is hit, or the \ts{} r
 
 All benchmark results are available through the SPARQL endpoint of the Fuseki \ts{} in which the results are written after each benchmark.
 
+\todo[inline]{overview benchmark SWDF, triplecount subjects predicates objects; latest rechts}
+
 \begin{figure}[tbph]
 	\centering
 	\includegraphics[width=.8\textwidth]{figures/QMPH.pdf}
-	\caption{Measured QMPH of the benchmarked \ts{} versions}
+	\caption{Measured QMPH of the benchmarked \ts{} versions, using the SWDF}
 	\label{fig:QMPH}
 \end{figure}
 

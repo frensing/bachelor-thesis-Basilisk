@@ -62,12 +62,17 @@ The system supports a variety of asynchronous messaging techniques \eg, delivery
 
 Since RabbitMQ is a widely used message broker, the Spring framework (\ref{sec:spring}) already comes with the needed libraries to work with the RabbitMQ system.
 
-\todo[inline]{describe what guarantees the message types we use provide}
 In the context of the Basilisk platform we only need the most basic functionalities of message queues with a single producer and a single consumer.
+RabbitMQ ensures a reliable delivery of messages by using acknowledgments and confirms of the consumers\footnote{\url{https://www.rabbitmq.com/reliability.html}}.
+If a message is lost in transit or the consumer encounters an exception, the message is not deleted from the queue.
+Only if the consumer sends a confirmation to the RabbitMQ broker, the message is deleted from the queue.
+The RabbitMQ broker also ensures durability of the queues and messages through file backups.
+
+
 
 
 \subsection{Docker}
-Docker is a platform for containerizing applications for development and deployment \cite{DockerOverviewHttps2022}.
+Docker\footnote{\url{https://docs.docker.com/get-started/overview/}} is a platform for containerizing applications for development and deployment.
 Following the idea of a shipping container used on freight, a Docker container can be installed on any system that supports the Docker technology.
 That means that there are no other software requirements than the Docker engine to run a container.
 Inside the container, all requirements and libraries are installed that are needed by the application that is run in the container.

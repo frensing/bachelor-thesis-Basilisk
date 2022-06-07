@@ -15,8 +15,8 @@ To easily store and query the data in knowledge graphs, some specialized knowled
 The special kind of database developed to store knowledge graphs are called \tsp{}. \\
 
 Since knowledge graphs can contain huge amounts of data of various structure which can also be subject to many changes, \tsp{} need to be able to handle many different workloads.
-Some scenarios need to handle huge amounts of data being added, while others need to handle a lot of changes on the current data.
-\todo[inline]{more example for things that can be different, e.g. simple ontologies vs complex}
+Some scenarios need to handle huge amounts of data being added.
+In other scenarios the \tsp{} need to handle a lot of changes on the stored data or the \tsp{} have to deal with complex ontologies or complex SPARQL queries.
 To better test and compare \tsp{} in these diverse scenarios, benchmarks are performed to allow an appropriate comparison between different \tsp{} \cite{saleemHowRepresentativeSPARQL2019}.
 
 In general, benchmarks are used to measure and compare the performance of computer programs and systems with a defined set of operations.
@@ -34,17 +34,18 @@ To better compare different benchmarks, benchmark-independent frameworks have be
 \iguana{} is such a benchmark-independent execution framework \cite{conradsIguanaGenericFramework2017}, that can be used to measure the performance of \tsp{} under several parallel query request.
 Currently the benchmark execution framework needs to be configured and started manually for every new benchmark configuration.
 
-Basilisk\footnote{\url{https://github.com/dice-group/Basilisk}} is a continuous benchmarking service for \tsp{} which internally uses \iguana{} to perform the benchmarks.
-The idea is that the Basilisk service will check automatically (continuously) for new versions of a given \tsp{} and starts benchmarks with the \iguana{} framework.
+In this thesis, we continue the development of the Basilisk\footnote{\url{https://github.com/dice-group/Basilisk}} platform and deploy an instance to a virtual machine.
+The development of the platform was started by members of the DICE Research Group, but was not completely finished.
+
+Basilisk is a continuous benchmarking service for \tsp{} which internally uses \iguana{} to perform the benchmarks.
+The idea is that the Basilisk service will check continuously for new versions of a given \tsp{} and automatically starts benchmarks with the \iguana{} framework.
 Further, it should be possible to start custom benchmarks on demand.
 If a new version is found in a provided \gh{} or \dockh{} repository, Basilisk should automatically setup a benchmark environment and start a benchmarking suite.
 
-\todo[inline]{continue paragraph}
 This means that developers do not have to worry about performing benchmarks at different stages of development.
-
-\todo[inline]{it not clear yet that basilisk was there before. 
-	also it would be better to move the notion of the previous code basis above the Basilisk is a cont... paragraph (or at its start).}
-In this thesis, we continue the development of the Basilisk platform and deploy an instance to a publicly available virtual machine.
+A developer has to configure a repository containing a \ts{} once in the Basilisk platform.
+With every new release, a new benchmark will be performed without the need of further interaction by the developer.
+When the developer is interested in the benchmarking results he can send a SPARQL query to the result storage \ts{}.
 \\
 
 The thesis is structured as follows:
