@@ -1,14 +1,17 @@
 \section{Main Services}
 \label{sec:main_services}
-The next sections explain the idea of the three main services of the Basilisk platform, namely \acl{hcs} (section \ref{sec:hooks_checking_service}), \acl{jms} (section \ref{sec:jobs_managing_service}), and \acl{tbs} (section \ref{sec:ts_benchmarking_service}).
+The next sections explain the idea of the three main services of the Basilisk platform, namely \acf{hcs} (section \ref{sec:hooks_checking_service}), \acf{jms} (section \ref{sec:jobs_managing_service}), and \acf{tbs} (section \ref{sec:ts_benchmarking_service}).
 
-This explanation follows the flow of actions that happen while a user is configuring a continuous benchmark and the process that happens when a benchmark is initiated.
-This is based on code review and analysis, and information and diagrams provided by former developers of the project.
+This explanation follows the flow of actions that happen while a user is configuring a continuous benchmark and the process that happens when a benchmark is initiated. This is based on code review and analysis, and information and diagrams provided by former developers of the project.
 \\
 
 Figure \ref{fig:basilisk_high_level_design_approach} gives an overview of the three microservices of the Basilisk platform.
 It shows the most important messages sent between the services and the interactions with \gh{} and \dockh{}.
 The services and the messages send between them will be explained in the following sections.
+\todo[inline]{es sollte noch klar abgegrenz werden, dass 
+	1. user per rest-API bzw. endpoint, in jedem fall aber stateless per http mit dem server comunizieren
+	2. intern per rabbitMQ kommuniziert wird
+	3. Anfragen von Komponenten an registries per API/download, also auch wieder per http durchgeführt werden}
 \begin{figure}[tbph]
 	\centering
 	\includegraphics[width=1\textwidth]{figures/high-level-design-approach.pdf}
@@ -22,13 +25,14 @@ The services and the messages send between them will be explained in the followi
 \label{sec:hooks_checking_service}
 The main task of the \ac{hcs} is to observe \gh{} and \dockh{} repositories of \tsp{} for new releases or changes.
 
-When a user wants to set up a new continuous benchmark, the \ac{hcs} needs to be informed which repository (\gh{} or \dockh{}) has to be observed for changes.
-This happens through REST API calls to the \ac{hcs} providing the repository name and owner.
+When a user wants to set up a new continuous benchmark, a \ts{} is registered at the \ac{hcs} by defining the repository (\gh{} or \dockh{}) that has to be observed for changes.
+This happens through REST API calls to the \ac{hcs} providing the repository's name and owner.
 The \ac{hcs} will then create a hook for the repository to get noticed about changes.
 A hook is in general a piece of code or software that attaches itself to a software component to intercept messages and react to those messages, \eg, with function calls.
 In the case of the \ac{hcs} the hooks can be seen as bookmarks for the repositories.
-Each hook stores the latest known version of an repository.
+Each hook stores the latest known version of a repository.
 The service will query the saved repositories regularly and compare their current version to the version stored in the hook.
+\todo[inline]{hooks mit polling umgesetzt}
 
 When the \ac{hcs} notices a new release for a repository, it updates the corresponding hook to the newest version.
 Then it sends a message about the new version to the \aclp{jrq} from which the \acl{jms} retrieves the message.
@@ -38,7 +42,7 @@ Then it sends a message about the new version to the \aclp{jrq} from which the \
 The \ac{hcs} is controlled by the user over a REST API.
 
 The continuous checking of the repositories can be started and stopped over a REST endpoint.
-The other most important endpoints are for adding and deleting \gh{} and \dockh{} repositories.
+The other endpoints are for adding and deleting \gh{} and \dockh{} repositories.
 Figure \ref{fig:rest_apis_approach_hcs} shows these endpoints.
 \begin{figure}[tbph]
 	\centering
@@ -47,45 +51,45 @@ Figure \ref{fig:rest_apis_approach_hcs} shows these endpoints.
 	\label{fig:rest_apis_approach_hcs}
 \end{figure}
 
-The communication between the \ac{hcs} and the \acl{jms} is done over RabbitMQ (\ref{sec:rabbitmq}) messages, over the \aclp{jrq}.
+The communication between the \ac{hcs} and the \acl{jms} is done with RabbitMQ (\ref{sec:rabbitmq}) messages, by using the \aclp{jrq}.
 The messages contain different events that can occur in the \ac{hcs}.
-For example an event is sent when adding or deleting a repository, or a new release is detected.
+For example, an event is sent when adding or deleting a repository, or a new release is detected.
 
 
 \subsection{\acl{jms}}
 \label{sec:jobs_managing_service}
-The main task for the \acf{jms} is to create benchmark jobs, when a new release was found by the \ac{hcs}.
-Other important functionality of the \ac{jms} is the management of the configurations needed for the benchmarks.
-Lastly the \ac{jms} manages the status for running and pending jobs sent to the \acl{tbs}.
+The \acf{jms} has two core functions: first, it manages configurations of \tsp{}.
+These are used for its second function, the creation and management of benchmarks jobs.
+Lastly, the \ac{jms} manages the status for running and pending jobs sent to the \ac{tbs}.
 \\
 
 There are three configuration types needed for a benchmark job.
 First, the platform needs the configuration for the \ts{}.
-This configuration includes for example the SPARQL endpoint as well as the user and password for the connection to the endpoint.
+This configuration includes, for example, the SPARQL endpoint as well as the user and password for the connection to the endpoint.
 The \iguana{} framework needs these arguments to properly connect to the \ts{} under test \cite{IguanaDocsConfiguration}.
 
 Secondly, the platform needs configurations for datasets and query files.
 The dataset configuration simply consists of the dataset name and the URL for the location of the dataset on the server.
 The query configuration consists similarly of a name for the queries and the URL for the location of the query file.
 
-These configurations are added over the REST API of the \ac{jms}.
+All of the named configurations are managed over the REST API of the \ac{jms}.
 \\
 
-When the \ac{hcs} sends an event regarding a new release of a repository, the \ac{jms} will create benchmark jobs for the new release.
+When the \ac{jms} receives an event from the HCS regarding a new release of a repository, the \ac{jms} will create benchmark jobs for the new release.
 A benchmark job consists of the current version of the repository, a query configuration and a dataset.
 For each event multiple benchmark jobs are created.
 Each benchmark job has a query file and a dataset that is used for the benchmark.
 
-These benchmark jobs will then be send to the \acl{tbs} over the \acl{bjq}.
+These benchmark jobs will then be send to the \ac{tbs} over the \acl{bjq}.
 
-The management of the running and pending benchmark jobs is done over the REST API of the \ac{jms}.
-When an endpoint is triggered, \eg, to abort a pending job, the \ac{jms} sends an event to the \acl{tbs}.
+The management of the running and pending benchmark jobs is done by the REST API of the \ac{jms}.
+When an endpoint is triggered, \eg, to abort a pending job, the \ac{jms} sends an event to the \ac{tbs}.
 
 
 \subsubsection{API and Messaging}
 \label{sec:jobs_api}
-The \ac{jms} communicates with the \ac{hcs} and the \acl{tbs} over RabbitMQ message queues.
-Repository events are received from the \ac{hcs} and benchmark job events are send to the \acl{tbs} over the \ac{bjq}.
+The \ac{jms} communicates with the \ac{hcs} and the \ac{tbs} over RabbitMQ message queues.
+Repository events are received from the \ac{hcs} and benchmark job events are send to the \ac{tbs} over the \ac{bjq}.
 \\
 
 Interaction with the user is handled over the REST API.
@@ -102,9 +106,9 @@ Figure \ref{fig:rest_apis_approach_jms} shows these endpoints.
 
 \subsection{\acl{tbs}}
 \label{sec:ts_benchmarking_service}
-The \ac{tbs} executes the benchmark jobs send by the \ac{jms} and saves the benchmark results to the \acl*{jsts}.
+The \acf{tbs} executes the benchmark jobs it receives from the \ac{jms} and saves the benchmarking results to the \acl*{jsts}.
 
-To execute a benchmark the service needs a running instance of the \ts{} under test on which the benchmark will be executed.
+To execute a benchmark the service needs a running instance of the \ts{} with the loaded dataset on which the benchmark will be executed.
 This instance is build from the information and configurations provided in the benchmark job.
 The \ac{tbs} will query the provided repository (\gh{} or \dockh{}) for the version specified in the job.
 
@@ -115,10 +119,11 @@ If the repository is from \dockh{}, the \ac{tbs} pulls the image with the provid
 The service then runs the image as a Docker Container.
 \\
 
-After starting the Docker Container the \ac{tbs} create a configuration file for the \iguana{} framework.
+\todo[inline]{loading of data}
+After starting the Docker Container, the \ac{tbs} create a configuration file for the \iguana{} framework.
 \iguana{} will then perform the benchmark with the provided configurations.
 
-When the benchmark is finished the results are written to the \acl*{jsts}.
+When the benchmark is finished, the results are written to the \acl*{jsts}.
 
 \subsubsection{API and Messaging}
 \label{sec:benchmarking_api}

@@ -1,20 +1,22 @@
 \section{Architecture Review}
 \label{sec:architecture_review}
-In this section we review the architecture of the three services of the Basilisk platform.
-We point out possible problems with current implementations and list missing implementations that need to be added.
+
+\todo[inline]{Vergangenheit!}
+In this section, we review the architecture of the three services of the Basilisk platform.
+We point out possible problems with the previous implementations and list missing implementations that need to be added.
 
 
 \subsection{Code Refactoring}
 \label{sec:code_refactor}
 During the code analysis some inconsistencies in the code style and duplicate code snippets have been found.
-In other parts the code structured differs to the design patterns recommended for the Spring and Spring Boot framework.
+In other parts the code structure differs from the design patterns recommended for the Spring and Spring Boot framework.
 
-In general an in-depth code refactoring is recommended to increase readability and maintainability of the source code. 
+In general, an in-depth code refactoring is recommended to increase readability and maintainability of the source code. 
 
 
 \subsection{Management of Repositories and Configurations}
 \label{sec:management_repo_config}
-Currently the observed repositories are managed and stored in the \ac{hcs} while the configurations for the \tsp{} are managed and stored in the \ac{jms}.
+Currently, the observed repositories are managed and stored in the \ac{hcs} while the configurations for the \tsp{} are managed and stored in the \ac{jms}.
 This makes it difficult to internally link a repository to a \ts{} configuration, since they are stored in different services.
 
 The current implementations tries to solve this problem, by sending events about repository creations from the \ac{hcs} to the \ac{jms}.
@@ -27,12 +29,12 @@ Therefore we recommend restructuring the management of repositories.
 \subsection{Creation and Management of Benchmark Jobs}
 \label{sec:creation_of_benchmark_jobs}
 When a new release is found by the \ac{hcs}, the \acl{jms} will create and manage benchmark jobs which will be executed by the \ac{tbs}.
-Currently the \ac{jms} will create multiple jobs.
+Currently, the \ac{jms} will create multiple jobs.
 For each query file a job will be created for each dataset.
 This means that each dataset is mixed with each query file, which could lead to queries executed on the wrong datasets.
 
 A benchmark should only use a defined pair of a matching query file and dataset.
-Therefore the logic for creating the benchmark jobs needs to be changed, as well as the data model for storing the benchmark jobs.
+Therefore, the logic for creating the benchmark jobs needs to be changed, as well as the data model for storing the benchmark jobs.
 
 
 \subsection{Data Model Restructure}
@@ -42,17 +44,10 @@ The \ac{jms} manages and stores the different configuration types needed for a b
 The configurations are stored in an internal database.
 Figure \ref{fig:jms_db_schema} shows the current database schema.
 
-\begin{figure}[tbph]
-	\centering
-	\includegraphics[width=.7\textwidth]{figures/jms_db_schema.png}
-	\caption{Diagram of the current database schema used in the \ac{jms}}
-	\label{fig:jms_db_schema}
-\end{figure}
-
 The schema has logical errors and is in parts incomplete.
 Following we list some inconsistencies and possible problems that could arise:
 \begin{itemize}
-	\item The only way to identify a repository as \gh{} or \dockh{} repo is to check in the \ts{} configuration.
+	\item The only way to identify a repository as \gh{} or \dockh{} repository is to check in the \ts{} configuration.
 		If a repository is assigned to the false type, the resulting benchmark job would not be executable, because \gh{} and \dockh{} need to be handled differently during a benchmark as explained in section \ref{sec:ts_benchmarking_service}.
 	
 	\item Each \ts{} configuration can have exactly one \gh{} or \dockh{} repository.
@@ -62,21 +57,29 @@ Following we list some inconsistencies and possible problems that could arise:
 		In this case both hooks should use the same \ts{} configuration, since it is the same \ts{} which gets benchmarked.
 		
 	\item As explained in section \ref{sec:creation_of_benchmark_jobs}, the 	creation and storage of benchmark jobs needs to be changed.
-		Currently the data model structure for benchmark jobs, datasets and query files is too complicated and not easy to understand.
+		Currently, the data model structure for benchmark jobs, datasets and query files is too complicated.
 		Since the creation process of the jobs needs to be changed, the data model will also need changes and a cleanup of the model relationships.
 	
 \end{itemize} 
 
-Therefore the data model for the \ac{jms} needs a restructure to better cover real world requirements.
+Therefore, the data model for the \ac{jms} needs a restructure to better cover real world requirements.
+
+\begin{figure}[tbph]
+	\centering
+	\includegraphics[width=.7\textwidth]{figures/jms_db_schema.png}
+	\caption{Diagram of the current database schema used in the \ac{jms}}
+	\label{fig:jms_db_schema}
+\end{figure}
+
 
 
 \subsection{Missing Implementations}
 \label{sec:review_missing_impl}
 The Basilisk platform is not yet fully implemented.
-After reviewing the source code the following overview was created:
+After reviewing the source code, the following overview was created:
 
 \subsubsection{\acl{hcs}}
-The implementation of the \acl{hcs} is quite complete.
+The implementation of the \acl{hcs} is well developed.
 Small additions have to be implemented.
 
 \begin{itemize}
@@ -101,7 +104,7 @@ The following REST endpoints have to be added:
 		\end{itemize}
 \end{itemize}
 
-Since the \ac{jms} also manages the running and pending benchmark jobs, the REST API and internal logic for managing these jobs needs to be implemented too.
+Since the \ac{jms} also manages the running and pending benchmark jobs, the REST API and internal logic for managing these jobs need to be implemented too.
 
 \begin{itemize}
 	\item List running / pending jobs and their status
@@ -127,19 +130,19 @@ This consists of setting up the Docker containers which contain the \tsp{} for b
 	
 	\item Building Docker containers from Dockerfiles / images
 	
-	\item Connection to the Docker containers
+	\item Connecting to the Docker containers
 \end{itemize}
 
 Then the usage of the \iguana{} framework needs to be implemented.
 The framework needs to be setup to write the benchmark results to the \acl{jsts}.
 \\
 
-To have a better control of the running jobs and the benchmarking service in general we recommend to add a small REST API.
+To have a better control of the running jobs and the benchmarking service in general, we recommend to add a small REST API.
 This API could be similar to the one of the \ac{hcs}, that starts and stops the continuous checking.
 The API for the \ac{tbs} can function like a switch, which indicates if a new benchmarking job will be started or not.
 If it is set to off, the current benchmarking job will be finished, but no new job will be started.
 
-Lastly, after the performing of a benchmark, the cleanup of the Docker containers needs to be implemented.
+Lastly, after performing of a benchmark, the cleanup of the Docker containers needs to be implemented.
 
 \subsection{User Management and Security}
 \label{sec:review_user_management}
@@ -147,7 +150,7 @@ The Basilisk platform has no user management or any kind of access control imple
 Currently, the REST APIs of the services allow interactions with any user.
 If the platform is needed to run publicly, some user management and further security measures are needed.
 That includes registering new users and user groups with different user rights.
-Some users should only be able to read benchmark results, while other should be able to create repositories and abort jobs.
+Some users should only be able to read benchmark results, while other users should be able to create repositories and abort jobs.
 
 Secondly, confidential information need to be kept secret.
 This is for example the OAuth-Key needed for accessing private \gh{} repositories.
@@ -155,7 +158,7 @@ This is for example the OAuth-Key needed for accessing private \gh{} repositorie
 
 \subsection{Frontend}
 \label{sec:review_frontend}
-The frontend introduces a new programming languages and frameworks.
+The frontend introduces new programming languages and frameworks.
 A short review of the current source code resulted in the following findings:
 \begin{itemize}
 	\item Currently only a small web view is implemented
@@ -163,6 +166,6 @@ A short review of the current source code resulted in the following findings:
 \end{itemize}
 
 
-As explained in section \ref{sec:time_schedule} the priority for the frontend has been lowered.
-The focus for the thesis lies in finishing the main services and their functionality.
+As explained in section \ref{sec:time_schedule}, the priority for the frontend has been lowered.
+The priority of the thesis lies in finishing the main services and their functionality.
 

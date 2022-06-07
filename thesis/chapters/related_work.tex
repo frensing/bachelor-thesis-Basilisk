@@ -17,35 +17,35 @@ An introduction to benchmarking in general is given in section \ref{sec:benchmar
 Synthetic benchmarks are benchmarks where the data is artificially generated.
 Often the generation is influenced by real world scenarios to generate data comparable to real world datasets \cite{guoLUBMBenchmarkOWL2005}.
 These synthetic benchmarks have the advantage, that they can be generated to arbitrary sizes.
-The main point of criticism for synthetic benchmarks is that the generated data can easily become too abstract.
-Often the generated scenarios are criticized for not being representative of a real world scenario \cite{saleemFEASIBLEFeatureBasedSPARQL2015}.
+The main point of criticism for synthetic benchmarks is that the generated data can easily become skewed and repetitive.
+Often the generated scenarios are criticized for not being representative enough of a real world scenario \cite{saleemFEASIBLEFeatureBasedSPARQL2015}.
 In the following paragraphs we introduce three benchmarks that are often mentioned when considering synthetic \ts{} benchmarks.
 \\
 
-The LUBM Benchmark \cite{guoLUBMBenchmarkOWL2005} is a synthetic benchmark which focuses on the reasoning and inferencing capabilities of the \tsp{} under test.
+The \ac{lubm} Benchmark \cite{guoLUBMBenchmarkOWL2005} is a synthetic benchmark which focuses on the reasoning and inferencing capabilities of the \tsp{} under test.
 The test data is located in the university domain and can be generated to arbitrary size.
 Fourteen extensional queries are provided that represent and test a variety of properties.
 
-Another synthetic benchmark is SP²Bench \cite{schmidtSP2BenchSPARQLPerformance2008}.
+Another synthetic benchmark is \ac{sp2bench} \cite{schmidtSP2BenchSPARQLPerformance2008}.
 The data generated stems from the DBLP scenario. 
 During the generation process, the generated key characteristics and word distributions are chosen to match the distributions of the original DBLP dataset.
 The provided queries are mostly complex and the mean size of the result sets is above one million \cite{saleemFEASIBLEFeatureBasedSPARQL2015}.
 They also test for SPARQL features like union and optional graph patterns.
 
-The WatDiv suite generates a synthetic benchmarks and consists of multiple tools \cite{alucDiversifiedStressTesting2014}.
-First tool is the data generator which generates scalable and customizable datasets based on the WatDiv data model schema.
+The \ac{watdiv} generates a synthetic benchmarks and consists of multiple tools \cite{alucDiversifiedStressTesting2014}.
+First tool is the data generator which generates scalable and customizable datasets based on the \ac{watdiv} data model schema.
 The query template generator generates diverse query templates which will then be used to generate actual queries.
-The queries get generated with the query generator which instantiates the templates with actual RDF terms from the generated dataset.
+The queries get generated with the query generator which instantiates the templates with actual \ac{rdf} terms from the generated dataset.
 For each template multiple queries can be generated.
-The benchmark only focuses on SELECT queries that does not make use of the union and optional pattern features of SPARQL.
+The benchmark only focuses on SELECT queries that do not make use of the union and optional pattern features of SPARQL.
 
-\section{Benchmarks Using Real Data}
+\section{Real-World Benchmarks}
 \label{sec:benchmarks_real_data}
-Benchmarks using real data are benchmarks for which copies of real datasets and queries are used.
+Real-world benchmarks use real datasets that were used in productive settings or are still being used.
 The real queries are often taken from query logs of \tsp{} and the datasets are based on real datasets \cite{morseyDBpediaSPARQLBenchmark2011, saleemFEASIBLEFeatureBasedSPARQL2015}.
 
-FEASIBLE is a benchmark generation framework which generates datasets and queries from provided query logs \cite{saleemFEASIBLEFeatureBasedSPARQL2015}.
-This has the advantage that the data used for the benchmark could stem from queries about a specialized real world topics rather than an abstract synthetic model.
+FEASIBLE is a benchmark generation framework which generates queries from provided query logs \cite{saleemFEASIBLEFeatureBasedSPARQL2015}.
+This has the advantage that the data used for the benchmark could stem from queries about a specialized real world topic rather than an abstract synthetic model.
 FEASIBLE can also generate queries for the other SPARQL query types beside SELECT.
 
 \section{Benchmark Execution Frameworks}
@@ -78,7 +78,7 @@ The data for benchmarks has to be stored in docker containers or it needs to be 
 The data is then sent over message queues to the benchmarked system.
 \\
 
-With the Basilisk platform we try to develop a specialized solution for continuous benchmarking of \tsp{} which does not need the technical complexity present in the \textsc{Hobbit} framework.
+With the Basilisk platform we developed a specialized solution for continuous benchmarking of \tsp{} which does not need the technical complexity present in the \textsc{Hobbit} framework.
 Implementing this functionality into the \textsc{Hobbit} framework would introduce another level of complexity to the system.
 Basilisk focuses on a smaller use-case of benchmarking SPARQL endpoints continuously with as little overhead as possible.
 

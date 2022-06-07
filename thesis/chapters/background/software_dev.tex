@@ -2,7 +2,7 @@
 \label{sec:software_dev}
 The following topics can be grouped under the field of software development.
 For the topic of benchmarks (section \ref{sec:benchmark}) we focus on database benchmarks and especially \ts{} benchmarks, since this is the main task of the Basilisk platform.
-The sections Microservice and Microservice Architecture (\ref{sec:microservice}, \ref{sec:microservice_architecture}) explain the basic idea and concept of the microservice architecture style.
+The sections Microservice (\ref{sec:microservice}) and Microservice Architecture (\ref{sec:microservice_architecture}) explain the basic idea and concept of the microservice architecture.
 In the sections RabbitMQ and Spring (\ref{sec:rabbitmq}, \ref{sec:spring}) we give a short introduction and description of the main technologies that are used for the development of the Basilisk platform.
 
 \subsection{Benchmark}
@@ -10,12 +10,12 @@ In the sections RabbitMQ and Spring (\ref{sec:rabbitmq}, \ref{sec:spring}) we gi
 Benchmarks for databases consist of a dataset and a set of operations or queries which will be performed on the dataset.
 These operations are designed to simulate a particular type of workload to the system.
 The goal of a benchmark is to measure different metrics for a better comparison between various systems.
-Metrics used for databases and \tsp{} are \eg, number of executed queries and queries per second \cite{IguanaDocsMetrics}.
+Metrics used for databases and \tsp{} are \eg, number of executed queries (NoQ) and queries per second (QPS) \cite{IguanaDocsMetrics}.
 
-A distinction is made between micro and macro benchmarks.
+A distinction is made between micro and macro benchmarks \cite{gibbsMicrobenchmarksVsMacrobenchmarks}.
 Micro benchmarks focus on testing the performance of single components of a system.
 Macro benchmarks test the performance of a system as a whole.
-%The benchmarks performed by the Basilisk platform will only be macro benchmarks.
+The benchmarks performed by the Basilisk platform will only cover macro benchmarks.
 
 \subsection{Microservice}
 \label{sec:microservice}
@@ -33,7 +33,7 @@ If another service needs this information, it can send a request to this service
 \label{sec:microservice_architecture}
 A microservice architecture is a way of designing a software application as a set of microservices which interact with each other to provide the designed functionality \cite{dragoniMicroservicesYesterdayToday2017, MicroservicesHttpsMartinfowler}.
 The functionality of the application gets split up into microservices which interact only through a defined message protocol.
-This allows for a distributed system in which the individual service could be implemented in different programming languages and also could be located on different servers.
+This allows for a distributed system, in which the individual services could be implemented in different programming languages and also could be located on different servers.
 
 Extending the example from section \ref{sec:microservice} we have a microservice architecture with three services.
 One service manages the customer data, a second service manages the incoming orders, and the last service manages the shipping process.
@@ -45,7 +45,7 @@ The shipping service will then request the customers shipping address from the c
 \label{sec:spring}
 Spring\footnote{\url{https://spring.io/}} is a widespread open-source Java framework which facilitates the development process for various kinds of java applications and systems.
 
-Spring Boot\footnote{\url{https://spring.io/projects/spring-boot}} is an extension to the Spring framework that follow the convention-over-configuration design paradigm.
+Spring Boot\footnote{\url{https://spring.io/projects/spring-boot}} is an extension to the Spring framework that follows the convention-over-configuration design paradigm.
 This means that the implementation of applications has to follow common design conventions that replace a need for configuration files for many standard scenarios.
 Spring Boot also comes with preconfigured standard libraries for the Spring platform to ease the development for many standard applications like web-apps or microservices.
 
@@ -62,35 +62,38 @@ The system supports a variety of asynchronous messaging techniques \eg, delivery
 
 Since RabbitMQ is a widely used message broker, the Spring framework (\ref{sec:spring}) already comes with the needed libraries to work with the RabbitMQ system.
 
+\todo[inline]{describe what guarantees the message types we use provide}
+In the context of the Basilisk platform we only need the most basic functionalities of message queues with a single producer and a single consumer.
+
 
 \subsection{Docker}
 Docker is a platform for containerizing applications for development and deployment \cite{DockerOverviewHttps2022}.
 Following the idea of a shipping container used on freight, a Docker container can be installed on any system that supports the Docker technology.
 That means that there are no other software requirements than the Docker engine to run a container.
-Inside the container all requirements and libraries are installed that are needed by the application that is run in the container.
+Inside the container, all requirements and libraries are installed that are needed by the application that is run in the container.
 
 The application can only reach the outside of the container and, vice-versa, can be reached from the outside, if the required ports are published.
 This encapsulates the application from unwanted accesses, as well as protects the host system from malicious software that could be run inside a container.
 \\
 
 A Docker container is always build from a Docker image.
-An Docker image is a read-only template to create a Docker container with the running application inside.
+A Docker image is a read-only template to create a Docker container with the running application inside.
 
 There are two main ways to create a Docker image.
-First it could simply be downloaded from \dockh{}.
+First, it could simply be downloaded from \dockh{}.
 The second option is to build the Docker image from a Dockerfile.
 A Dockerfile\footnote{\url{https://docs.docker.com/engine/reference/builder/}} contains the instructions for building a Docker image.
 The Dockerfile first references the base image which is used to build the image.
-This could be for example a standard Ubuntu distribution.
+This could be, for example, a standard Ubuntu distribution.
 After the base image, the Dockerfile defines which commands are run or which files should be copied from the host system into the image.
 
 After the image is build or downloaded from \dockh{}, the container can be further configured before it gets started.
-For example ports can be published to make the service running inside the container available to the outside.
+For example, ports can be published to make the service running inside the container available to the outside.
 \\
 
 Often multiple containers are needed to deploy a complete service platform.
-For example the Basilisk platform consist of three containerized services, a RabbitMQ container and a container running Fuseki.
-For these situations Docker offers Docker Compose\footnote{\url{https://docs.docker.com/compose/}} files, which help to orchestrate multiple containers in a Docker network.
+For example, the Basilisk platform consists of three containerized services, a RabbitMQ container and a container running Fuseki.
+For these situations, Docker offers Docker Compose\footnote{\url{https://docs.docker.com/compose/}} files, which help to orchestrate multiple containers in a Docker network.
 
 
 
