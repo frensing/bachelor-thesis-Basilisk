@@ -137,8 +137,10 @@ Once the \ts{} is configured, either the benchmark jobs are created automaticall
 The setup and execution of the benchmark job is then done completely automatic by the platform and no further user interaction is needed.
 \\
 
-Using the system we were able to perform 16 benchmarks on different \tentris{} versions using the SWDF dataset in just one hour.
+Using the system we were able to perform 16 benchmarks on different \tentris{} versions using the \ac{swdf} dataset and query file in just one hour.
 It would not been possible to benchmark all versions manually by downloading and setting up the Docker images in a similar time.
+The \ac{swdf} dataset contains 372K triples with 32K subjects, 96K objects, and 185 predicates.
+We were using the same version that was also used in \cite{bigerlTentrisTensorBasedTriple2020}.
 
 In figures \ref{fig:QMPH} and \ref{fig:pAvgQPS} we visualized two measured metrics that were measured during the performed benchmarks of the \tentris{} and Oxigraph versions.
 Figure \ref{fig:QMPH} shows the number of query mixes that are executed per our on the different \ts{} versions.
@@ -147,12 +149,12 @@ A query gets penalized if it failed, \eg{} if the timeout is hit, or the \ts{} r
 
 All benchmark results are available through the SPARQL endpoint of the Fuseki \ts{} in which the results are written after each benchmark.
 
-\todo[inline]{overview benchmark SWDF, triplecount subjects predicates objects; latest rechts}
+\todo[inline]{explain further}
 
 \begin{figure}[tbph]
 	\centering
 	\includegraphics[width=.8\textwidth]{figures/QMPH.pdf}
-	\caption{Measured QMPH of the benchmarked \ts{} versions, using the SWDF}
+	\caption{Measured QMPH of the benchmarked \ts{} versions}
 	\label{fig:QMPH}
 \end{figure}
 
@@ -161,6 +163,13 @@ All benchmark results are available through the SPARQL endpoint of the Fuseki \t
 	\includegraphics[width=.8\textwidth]{figures/pAvgQPS.pdf}
 	\caption{Measured pAvgQPS of the benchmarked \ts{} versions}
 	\label{fig:pAvgQPS}
+\end{figure}
+
+\begin{figure}[tbph]
+	\centering
+	\includegraphics[width=.9\textwidth]{figures/qps.pdf}
+	\caption{Boxplot of the QPS of executed queries for each benchmarked \ts{} version}
+	\label{fig:qps}
 \end{figure}
 
 

@@ -7,11 +7,11 @@ This explanation follows the flow of actions that happen while a user is configu
 
 Figure \ref{fig:basilisk_high_level_design_approach} gives an overview of the three microservices of the Basilisk platform.
 It shows the most important messages sent between the services and the interactions with \gh{} and \dockh{}.
-The services and the messages send between them will be explained in the following sections.
-\todo[inline]{es sollte noch klar abgegrenz werden, dass 
-	1. user per rest-API bzw. endpoint, in jedem fall aber stateless per http mit dem server comunizieren
-	2. intern per rabbitMQ kommuniziert wird
-	3. Anfragen von Komponenten an registries per API/download, also auch wieder per http durchgeführt werden}
+Messages send between the services are send using a RabbitMQ message broker.
+The users interact with the services through REST endpoints, that are not shown in this figure.
+Interactions of the users with the REST APIs are stateless HTTP requests.
+The services and the messages will be explained in the following sections.
+
 \begin{figure}[tbph]
 	\centering
 	\includegraphics[width=1\textwidth]{figures/high-level-design-approach.pdf}

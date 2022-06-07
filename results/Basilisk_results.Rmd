@@ -1,0 +1,109 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+```
+
+```{r}
+qps <- qps %>%
+  mutate(triplestore = factor(gsub('^(?:.+?)/(.+?):(.+?)$', '\\1', X.triplestore)))
+
+qps <- qps %>%
+  mutate(triplestore = factor(gsub('_server', '', triplestore)))
+
+
+qps <- qps %>%
+  mutate(version = factor(gsub('^(?:.+?)/(.+?):(.+?)$', '\\2', X.triplestore)))
+
+qps <- qps %>%
+  mutate(resSize = factor(gsub('^(\\d+)\\^.+$', '\\1', X.resSize)))
+```
+
+
+```{r}
+p_qps <- ggplot(data = qps) + 
+  geom_boxplot(mapping = aes(x = factor(version, level = rev(versions)), y = X.qps)) +
+  labs(x = "Docker Image Tag", y = "QPS") +
+  facet_grid(~triplestore, scales = "free_x") +
+  theme_minimal() + 
+  theme(axis.text.x = element_text(angle=45))
+
+ggsave("qps.pdf", plot = p_qps, width = 9, height = 5)
+
+p_qps
+```
+
+
+```{r}
+tentris <- results %>%
+  filter(triplestore=='tentris',
+         version!='dev') %>%
+  arrange(version)
+
+versions <- c('1.1.0', 'dev', '1.1.0-rc15', '1.1.0-rc14', '1.1.0-rc13', '1.1.0-rc12', '1.1.0-rc11', '1.0.7', '1.0.7-rc5', '1.0.7-rc4', '1.0.7-rc3', '1.0.7-rc2', '1.0.7-rc1', '1.0.6', '1.0.5.1', '1.0.5', '1.0.3', 'latest', 'v0.3.2', 'v0.3.1', 'v0.3.0', 'v0.3.0-rc.1', 'v0.3.0-beta.4', 'v0.3.0-beta.3', 'v0.3.0-beta.2', 'v0.3.0-beta.1')
+
+versions_inv <- rev(versions)
+
+p_pAvgQPS <- ggplot(data=results) +
+  geom_line(mapping = aes(x=factor(version, level=rev(versions)), y=pAvgQPS, group = 1)) +
+  labs(x="Docker Image Tag") +
+  facet_grid(~triplestore, scales="free_x") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle=45))
+
+ggsave("pAvgQPS.pdf", plot = p_pAvgQPS, width = 8, height = 5)
+
+p_pAvgQPS
+```
+
+```{r}
+p_QMPH <- ggplot(data=results) +
+  geom_line(mapping = aes(x=factor(version, level=rev(versions)), y=QMPH, group = 1)) +
+  labs(x="Docker Image Tag") +
+  facet_grid(~triplestore, scales="free_x") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle=45))
+
+ggsave("QMPH.pdf", plot = p_QMPH, width = 8, height = 5)
+
+p_QMPH
+
+```
+
+```{r}
+oxigraph <- results %>%
+  filter(triplestore=='oxigraph') %>%
+  arrange(version)
+
+ggplot(data=oxigraph, ) +
+  geom_line(mapping = aes(x=version, y=pAvgQPS, group = 1)) +
+  labs(x="Docker Image Tag") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle=45))
+```
+
+```{r}
+ggplot(data=oxigraph, ) +
+  geom_line(mapping = aes(x=version, y=QMPH, group = 1)) +
+  labs(x="Docker Image Tag") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle=45))
+```
+
+
+
+
+```{r}
+ggplot(data=results) +
+  geom_boxplot(mapping = aes(x = triplestore, y = QMPH)) +
+  theme_minimal()
+```
+
+```{r}
+ggplot(data=results) +
+  geom_boxplot(mapping = aes(x = triplestore, y = pAvgQPS)) +
+  theme_minimal()
+```

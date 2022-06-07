@@ -1,7 +1,5 @@
 \section{Architecture and Code Review}
 \label{sec:architecture_review}
-
-\todo[inline]{Vergangenheit!}
 In this section, we review the architecture of the three services of the Basilisk platform.
 We point out possible problems with the previous implementations and list missing implementations that need to be added.
 
@@ -10,32 +8,32 @@ We point out possible problems with the previous implementations and list missin
 \label{sec:code_refactor}
 Code refactoring is the process of restructuring the source code of an application without changing its functionality \cite{fowlerRefactoringImprovingDesign2019a}.
 During the code analysis some inconsistencies in the code style and duplicate code snippets have been found.
-In other parts the code structure differs from the design patterns recommended for the Spring and Spring Boot framework.
+In other parts the code structure differed from the design patterns recommended for the Spring and Spring Boot framework.
 
-In general, an in-depth code refactoring is recommended to increase readability and maintainability of the source code. 
+In general, an in-depth code refactoring was recommended to increase readability and maintainability of the source code. 
 
 
 \subsection{Management of Repositories and Configurations}
 \label{sec:management_repo_config}
-Currently, the observed repositories are managed and stored in the \ac{hcs} while the configurations for the \tsp{} are managed and stored in the \ac{jms}.
-This makes it difficult to internally link a repository to a \ts{} configuration, since they are stored in different services.
+Previously, the observed repositories were managed and stored in the \ac{hcs} while the configurations for the \tsp{} were managed and stored in the \ac{jms}.
+This made it difficult to internally link a repository to a \ts{} configuration, since they were stored in different services.
 
-The current implementations tries to solve this problem, by sending events about repository creations from the \ac{hcs} to the \ac{jms}.
-This results in the duplication of the repository storage in both services.
-This contradicts the idea of microservice, which should be separated as much as possible from each other.
+The previous implementations tried to solve this problem, by sending events about repository creations from the \ac{hcs} to the \ac{jms}.
+This resulted in the duplication of the repository storage in both services.
+This contradicted the idea of microservice, which should be separated as much as possible from each other.
 
-Therefore we recommend restructuring the management of repositories.
+Therefore we recommended restructuring the management of repositories.
 
 
 \subsection{Creation and Management of Benchmarking Jobs}
 \label{sec:creation_of_benchmark_jobs}
 When a new release is found by the \ac{hcs}, the \acl{jms} will create and manage benchmarking jobs which will be executed by the \ac{tbs}.
-Currently, the \ac{jms} will create multiple jobs.
-For each query file a job will be created for each dataset.
-This means that each dataset is mixed with each query file, which could lead to queries executed on the wrong datasets.
+Previously, the \ac{jms} had created multiple jobs.
+For each query file a job was be created for each dataset.
+This means that each dataset was mixed with each query file, which lead to queries executed on the wrong datasets.
 
 A benchmark should only use a defined pair of a matching query file and dataset.
-Therefore, the logic for creating the benchmark jobs needs to be changed, as well as the data model for storing the benchmark jobs.
+Therefore, the logic for creating the benchmark jobs had to be changed, as well as the data model for storing the benchmark jobs.
 
 
 \subsection{Data Model Restructure}
@@ -43,32 +41,32 @@ Therefore, the logic for creating the benchmark jobs needs to be changed, as wel
 The \ac{jms} manages and stores the different configuration types needed for a benchmark job.
 
 The configurations are stored in an internal database.
-Figure \ref{fig:jms_db_schema} shows the current database schema.
+Figure \ref{fig:jms_db_schema} shows the previous database schema.
 
-The schema has logical errors and is in parts incomplete.
-In the following we list some inconsistencies and possible problems that could arise:
+The schema had logical errors and was in parts incomplete.
+In the following we list some inconsistencies and possible problems that we noticed:
 \begin{itemize}
-	\item The only way to identify a repository as \gh{} or \dockh{} repository is to check in the \ts{} configuration.
-		If a repository is assigned to the false type, the resulting benchmark job would not be executable, because \gh{} and \dockh{} need to be handled differently during a benchmark as explained in section \ref{sec:ts_benchmarking_service}.
+	\item The only way to identify a repository as \gh{} or \dockh{} repository was to check in the \ts{} configuration.
+		If a repository was assigned to the false type, the resulting benchmark job was not executable, because \gh{} and \dockh{} need to be handled differently during a benchmark as explained in section \ref{sec:ts_benchmarking_service}.
 	
-	\item Each \ts{} configuration can have exactly one \gh{} or \dockh{} repository.
-		This means that for every repository a new \ts{} configuration needs to be added.
-		There would be less duplicate configurations if multiple repositories could point to the same configuration.
-		For example, a hook could be set up to observe a \gh{} repository for new releases and another hook could be set up to observe the same \gh{} repo for pull requests.
-		In this case both hooks should use the same \ts{} configuration, since it is the same \ts{} which gets benchmarked.
+	\item Each \ts{} configuration could have exactly one \gh{} or \dockh{} repository.
+		This means that for every repository a new \ts{} configuration had to be added.
+		There are less duplicate configurations if multiple repositories point to the same configuration.
+		For example, a hook is set up to observe a \gh{} repository for new releases and another hook is set up to observe the same \gh{} repo for pull requests.
+		In this case both hooks are using the same \ts{} configuration, since it is the same \ts{} which gets benchmarked.
 		
-	\item As explained in section \ref{sec:creation_of_benchmark_jobs}, the creation and storage of benchmark jobs need to be changed.
-		Currently, the data model structure for benchmark jobs, datasets and query files is too complicated.
-		Since the creation process of the jobs needs to be changed, the data model will also need changes and a cleanup of the model relationships.
+	\item As explained in section \ref{sec:creation_of_benchmark_jobs}, the creation and storage of benchmark jobs had to be changed.
+		Previously, the data model structure for benchmark jobs, datasets and query files was too complicated.
+		Since the creation process of the jobs had to be changed, the data model was also changed and the model relationships were cleaned up.
 	
 \end{itemize} 
 
-Therefore, the data model for the \ac{jms} needs a restructure to better cover real world requirements.
+Therefore, the data model for the \ac{jms} had to be restructured to better cover real world requirements.
 
 \begin{figure}[tbph]
 	\centering
 	\includegraphics[width=.7\textwidth]{figures/jms_db_schema.png}
-	\caption{Diagram of the current database schema used in the \ac{jms}}
+	\caption{Diagram of the previous database schema used in the \ac{jms}}
 	\label{fig:jms_db_schema}
 \end{figure}
 
@@ -76,23 +74,23 @@ Therefore, the data model for the \ac{jms} needs a restructure to better cover r
 
 \subsection{Missing Implementations}
 \label{sec:review_missing_impl}
-The Basilisk platform is not yet fully implemented.
+The Basilisk platform was not yet fully implemented.
 After reviewing the source code, the following overview was created.
 
 \subsubsection{\acl{hcs}}
-The implementation of the \acl{hcs} is well developed.
-Small additions have to be implemented.
+The implementation of the \acl{hcs} was well developed.
+Small additions had to be implemented.
 
 \begin{itemize}
-	\item The REST endpoints for deleting \gh{} and \dockh{} repositories needs to be added.
+	\item The REST endpoints for deleting \gh{} and \dockh{} repositories had to be added.
 	
-	\item Currently Pull Requests for \gh{} repositories can not be observed.
+	\item Previously Pull Requests for \gh{} repositories could not be observed.
 \end{itemize}
 
 
 \subsubsection{\acl{jms}}
-The implementation of the \acl{jms} is mainly missing the REST API and some internal logic.
-The following REST endpoints have to be added:
+The implementation of the \acl{jms} was mainly missing the REST API and some internal logic.
+The following REST endpoints had to be added:
 
 \begin{itemize}
 	\item Adding / removing \ts{} configurations
@@ -105,7 +103,7 @@ The following REST endpoints have to be added:
 		\end{itemize}
 \end{itemize}
 
-Since the \ac{jms} also manages the running and pending benchmark jobs, the REST API and internal logic for managing these jobs need to be implemented too.
+Since the \ac{jms} also manages the running and pending benchmark jobs, the REST API and internal logic for managing these jobs had to be implemented too.
 
 \begin{itemize}
 	\item List running / pending jobs and their status
@@ -116,34 +114,34 @@ Since the \ac{jms} also manages the running and pending benchmark jobs, the REST
 
 
 \subsubsection{\acl{tbs}}
-The implementation of the \acl{tbs} currently contains only a few classes for the data models, and simple structures of service classes.
-Big parts of the logic still needs to be implemented.
+The implementation of the \acl{tbs} previously contained only a few classes for the data models, and simple structures of service classes.
+Big parts of the logic had still to be implemented.
 
-Existing classes are mainly for storing and manipulating data models, configurations and basic message queue interactions.
-These classes do not carry much functionality.
+Existing classes were mainly for storing and manipulating data models, configurations and basic message queue interactions.
+These classes did not carry much functionality.
 
-The main functionality of the \ac{tbs} needs to be implemented.
-This consists of setting up the Docker containers which contain the \tsp{} for benchmarking:
+The main functionality of the \ac{tbs} had to be implemented.
+This consisted of setting up the Docker containers which contain the \tsp{} for benchmarking:
 
 \begin{itemize}
 	\item Pulling Code from \gh{}
 	\item Pulling images form \dockh{}
 	
-	\item Building Docker containers from Dockerfiles / images
+	\item Building Docker containers from Dockerfiles / Docker Images
 	
 	\item Connecting to the Docker containers
 \end{itemize}
 
-Further the usage of the \iguana{} framework needs to be implemented.
-The framework needs to be setup to write the benchmark results to the \acl{jsts}.
+Further the usage of the \iguana{} framework had to be implemented.
+The framework had to be setup to write the benchmark results to the \acl{jsts}.
 \\
 
-To have a better control of the running jobs and the benchmarking service in general, we recommend to add a small REST API.
-This API could be similar to the one of the \ac{hcs}, that starts and stops the continuous checking.
-The API for the \ac{tbs} can function like a switch, which indicates if a new benchmarking job will be started or not.
+To have a better control of the running jobs and the benchmarking service in general, we recommended to add a small REST API to the \ac{tbs}.
+This API is be similar to the one of the \ac{hcs}, that starts and stops the continuous checking.
+The API for the \ac{tbs} functions like a switch, which indicates if a new benchmarking job will be started or not.
 If it is set to off, the current benchmarking job will be finished, but no new job will be started.
 
-Lastly, after performing of a benchmark, the cleanup of the Docker containers needs to be implemented.
+Lastly, after performing of a benchmark, the cleanup of the Docker containers had to be implemented.
 
 \subsection{User Management and Security}
 \label{sec:review_user_management}
