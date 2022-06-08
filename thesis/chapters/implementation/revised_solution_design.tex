@@ -22,7 +22,7 @@ In the designed solution, the management and storing of the repositories are mov
 This includes the corresponding REST endpoints and internal logic of the \ac{hcs} that are needed for the management.
 The different repositories (\gh{} and \dockh{}) are added over the REST API of the \ac{jms}.
 
-In section \ref{sec:review_missing_impl} (\acl{hcs}) it is listed, that the \ac{hcs} is missing the REST endpoints for deleting repositories.
+In section \ref{sec:review_missing_impl} (\acl{hcs}), it is listed that the \ac{hcs} is missing the REST endpoints for deleting repositories.
 Since the repository management is moved to the \ac{jms}, these endpoints are also added there.
 \\
 
@@ -104,9 +104,9 @@ Since the repository containing the changes has a different URL than the origina
 \\
 
 The solution we designed for this issue is an extended message.
-This message gets sent in the situation in which the pull requests originate from a different repository.
+This message gets sent in situations in which the pull requests originate from a different repository.
 The message contains the URL, repository, and branch name for the \gh{} repository.
-Therefore the message handling in the \ac{hcs} and \ac{jms} needs to be adjusted to handle this new message type.
+Therefore, the message handling in the \ac{hcs} and \ac{jms} needs to be adjusted to handle this new message type.
 
 The benchmark jobs and the \acl{tbs} did not need to be changed.
 It is not relevant for a benchmark if the repository from which the Docker container is built differs from the observed repository.

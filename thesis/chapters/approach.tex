@@ -11,11 +11,24 @@ We will explain the different processes used in the platform in section \ref{sec
 In section \ref{sec:architecture_review} we will analyze and review the current software architecture and implementation status of the Basilisk platform.
 \\
 
+-- Welche fragen
+was ist die intenzion, 
+problem erklären
+warum sinnvoll permament
+warum neue benchmarks
+immer quali überprüfen
+-- brücke approach
+was gemacht
+dann detail
+was sind benchmarks, ts, benchmarks auf ts
+
 \todo[inline]{mehr roter Faden, Verbindung zw den genannten Punkten}
 The purpose of the Basilisk platform is to provide an easy way to continuously perform benchmarks on \tsp{}.
 Triplestores are often developed in teams who collaborate in Git repositories.
 Releases of those \tsp{} are then published on \gh{} or as a Docker image on \dockh{}.
 The idea is that the Basilisk platform will automatically check for a new release of a registered \ts{} repository and will then perform benchmarks on this release.
+
+\todo[inline]{überleitung warum benchmarks relevant..}
 
 Benchmarks are also relevant during the development process.
 A benchmark performed automatically, for example, when a new pull request is added, is a good way to estimate if a newly developed feature will impact the performance of the \ts{} before the changes are merged.

@@ -16,7 +16,7 @@ An introduction to benchmarking, in general, is given in section \ref{sec:benchm
 \label{sec:synthetic_benchmarks}
 Synthetic benchmarks are benchmarks where the data is artificially generated.
 Often the generation is influenced by real-world scenarios to generate data comparable to real-world datasets \cite{guoLUBMBenchmarkOWL2005}.
-These synthetic benchmarks have the advantage of being able to be generated to arbitrary sizes.
+These synthetic benchmarks have the offer the benefit of being able to be generated to arbitrary sizes.
 The main criticism for synthetic benchmarks is that the generated data can quickly become skewed and repetitive.
 Often the generated scenarios are criticized for not being representative enough of a real-world scenario \cite{saleemFEASIBLEFeatureBasedSPARQL2015}.
 In the following paragraphs, we introduce three benchmarks that are often mentioned when considering synthetic \ts{} benchmarks.
@@ -32,10 +32,10 @@ During the generation process, the generated key characteristics and word distri
 The provided queries are primarily complex, and the mean size of the result sets is above one million \cite{saleemFEASIBLEFeatureBasedSPARQL2015}.
 They also test for SPARQL features like union and optional graph patterns.
 
-The \ac{watdiv} generates a synthetic benchmarks and consists of multiple tools \cite{alucDiversifiedStressTesting2014}.
+The \ac{watdiv} generates a synthetic benchmark and consists of multiple tools \cite{alucDiversifiedStressTesting2014}.
 The first tool is the data generator that generates scalable and customizable datasets based on the \ac{watdiv} data model schema.
 The query template generator generates diverse query templates, which will then be used to generate actual queries.
-Lastly, the queries get generated with the query generator, which instantiates the templates with actual \ac{rdf} terms from the generated dataset.
+Lastly, the queries are generated with the query generator, which instantiates the templates with actual \ac{rdf} terms from the generated dataset.
 For each template, multiple queries can be generated.
 The benchmark only focuses on SELECT queries that do not use the union and optional pattern features of SPARQL.
 
@@ -75,10 +75,10 @@ The \textsc{Hobbit} framework is a distributed benchmarking platform designed to
 It is an extensive framework that needs to be deployed on a local cluster or online computing services like Azure\footnote{\url{https://azure.microsoft.com/}} or AWS\footnote{\url{https://aws.amazon.com/}}.
 The platform's deployment and deploying new benchmarks to the platform can be challenging for new users of the system \cite{roderHOBBITPlatformBenchmarking}.
 The data for benchmarks has to be stored in docker containers or it needs to be generated or downloaded before a benchmark, which increases the complexity of the system.
-The data is then sent over message queues to the benchmarked system.
+The data is then sent via message queues to the benchmarked system.
 \\
 
 With the Basilisk platform, we developed a specialized solution for continuous benchmarking of \tsp{} which does not need the technical complexity present in the \textsc{Hobbit} framework.
-Implementing this functionality into the \textsc{Hobbit} framework would introduce another level of complexity to the system.
+Implementing this functionality into the \textsc{Hobbit} framework would introduce another level of complexity to the HOBBIT system.
 Basilisk focuses on a smaller use-case of benchmarking SPARQL endpoints continuously with as little overhead as possible.
 
