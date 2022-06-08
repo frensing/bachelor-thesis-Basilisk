@@ -6,44 +6,37 @@
 % - gerne in die Tiefe gehen
 %%%%%%%%%%%%%%%%%%%%%%%
 
-In this chapter we give an overview to the design of the Basilisk platform.
+In this chapter, we give an overview of the design of the Basilisk platform.
 We will explain the different processes used in the platform in section \ref{sec:main_services}.
-In section \ref{sec:architecture_review} we will analyze and review the current software architecture and implementation status of the Basilisk platform.
+In section \ref{sec:architecture_review}, we will analyze and review the current software architecture and implementation status of the Basilisk platform.
 \\
 
--- Welche fragen
-was ist die intenzion, 
-problem erklären
-warum sinnvoll permament
-warum neue benchmarks
-immer quali überprüfen
--- brücke approach
-was gemacht
-dann detail
-was sind benchmarks, ts, benchmarks auf ts
-
-\todo[inline]{mehr roter Faden, Verbindung zw den genannten Punkten}
-The purpose of the Basilisk platform is to provide an easy way to continuously perform benchmarks on \tsp{}.
-Triplestores are often developed in teams who collaborate in Git repositories.
+The purpose of the Basilisk platform is to provide an easy way to perform benchmarks on \tsp{} continuously.
+Triplestores are often developed in teams of developers who collaborate in Git repositories.
 Releases of those \tsp{} are then published on \gh{} or as a Docker image on \dockh{}.
-The idea is that the Basilisk platform will automatically check for a new release of a registered \ts{} repository and will then perform benchmarks on this release.
 
-\todo[inline]{überleitung warum benchmarks relevant..}
+In general, benchmarks help to assess the performance of \ts{}.
+During the development process, the measured benchmark metrics can be used to evaluate the performance of the latest implementations.
+However, benchmarks require a time-consuming process of setting up the \ts{}, loading a dataset, and finally performing the benchmark.
+This process binds the developer's time, and thus, benchmarks are often only performed in a late development stage.
 
-Benchmarks are also relevant during the development process.
-A benchmark performed automatically, for example, when a new pull request is added, is a good way to estimate if a newly developed feature will impact the performance of the \ts{} before the changes are merged.
+The Basilisk platform intends to automatize this process.
+This is done by continuously checking for a new release of a registered \ts{} repository and then automatically performing benchmarks on this release.
+In addition, valuable functionalities will be implemented that will integrate into the development process.
+For example, a benchmark performed automatically when a new pull request is added is a good way to estimate if a newly developed feature will impact the performance of the \ts{} before the changes are merged.
 
 On the Basilisk platform, a user can register a \ts{} for a continuous benchmark by setting up a hook to the repository on \gh{} or \dockh{}.
-The repository will then be observed by the Basilisk platform.
+Internally the platform follows a defined process.
+The configured repositories will be continuously observed.
 If there is a new release of the \ts{}, Basilisk will generate a new benchmark job.
-This benchmark job will then be executed by fetching and building a new Docker container, containing the newest release of the \ts{}.
-On this container the benchmark will be performed.
+This benchmark job will then be executed by fetching and building a new Docker container containing the newest release of the \ts{}.
+On this container, the benchmark will be performed.
 The measured results of the benchmark will be stored in a \ts{} and are then available through the web frontend for review.
 \\
 
 The basic architecture pattern of the Basilisk platform is the microservice architecture (see chapter \ref{sec:microservice_architecture} for a short description). 
 This means that the platform is divided into multiple services on which the workload and the different tasks are divided.
-The services can be run on different hardware systems and they interact with each other via the RabbitMQ (\ref{sec:rabbitmq}) message queue system.
+The services can be run on different hardware systems, and they interact with each other via the RabbitMQ (\ref{sec:rabbitmq}) message queue system.
 \\
 
 \section{Programming Language and Frameworks}
