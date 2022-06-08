@@ -1,16 +1,16 @@
 \section{Software Development}
 \label{sec:software_dev}
 The following topics can be grouped under the field of software development.
-For the topic of benchmarks (section \ref{sec:benchmark}) we focus on database benchmarks and especially \ts{} benchmarks, since this is the main task of the Basilisk platform.
+For the topic of benchmarks (section \ref{sec:benchmark}) we focus on database benchmarks and especially \ts{} benchmarks since this is the main task of the Basilisk platform.
 The sections Microservice (\ref{sec:microservice}) and Microservice Architecture (\ref{sec:microservice_architecture}) explain the basic idea and concept of the microservice architecture.
-In the sections RabbitMQ and Spring (\ref{sec:rabbitmq}, \ref{sec:spring}) we give a short introduction and description of the main technologies that are used for the development of the Basilisk platform.
+In the sections RabbitMQ and Spring (\ref{sec:rabbitmq}, \ref{sec:spring}), we give a short introduction and description of the main technologies that are used for the development of the Basilisk platform.
 
 \subsection{Benchmark}
 \label{sec:benchmark}
 Benchmarks for databases consist of a dataset and a set of operations or queries which will be performed on the dataset.
-These operations are designed to simulate a particular type of workload to the system.
+These operations are designed to simulate a particular workload in the system.
 The goal of a benchmark is to measure different metrics for a better comparison between various systems.
-Metrics used for databases and \tsp{} are \eg, number of executed queries (NoQ) and queries per second (QPS) \cite{IguanaDocsMetrics}.
+Metrics used for databases and \tsp{} are \eg, the number of executed queries (NoQ), queries per second (QPS), and query mixes per hour (QMPH) \cite{IguanaDocsMetrics}.
 
 A distinction is made between micro and macro benchmarks \cite{gibbsMicrobenchmarksVsMacrobenchmarks}.
 Micro benchmarks focus on testing the performance of single components of a system.
@@ -24,51 +24,49 @@ All Microservices can be individually deployed and managed.
 They interact via messages through a defined protocol with other services.
 The idea is that individual microservices can be combined like modules to create any desired complex software.
 
-A common example is online shop system that is divided into microservices.
-One service of this system could be a service managing the customer data, like contact details and shipping addresses.
+A typical example is an online shop system that is divided into microservices.
+One service of this system could be managing the customer data, like contact details and shipping addresses.
 If another service needs this information, it can send a request to this service over defined protocols.
 
 
 \subsection{Microservice Architecture}
 \label{sec:microservice_architecture}
-A microservice architecture is a way of designing a software application as a set of microservices which interact with each other to provide the designed functionality \cite{dragoniMicroservicesYesterdayToday2017, MicroservicesHttpsMartinfowler}.
-The functionality of the application gets split up into microservices which interact only through a defined message protocol.
-This allows for a distributed system, in which the individual services could be implemented in different programming languages and also could be located on different servers.
+Microservice architecture is a way of designing a software application as a set of microservices that interact with each other to provide the designed functionality \cite{dragoniMicroservicesYesterdayToday2017, MicroservicesHttpsMartinfowler}.
+The application's functionality gets split up into microservices that interact only through a defined message protocol.
+This allows for a distributed system in which the individual services could be implemented in different programming languages and also could be located on different servers.
 
 Extending the example from section \ref{sec:microservice} we have a microservice architecture with three services.
 One service manages the customer data, a second service manages the incoming orders, and the last service manages the shipping process.
-When an order arrives in the order service, it will send a message to the shipping service, with the order items.
-The shipping service will then request the customers shipping address from the customer-data service.
+When an order arrives in the order service it will send a message to the shipping service, with the order items.
+The shipping service will then request the customer's shipping address from the customer-data service.
 
 
 \subsection{Spring and Spring Boot}
 \label{sec:spring}
-Spring\footnote{\url{https://spring.io/}} is a widespread open-source Java framework which facilitates the development process for various kinds of java applications and systems.
+Spring\footnote{\url{https://spring.io/}} is a widespread open-source Java framework that facilitates the development process for various kinds of java applications and systems.
 
 Spring Boot\footnote{\url{https://spring.io/projects/spring-boot}} is an extension to the Spring framework that follows the convention-over-configuration design paradigm.
-This means that the implementation of applications has to follow common design conventions that replace a need for configuration files for many standard scenarios.
-Spring Boot also comes with preconfigured standard libraries for the Spring platform to ease the development for many standard applications like web-apps or microservices.
+This means that the implementation of applications has to follow standard design conventions that replace the need for configuration files for many standard scenarios.
+Spring Boot also comes with pre-configured standard libraries for the Spring platform to ease the development of many standard applications like web apps or microservices.
 
-Spring and Spring Boot uses different annotations to decorate classes and methods.
+Spring and Spring Boot use different annotations to decorate classes and methods.
 These annotations configure the classes automatically and tell the Spring framework how to handle and interact with their objects.
 
-The Spring framework and Spring Boot use different software design conventions to structure the code and classes.
+The Spring Framework and Spring Boot use different software design conventions to structure the code and classes.
 
 
 \subsection{RabbitMQ}
 \label{sec:rabbitmq}
-RabbitMQ\footnote{\url{https://www.rabbitmq.com/}} is an open-source message broker that supports different messaging protocols like MQTT, STOMP and AMQP.
-The system supports a variety of asynchronous messaging techniques \eg, delivery acknowledgment, and flexible routing.
+RabbitMQ\footnote{\url{https://www.rabbitmq.com/}} is an open-source message broker that supports different messaging protocols like MQTT, STOMP, and AMQP.
+The system supports a variety of asynchronous messaging techniques \eg, delivery acknowledgment and flexible routing.
 
-Since RabbitMQ is a widely used message broker, the Spring framework (\ref{sec:spring}) already comes with the needed libraries to work with the RabbitMQ system.
+Since RabbitMQ is a widely-used message broker, the Spring framework (\ref{sec:spring}) already comes with the needed libraries to work with the RabbitMQ system.
 
-In the context of the Basilisk platform we only need the most basic functionalities of message queues with a single producer and a single consumer.
-RabbitMQ ensures a reliable delivery of messages by using acknowledgments and confirms of the consumers\footnote{\url{https://www.rabbitmq.com/reliability.html}}.
+In the context of the Basilisk platform, we only need the most basic functionalities of message queues with a single producer and a single consumer.
+RabbitMQ ensures reliable delivery of messages by using acknowledgments and confirms of the consumers\footnote{\url{https://www.rabbitmq.com/reliability.html}}.
 If a message is lost in transit or the consumer encounters an exception, the message is not deleted from the queue.
-Only if the consumer sends a confirmation to the RabbitMQ broker, the message is deleted from the queue.
-The RabbitMQ broker also ensures durability of the queues and messages through file backups.
-
-
+Only if the consumer sends a confirmation to the RabbitMQ broker the message is deleted from the queue.
+The RabbitMQ broker also ensures the durability of the queues and messages through file backups.
 
 
 \subsection{Docker}
@@ -78,26 +76,26 @@ That means that there are no other software requirements than the Docker engine 
 Inside the container, all requirements and libraries are installed that are needed by the application that is run in the container.
 
 The application can only reach the outside of the container and, vice-versa, can be reached from the outside, if the required ports are published.
-This encapsulates the application from unwanted accesses, as well as protects the host system from malicious software that could be run inside a container.
+This encapsulates the application from unwanted accesses, and protects the host system from malicious software that could be run inside a container.
 \\
 
-A Docker container is always build from a Docker image.
+A Docker container is always built from a Docker image.
 A Docker image is a read-only template to create a Docker container with the running application inside.
 
 There are two main ways to create a Docker image.
-First, it could simply be downloaded from \dockh{}.
+First, it could be downloaded from \dockh{}.
 The second option is to build the Docker image from a Dockerfile.
 A Dockerfile\footnote{\url{https://docs.docker.com/engine/reference/builder/}} contains the instructions for building a Docker image.
-The Dockerfile first references the base image which is used to build the image.
+The Dockerfile first references the base image, which is used to build the image.
 This could be, for example, a standard Ubuntu distribution.
 After the base image, the Dockerfile defines which commands are run or which files should be copied from the host system into the image.
 
-After the image is build or downloaded from \dockh{}, the container can be further configured before it gets started.
+After the image is built or downloaded from \dockh{}, the container can be further configured before it gets started.
 For example, ports can be published to make the service running inside the container available to the outside.
 \\
 
 Often multiple containers are needed to deploy a complete service platform.
-For example, the Basilisk platform consists of three containerized services, a RabbitMQ container and a container running Fuseki.
+For example, the Basilisk platform consists of three containerized services, a RabbitMQ container, and a container running Fuseki.
 For these situations, Docker offers Docker Compose\footnote{\url{https://docs.docker.com/compose/}} files, which help to orchestrate multiple containers in a Docker network.
 
 

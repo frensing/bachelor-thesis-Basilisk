@@ -1,16 +1,15 @@
 \section{Revised Solution Design}
 \label{sec:revised_solution_design}
 
-The Basilisk platform is missing some key functionality to successfully run benchmark jobs.
-In this section we describe the designed solutions for the shortcomings listed in section \ref{sec:architecture_review}.
-
+The Basilisk platform is missing some key functionality to run benchmarking jobs successfully.
+In this section, we describe the designed solutions for the shortcomings listed in section \ref{sec:architecture_review}.
 
 
 \subsection{Code Refactoring}
 \label{sec:impl_code_refactor}
 As stated in section \ref{sec:code_refactor}, an in-depth code refactoring was recommended.
-Before starting to design and implement new functionality, we performed an in-depth refactoring and restructuring of the code base.
-This resulted a clean code base on which all future implementations can be built on.
+Before designing and implementing new functionality, we performed an in-depth refactoring and restructuring of the code base.
+This resulted in a clean code base on which all future implementations can be built.
 
 
 \subsection{Management of Repositories and Configurations}
@@ -19,7 +18,7 @@ In section \ref{sec:management_repo_config} we explained the problem of storing 
 
 Different solutions were considered for merging the functionality of the two services.
 
-In the designed solution, the management and storing of the repositories is moved into the \ac{jms}.
+In the designed solution, the management and storing of the repositories are moved into the \ac{jms}.
 This includes the corresponding REST endpoints and internal logic of the \ac{hcs} that are needed for the management.
 The different repositories (\gh{} and \dockh{}) are added over the REST API of the \ac{jms}.
 
@@ -28,7 +27,7 @@ Since the repository management is moved to the \ac{jms}, these endpoints are al
 \\
 
 The \ac{jms} communicates with the \ac{hcs} over RabbitMQ message queues.
-Through these messages the \ac{hcs} gets the needed information about the repositories it should observe.
+Through these messages, the \ac{hcs} gets the needed information about the repositories it should observe.
 These include the URL and for \gh{} repositories details like the observed branch and potentially an OAuth token for authenticating with the API.
 
 The functionality used when a new release is found does not need to be changed.
@@ -48,7 +47,7 @@ Figure \ref{fig:repo_management_restructure} shows the restructured REST APIs an
 
 \subsection{Restructure of Data Models in the \acl{jms}}
 \label{sec:data_model_restructure_jms}
-In section \ref{sec:review_data_model} we reviewed the data model used for storing and managing the different configuration types inside the \ac{jms}.
+In section \ref{sec:review_data_model}, we reviewed the data model used for storing and managing the different configuration types inside the \ac{jms}.
 To mitigate the stated problems with the data model, we designed the database schema shown in figure \ref{fig:design_jms_db_schema}.
 
 \begin{figure}[tbph]
@@ -58,8 +57,8 @@ To mitigate the stated problems with the data model, we designed the database sc
 	\label{fig:design_jms_db_schema}
 \end{figure}
 
-This design takes advantage of persistence technology that is already part of the Spring framework.
-The models for the \gh{} and \dockh{} are inherited from an abstract repository class, since the basic information like repository name and owner are needed for both repository types.
+This design takes advantage of persistence technology already part of the Spring framework.
+The models for the \gh{} and \dockh{} are inherited from an abstract repository class since the basic information like repository name and owner are needed for both repository types.
 The Spring framework automatically manages the different repositories and identifies them through the stored \texttt{DTYPE}.
 
 Secondly, the relationship between \ac{ts} configurations and repositories is inverted. 
@@ -67,7 +66,7 @@ Now each repository points to a \ac{ts} configuration.
 This means a \ac{ts} configuration can be used for different observed repository setups.
 
 Lastly, the benchmark job and dataset models are cleaned up.
-Now each benchmark specifies a datasets and a query file as well as multiple parameters which are later used by \iguana{} during the execution of an benchmark job.
+Now each benchmark specifies a dataset and a query file as well as multiple parameters, which are later used by \iguana{} during the execution of a benchmark job.
 Each benchmark is now a single entry in the benchmark table.
 
 The individual repositories and benchmarks are then linked inside a benchmark job.
@@ -81,46 +80,46 @@ As explained in section \ref{sec:data_model_restructure_jms}, benchmarks are now
 When a new message about a new release arrives, the \ac{jms} will now create a benchmark job for each benchmark that is configured in Basilisk.
 \\
 
-To manage the created benchmark jobs, new API-endpoints are created to get a list of all benchmark jobs and to abort jobs that have not yet been started.
+To manage the created benchmark jobs, new API endpoints are created to get a list of all benchmark jobs and to abort jobs that have not yet been started.
 
 
 \subsection{Hooks for Pull Requests in \gh{} Repositories}
 \label{sec:pullrequests_hcs_design}
-Currently the Basilisk platform can not check for new pull requests published to an observed repository.
+Currently, the Basilisk platform can not check for new pull requests published to an observed repository.
 This functionality would greatly support the continuous benchmarking during the development process of \tsp{}.
 
 As explained in chapter \ref{ch:approach}, \tsp{} are often developed by teams who collaboratively work on Git repositories.
-A standard way of introducing a newly developed feature to a source code repository is a pull request.
-Pull requests contain a description of the proposed changes, as well as the name of the development branch which should be pulled into the main branch of the repository.
+A pull request is a standard way of introducing a newly developed feature to a source code repository.
+Pull requests contain a description of the proposed changes, and the name of the development branch which should be pulled into the main branch of the repository.
 
 Often these changes are developed in a forked repository.
-A forked repository is basically an independent copy of the main repository.
+A forked repository is an independent copy of the main repository.
 \gh{} provides functionality to merge the latest changes of the original repo into the forked repo.
 To send changes from the forked repo to the original repo, a pull request is needed.
 
-In this forked repo the developer can work independently on his changes and later create the pull request to the original repository.
+In this forked repo, the developer can work independently on his changes and later create the pull request to the original repository.
 
 The difficulty for the Basilisk platform is that these pull requests can stem from these forked repositories.
-Since the repository containing the changes has a different URL to the original repo observed by the Basilisk platform, more information than usual are required to create and run a benchmark job for a pull request.
+Since the repository containing the changes has a different URL than the original repo observed by the Basilisk platform, more information than usual is required to create and run a benchmark job for a pull request.
 \\
 
 The solution we designed for this issue is an extended message.
-This message gets sent in the situation in which the pull requests originates from a different repository.
-The message contains the URL, repository and branch name for the \gh{} repository.
+This message gets sent in the situation in which the pull requests originate from a different repository.
+The message contains the URL, repository, and branch name for the \gh{} repository.
 Therefore the message handling in the \ac{hcs} and \ac{jms} needs to be adjusted to handle this new message type.
 
 The benchmark jobs and the \acl{tbs} did not need to be changed.
-It is not relevant for a benchmark if the repository, from which the Docker container is built, is different from the observed repository.
+It is not relevant for a benchmark if the repository from which the Docker container is built differs from the observed repository.
 
 
 \subsection{Missing Implementations in the \acl{jms}}
 In this section we describe how the missing implementations are developed that are listed in section \ref{sec:review_missing_impl}.
 
 The tasks for the \ac{hcs} are already dealt with in sections \ref{sec:management_repo_config_design} and \ref{sec:pullrequests_hcs_design}.
-Also the tasks for the \ac{jms} regarding the management and aborting of benchmark jobs are dealt with in section \ref{sec:creation_of_benchmark_jobs_design}.
+Also, the tasks for the \ac{jms} regarding the management and aborting of benchmark jobs are dealt with in section \ref{sec:creation_of_benchmark_jobs_design}.
 
 Lastly, only the REST APIs for adding and removing the configurations of \tsp{} and benchmarks need to be added to the \ac{jms}.
-Since the basic functionality of those endpoints are similar to the endpoints for adding and removing repositories, it is straight forward to implement those endpoints.
+Since the basic functionality of those endpoints is similar to the endpoints for adding and removing repositories, it is straightforward to implement those endpoints.
 The configuration and relationships of the added data models are based on the data model designed in section \ref{sec:data_model_restructure_jms}.
 
 

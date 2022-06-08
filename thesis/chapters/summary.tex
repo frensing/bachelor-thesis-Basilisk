@@ -1,40 +1,40 @@
 \chapter{Summary and Future Work}
 \label{ch:summary}
 
-In this chapter we summarize our development of the Basilisk platform and highlight the key findings of the evaluation phase.
-Lastly we point out the future work that can be done to extend the functionality of the platform.
+In this chapter, we summarize our development of the Basilisk platform and highlight the key findings of the evaluation phase.
+Lastly, we point out the future work that can be done to extend the functionality of the platform.
 
 \section{Summary}
-Benchmarking of \tsp{} is in general very time consuming and often requires a lot of configuration and setup time.
+Benchmarking of \tsp{} is, in general, very time-consuming and often requires a lot of configuration and setup time.
 Because of this, \tsp{} are often benchmarked late in the development process.
-To improve this time consuming process and to try to automate the benchmark process as much as possible, the development of the Basilisk platform was started.
-The main task of the platform is defined to continuously benchmark \tsp{}.
+To improve this time-consuming process and to try to automate the benchmark process as much as possible, the development of the Basilisk platform was started.
+The main task of the platform is defined to benchmark \tsp{} continuously.
 This means that the platform is configured once and will then automatically perform benchmarks on new versions of the configured \tsp{}.
 \\
 
-In this thesis we have continued the development of the Basilisk platform.
-The platform is designed to continuously check for new \ts{} releases and to automatically perform benchmarks if a new release is found.
+In this thesis, we have continued the development of the Basilisk platform.
+The platform is designed to check for new \ts{} releases continuously, and to automatically perform benchmarks if a new release is found.
 \ts{} releases could be found either in \dockh{} or \gh{} repositories.
 The complete process of checking for new releases and benchmarking new releases is fully implemented for \dockh{} repositories.
 \\
 
-During this thesis we have performed an in-depth architecture and code review of the platform.
-Based on that review we defined implementation tasks for improving and extending the existing code base.
+During this thesis, we have performed an in-depth architecture and code review of the platform.
+Based on that review, we defined implementation tasks for improving and extending the existing code base.
 
-The main improvements were the restructure of the microservices and a restructure of the used data models.
+The main improvements were the restructuring of the microservices, and a restructure of the used data models.
 These changes were implemented before starting on the missing implementations of the benchmark service.
 
 Most of the functionality of the \acl{tbs} was not yet implemented.
 The implemented functionality initializes the \ts{} inside a Docker container and performs the benchmarks.
-During this thesis we focused on completing the benchmark process for \ts{} releases in \dockh{} repositories.
-To provide the same functionality for \gh{} repositories some further steps are needed which are explained in section \ref{sec:future_work}.
+During this thesis, we focused on completing the benchmark process for \ts{} releases in \dockh{} repositories.
+To provide the same functionality for \gh{} repositories, some further steps are needed, which are explained in section \ref{sec:future_work}.
 
 To perform the benchmarks, the benchmark-independent \iguana{} framework is used.
 The configuration for \iguana{} is generated from the information stored in the \ts{} configurations inside the Basilisk platform.
 
-Finally the Basilisk platform was deployed on a VM hosted inside the network of the Paderborn University.
-On this deployment the \tentris{} and Oxigraph \tsp{} were configured and multiple versions of both \tsp{} were successfully benchmarked.
-The user only needs to start the system and to configure the \tsp{}.
+Finally, the Basilisk platform was deployed on a VM hosted inside the network of the Paderborn University.
+On this deployment, the \tentris{} and Oxigraph \tsp{} were configured, and multiple versions of both \tsp{} were successfully benchmarked using the SWDF benchmark.
+The user only needs to start the system and configure the \tsp{}.
 No further interactions are needed during the benchmark process.
 When the benchmarks are completed, the results are available in the \acl{jsts}.
 
@@ -43,22 +43,22 @@ When the benchmarks are completed, the results are available in the \acl{jsts}.
 \section{Future Work}
 \label{sec:future_work}
 The development performed in this thesis has resulted in a running version of the Basilisk platform.
-Currently the benchmark process for \dockh{} repositories is working and benchmarks are successfully performed.
+Currently, the benchmark process for \dockh{} repositories is working, and benchmarks are successfully performed.
 
-Because the thesis time schedule had to be altered during the implementation process, some functionalities could not been fully implemented.
-Most of these missing functionalities are not strictly relevant to successfully run the platform, but would be a nice-to-have from a user perspective.
+Because the thesis time schedule had to be altered during the implementation process, some functionalities could not be fully implemented.
+Most of these missing functionalities are not strictly relevant to successfully running the platform but would be a nice-to-have from a user perspective.
 
-These functionalities are for example, a user management system, extended \ts{} configurations, and the Basilisk frontend.
+These functionalities are, for example, a user management system, extended \ts{} configurations, and the Basilisk frontend.
 The user management system could manage different user roles and access rights for the various system functionalities.
-For example some users could be only allowed to view the job status or create a manual job, while admin user could change the \ts{} configurations.
-The extended \ts{} configurations could define a range or list of version for which a configuration is valid for use.
-If for example a newer \ts{} version requires the dataset to be loaded differently, a new configuration could be setup to be used with that version.
-Lastly the Basilisk frontend would provide a fast and easy way to interact with the benchmark results and could also offer a user interface for setting up and managing the configured \ts{} and benchmarks.
+For example, some users could be only allowed to view the job status or create a manual job, while admin users could change the \ts{} configurations.
+The extended \ts{} configurations could define a range or list of versions for which a configuration is valid for use.
+If, for example, a newer \ts{} version requires the dataset to be loaded differently, a new configuration could be set up to be used with that version.
+Lastly, the Basilisk frontend would provide a fast and easy way to interact with the benchmark results and could also offer a user interface for setting up and managing the configured \ts{} and benchmarks.
 
 The most important functionality that is still missing in the platform is the performing of benchmark jobs on \gh{} repositories.
 As stated in section \ref{sec:time_schedule} the functionalities for observing \gh{} repositories and creating benchmark jobs are already implemented.
 What is still missing is the functionality for downloading the source code from \gh{} and building a Docker image from the source code files.
-After that the process of starting the image and running the benchmark will be the same as with \dockh{} repositories.
+After that, the process of starting the image and running the benchmark will be the same as with \dockh{} repositories.
 
 
 
