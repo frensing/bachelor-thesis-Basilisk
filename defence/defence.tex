@@ -1,0 +1,381 @@
+\documentclass{beamer}
+
+% Alternative to \usetheme{claw}
+\usepackage{template/beamercolorthemeclaw}
+\usepackage{template/beamerfontthemeclaw}
+\usepackage{template/beamerinnerthemeclaw}
+\usepackage{template/beamerouterthemeclaw}
+
+\input{packages.tex}
+
+
+
+% 1st used for slides footer, 2nd for title slide & PDF metadata
+\title[Basilisk]{Basilisk -- Continuous Benchmarking for Triplestores}
+% Used for title slide & PDF metadata
+\subtitle{}
+
+\date{\today}
+% Date with conference name
+%\date[\today]{Conference on Fabulous Presentations, 2021}
+
+% One author
+% 1st used for slides footer, 2nd for title slide & PDF metadata
+\author[Fabian~Rensing]{Fabian Rensing}
+
+% 1st used for slides footer, 2nd for title slide
+%\institute[DICE]{DICE Group\\Paderborn University}
+% Institute with logo
+\institute[]{Supervisor: Prof. Dr. Axel Ngonga\\Paderborn University}
+
+% Two authors from different institutes
+% Source: https://www.overleaf.com/learn/latex/Beamer#The_title_page
+%\author[\underline{Wilke}, Ngonga]{\underline{Adrian~Wilke}\inst{1} \and Axel~Ngonga\inst{2}}
+%\institute[]
+%{
+%	\inst{1}%
+%	DICE Group\\
+%	Department of Computer Science\\
+%	Paderborn University, Germany
+%	\and
+%	\inst{2}%
+%	DICE Group\\
+%	Department of Computer Science\\
+%	Paderborn University, Germany
+%}
+
+% One logo on title page
+%\titlegraphic{\includegraphics[height=1cm]{DICE}}
+
+% Two logos on title page
+%\titlegraphic{
+%	\includegraphics[height=1cm]{UPB}%
+%	\hspace*{2cm}~%
+%	\includegraphics[height=1cm]{DICE}%
+%}
+
+
+
+\begin{document}
+
+% Title page without background
+%{\usebackgroundtemplate{}
+%\frame[plain]{\titlepage}}
+
+% Title page with background
+{\usebackgroundtemplate{\includegraphics[width=\paperwidth]{background-title-upb}
+% German UPB logo
+%\usebackgroundtemplate{\includegraphics[width=\paperwidth]{background-title-upb-german}
+}
+\frame[plain]{\titlepage}}
+
+% Begin counting at second frame
+\addtocounter{framenumber}{-1}
+
+
+
+%\section{Motivation \& Contents}
+\begin{frame}{Agenda}
+	\begin{columns}[T]
+	\column{0.45\textwidth}
+		\heading{Motivation}
+		After the title slide, typically a table of contents is presented. Make it more interesting by firstly \emph{introducing the problem} you are solving afterwards. That could also be on an own slide. Better than a long text like this is an image or keywords. Almost always.
+	\column{0.55\textwidth}
+		\heading{Contents}\vspace*{.2cm}
+		\hypersetup{linkcolor=textblue}
+		\tableofcontents
+	\end{columns}
+\end{frame}
+
+
+\input{body}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+	content...
+\end{frame}
+
+%\section{Quick Start}
+\begin{frame}[fragile]{Quick Start}
+	Create your first slide:
+	\begin{enumerate}
+		\item Copy all \emph{*.sty} files into a directory
+		\item Copy \emph{packages.tex} into the directory
+		\item Create a .tex file and add the code listed below
+		\item Generate your slide using LaTeX
+	\end{enumerate}
+	\lstset{language=TeX, escapechar=\@, keywordstyle=\color{templatetext}, numbers=none, emph={claw,packages,tex}, emphstyle=\color{textblue}}
+	\begin{lstlisting}[caption={Minimal Example}]
+\documentclass{beamer}
+\usetheme{claw}
+\input{packages.tex}
+\begin{document}
+\begin{frame} Hello World @\textbackslash@end{frame}
+@\textbackslash@end{document}
+	\end{lstlisting}
+\end{frame}
+
+%\section{Text Formatting}
+%\subsection{Predefined Styles}
+\begin{frame}{Text Formatting}{Predefined Styles}
+	\begin{itemize}
+		\item You could \emph{emphasize} important parts \\(Maybe distinguish between \bad{problems} and \good{solutions})
+		\item Use alert to display \alert{warnings}
+		\item Use the url command (\url{https://dice-research.org/}) or the href command (\href{https://dice-research.org/}{DICE}) for links
+		\item Highlight ``\term{predefined terms}'' like brands and\\ \tech{TechnicalTerms} like software components
+	\end{itemize}
+\end{frame}
+
+%\subsection{Additional Commands}
+\begin{frame}{Text Formatting}{Additional Commands}
+	Use combinations for other concepts:
+	\begin{itemize}
+		\item Text styles: \textbf{bold}, \textit{italic}, \underline{underlined}, \textsc{small caps}
+		\item Font families: \texttt{monospaced}, \textsf{sans serif}, \textrm{roman}
+		\item Text colors:
+			\bluedark{bluedark},
+			\gray{gray},
+			\magenta{magenta},
+			\blue{blue},
+			\orange{orange},
+			\purple{purple},
+			\red{red},
+			\turquoise{turquoise},
+			\green{green}
+		\item Text sizes: {\tiny tiny}, {\scriptsize scriptsize}, {\footnotesize footnotesize}, {\small small}, {\normalsize normalsize}, {\large large}, {\Large Large}, {\LARGE LARGE}, {\huge huge}, {\Huge Huge}
+	\end{itemize}
+\end{frame}
+
+%\section{Code Listings \& Frame Arguments}
+\begin{frame}[fragile]{Code Listings \& Frame Arguments}
+	Use these arguments to configure frames:
+	\setbeamercolor{local structure}{fg=textpurple}
+	\begin{description}
+		\item[\texttt{fragile}\hfill]
+		Specially interpreted contents, e.g. for listings
+		\item[\texttt{plain}\hfill]
+		No headlines, footlines, sidebars; e.g. for large images\\
+		\gray{To also remove background images use:
+		\texttt{\{\textbackslash usebackgroundtemplate\{\}[...]\}}}
+		\item[\texttt{squeeze}\hfill]
+		Squeezes vertical spaces, e.g. for long contents
+		\item[\texttt{shrink}\hfill]
+		Shrinks frame, e.g. for long contents
+	\end{description}
+	\lstset{language=TeX, escapechar=\@, morekeywords={begin,end,frame}, emph={fragile}}
+	\begin{lstlisting}[caption={Frame Options}]
+\begin{frame}[fragile]{Code Listings \& Frame Arguments}
+	% [...]
+@\textbackslash@end{frame}
+	\end{lstlisting}
+\end{frame}
+
+%\section{Mathematics \& Miscellaneous}
+\begin{frame}{Mathematics \& Miscellaneous}
+	\begin{itemize}
+		\item Math\footnote[frame]{This is a footnote also working in columns}: $5^{2}=3^{2}+4^{2}$
+		\item Equations:
+	\end{itemize}
+	\begin{equation}
+		\sum_{n = 1}^{\infty} \frac{1}{n} = 1 + \frac{1}{2} + \frac{1}{3} + \frac{1}{4} + \frac{1}{5} + \dots 
+	\end{equation}
+\end{frame}
+
+%\section{Blocks}
+\begin{frame}[shrink]{Blocks}
+	\begin{block}{This is a Block}
+		\begin{itemize}
+			\item This is an item
+		\end{itemize}
+		\begin{enumerate}
+			\item This is enumeration item
+		\end{enumerate}
+	\end{block}
+	\begin{exampleblock}{This is an Example Block}
+		\begin{itemize}
+			\item This is an item
+		\end{itemize}
+		\begin{enumerate}
+			\item This is enumeration item
+		\end{enumerate}
+	\end{exampleblock}
+	\begin{alertblock}{This is an Alert Block}
+		\begin{itemize}
+			\item This is an item
+		\end{itemize}
+		\begin{enumerate}
+			\item This is enumeration item
+		\end{enumerate}
+	\end{alertblock}
+\end{frame}
+
+% Examples for alternative colors. Configure this in packages.tex, not here.
+\setbeamercolor{block title}{bg=lightorange,fg=templatetext}
+\setbeamercolor{block body}{bg=backgroundorange}
+\setbeamercolor{block title example}{bg=lightgreen,fg=templatetext}
+\setbeamercolor{block body example}{bg=backgroundgreen}
+\setbeamercolor{block title alerted}{bg=lightred,fg=templatetext}
+\setbeamercolor{block body alerted}{bg=backgroundred}
+\begin{frame}[shrink]{Blocks}
+	\begin{block}{This is a Block}
+		\begin{itemize}
+			\item This is an item
+		\end{itemize}
+		\begin{enumerate}
+			\item This is enumeration item
+		\end{enumerate}
+	\end{block}
+	\begin{exampleblock}{This is an Example Block}
+		\begin{itemize}
+			\item This is an item
+		\end{itemize}
+		\begin{enumerate}
+			\item This is enumeration item
+		\end{enumerate}
+	\end{exampleblock}
+	\begin{alertblock}{This is an Alert Block}
+		\begin{itemize}
+			\item This is an item
+		\end{itemize}
+		\begin{enumerate}
+			\item This is enumeration item
+		\end{enumerate}
+	\end{alertblock}
+\end{frame}
+
+%\section{Tables}
+\begin{frame}{Tables}
+	\begin{table}[]
+	\centering
+	\renewcommand{\arraystretch}{1.1}
+	\begin{tabular}{ll}
+	\hline
+	\textbf{Topic} & \textbf{Content} \\ \hline
+	Generator & Use tools like \href{https://www.tablesgenerator.com/}{tablesgenerator.com} \\
+	Large tables & Try the frame option \texttt{[shrink=.8]} \\
+	 & (center table with \texttt{{\textbackslash}hspace*\{5cm\}})\\
+	Large tables & Combine the \href{https://ctan.org/pkg/longtable}{longtable} package and \\
+	 & the frame option \texttt{[allowframebreaks]}\\
+	Style & Try the \href{https://ctan.org/pkg/booktabs}{booktabs} package \\ \hline
+	\end{tabular}
+	\end{table}
+\end{frame}
+
+%\section{Graphs}
+\begin{frame}{Graphs}
+	\centering
+	\begin{tikzpicture}[node distance=1cm and 2cm] 
+		\node[resource] (pb) {Subject}; 
+		\node[literal, right=of pb] (code) {Object};
+		\draw[->] (pb) -- node[above]{Predicate} (code);
+	\end{tikzpicture}
+\end{frame}
+
+\begin{frame}{Thank you!}
+	\centering
+	\vspace{2.5cm}
+	{\huge\textbf{Questions?}}
+	\\\vspace{2.5cm}
+	{\large Data Science Group at Paderborn University}
+	\\\vspace{.1cm}
+	\centering
+	\begin{tabular}{rl}
+	Web: & \href{https://dice-research.org/}{dice-research.org} \\
+	Code: & \href{https://github.com/dice-group}{github.com/dice-group} \\
+	Twitter: & \href{https://twitter.com/DiceResearch}{@DiceResearch}
+	\end{tabular}
+\end{frame}
+
+\section{Appendix \& References}
+\appendix 
+
+\begin{frame}[t,allowframebreaks]{References}
+	\scriptsize
+	\nocite{*}
+	\bibliographystyle{ieeetr}
+	\bibliography{bibliography}
+\end{frame}
+
+\begin{frame}{Appendix}{Predefined Base Colors}
+	\begin{itemize}
+		\item {\color{primarybluedark}\rule{.7cm}{.4cm} primarybluedark}
+		\item {\color{primarybluelight}\rule{.7cm}{.4cm} primarybluelight}
+		\item {\color{primarygraylight}\rule{.7cm}{.4cm} primarygraylight}
+		\item {\color{primarygraydark}\rule{.7cm}{.4cm} primarygraydark}
+		\item {\color{secondarymagenta}\rule{.7cm}{.4cm} secondarymagenta}
+		\item {\color{secondaryblue}\rule{.7cm}{.4cm} secondaryblue}
+		\item {\color{secondarygreen}\rule{.7cm}{.4cm} secondarygreen}
+		\item {\color{secondaryorange}\rule{.7cm}{.4cm} secondaryorange}
+		\item {\color{secondarypurple}\rule{.7cm}{.4cm} secondarypurple}
+		\item {\color{activeyellow}\rule{.7cm}{.4cm} activeyellow}
+		\item {\color{activered}\rule{.7cm}{.4cm} activered}
+		\item {\color{activeturquoise}\rule{.7cm}{.4cm} activeturquoise}
+		\item {\color{activegreen}\rule{.7cm}{.4cm} activegreen}
+		\item {\color{specificblue}\rule{.7cm}{.4cm} specificblue}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Appendix}{Predefined Text Colors}
+	\begin{itemize}
+		\item {\color{textbluedark}\rule{.7cm}{.4cm} textdarkblue}
+		\item {\color{textgray}\rule{.7cm}{.4cm} textgray}
+		\item {\color{textmagenta}\rule{.7cm}{.4cm} textmagenta}
+		\item {\color{textblue}\rule{.7cm}{.4cm} textblue}
+		\item {\color{textorange}\rule{.7cm}{.4cm} textorange}
+		\item {\color{textpurple}\rule{.7cm}{.4cm} textpurple}
+		\item {\color{textred}\rule{.7cm}{.4cm} textred}
+		\item {\color{textturquoise}\rule{.7cm}{.4cm} textturquoise}
+		\item {\color{textgreen}\rule{.7cm}{.4cm} textgreen}
+		\item {\color{textbluespecific}\rule{.7cm}{.4cm} textbluespecific}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Appendix}{Predefined Element Colors}
+	\begin{itemize}
+		\item {\color{elementgray}\rule{.7cm}{.4cm} elementgray}
+		\item {\color{elementmagenta}\rule{.7cm}{.4cm} elementmagenta}
+		\item {\color{elementblue}\rule{.7cm}{.4cm} elementblue}
+		\item {\color{elementorange}\rule{.7cm}{.4cm} elementorange}
+		\item {\color{elementpurple}\rule{.7cm}{.4cm} elementpurple}
+		\item {\color{elementyellow}\rule{.7cm}{.4cm} elementyellow}
+		\item {\color{elementred}\rule{.7cm}{.4cm} elementred}
+		\item {\color{elementturquoise}\rule{.7cm}{.4cm} elementturquoise}
+		\item {\color{elementgreen}\rule{.7cm}{.4cm} elementgreen}
+		\item {\color{elementbluespecific}\rule{.7cm}{.4cm} elementbluespecific}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Appendix}{Predefined Light Colors}
+	\begin{itemize}
+		\item {\color{lightgray}\rule{.7cm}{.4cm} lightgray}
+		\item {\color{lightmagenta}\rule{.7cm}{.4cm} lightmagenta}
+		\item {\color{lightblue}\rule{.7cm}{.4cm} lightblue}
+		\item {\color{lightorange}\rule{.7cm}{.4cm} lightorange}
+		\item {\color{lightpurple}\rule{.7cm}{.4cm} lightpurple}
+		\item {\color{lightyellow}\rule{.7cm}{.4cm} lightyellow}
+		\item {\color{lightred}\rule{.7cm}{.4cm} lightred}
+		\item {\color{lightturquoise}\rule{.7cm}{.4cm} lightturquoise}
+		\item {\color{lightgreen}\rule{.7cm}{.4cm} lightgreen}
+		\item {\color{lightbluespecific}\rule{.7cm}{.4cm} lightbluespecific}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Appendix}{Predefined Background Colors}
+	\begin{itemize}
+		\item {\color{backgroundgray}\rule{.7cm}{.4cm}} backgroundgray
+		\item {\color{backgroundmagenta}\rule{.7cm}{.4cm}} backgroundmagenta
+		\item {\color{backgroundblue}\rule{.7cm}{.4cm}} backgroundblue
+		\item {\color{backgroundorange}\rule{.7cm}{.4cm}} backgroundorange
+		\item {\color{backgroundpurple}\rule{.7cm}{.4cm}} backgroundpurple
+		\item {\color{backgroundyellow}\rule{.7cm}{.4cm}} backgroundyellow
+		\item {\color{backgroundred}\rule{.7cm}{.4cm}} backgroundred
+		\item {\color{backgroundturquoise}\rule{.7cm}{.4cm}} backgroundturquoise
+		\item {\color{backgroundgreen}\rule{.7cm}{.4cm}} backgroundgreen
+		\item {\color{backgroundbluespecific}\rule{.7cm}{.4cm}} backgroundbluespecific
+	\end{itemize}
+\end{frame}
+
+\end{document}
