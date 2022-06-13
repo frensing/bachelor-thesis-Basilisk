@@ -10,7 +10,7 @@ In the sections RabbitMQ and Spring (\ref{sec:rabbitmq}, \ref{sec:spring}), we g
 Benchmarks for databases consist of a dataset and a set of operations or queries which will be performed on the dataset.
 These operations are designed to simulate a particular workload in the system.
 The goal of a benchmark is to measure different metrics for a better comparison between various systems.
-Metrics used for databases and \tsp{} are \eg, the number of executed queries (NoQ), queries per second (QPS), and query mixes per hour (QMPH) \cite{IguanaDocsMetrics}.
+Metrics used for databases and \tsp{} are \eg, the \ac{NoQ}, \ac{QPS}, and \ac{QMPH} \cite{IguanaDocsMetrics}.
 
 A distinction is made between micro and macro benchmarks \cite{gibbsMicrobenchmarksVsMacrobenchmarks}.
 Micro benchmarks focus on testing the performance of single components of a system.
@@ -31,7 +31,7 @@ If another service needs this information, it can send a request to this service
 
 \subsection{Microservice Architecture}
 \label{sec:microservice_architecture}
-Microservice architecture is a way of designing a software application as a set of microservices that interact with each other to provide the designed functionality \cite{dragoniMicroservicesYesterdayToday2017, MicroservicesHttpsMartinfowler}.
+Microservice architecture is a way of designing a software application as a set of microservices that interact with each other to provide the designed functionality \cite{dragoniMicroservicesYesterdayToday2017, MicroservicesRetrievedJan}.
 The application's functionality gets split up into microservices that interact only through a defined message protocol.
 This allows for a distributed system in which the individual services could be implemented in different programming languages and also could be located on different servers.
 

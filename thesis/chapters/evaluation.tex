@@ -146,11 +146,11 @@ We were using the same version that was also used in \cite{bigerlTentrisTensorBa
 Figure \ref{fig:QMPH} shows the number of query mixes that are executed per hour on the different \ts{} versions.
 The average of the penalized queries per second is shown in figure \ref{fig:pAvgQPS}.
 A query gets penalized if it failed, \eg{} if the timeout is hit, or the \ts{} returned a wrong return code.
-Oxigraph seems to have a low QMPH while still having a high average QPS.
-We investigated this further in figure \ref{fig:qps} which shows a boxplot of the QPS measurements taken for each query during a benchmark.
+Oxigraph seems to have a low \acf{QMPH} while still having a high average \ac{QPS}.
+We investigated this further in figure \ref{fig:qps} which shows a boxplot of the \ac{QPS} measurements taken for each query during a benchmark.
 For Oxigraph, we can see that some queries have a very low QPS value.
-This explains the low QMPH values we see in figure \ref{fig:QMPH}.
-The averaged QPS value gets not influenced that much by singular low QPS values, as seen in figure \ref{fig:pAvgQPS}.
+This explains the low \ac{QMPH} values we see in figure \ref{fig:QMPH}.
+The averaged \ac{QPS} value gets not influenced that much by singular low \ac{QPS} values, as seen in figure \ref{fig:pAvgQPS}.
 
 All benchmark results are available through the SPARQL endpoint of the Fuseki \ts{} in which the results are written after each benchmark.
 

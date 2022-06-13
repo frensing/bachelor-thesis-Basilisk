@@ -54,7 +54,7 @@ dbr:Germany dbo:capital dbr:Berlin .
 
 \subsection{Triplestore}
 \label{sec:triplestores}
-Triplestores are a special kind of database developed to easily store and access knowledge graphs through queries \cite{rusherTriplestoresHttpsWww}.
+Triplestores are a special kind of database developed to easily store and access knowledge graphs through queries \cite{rusherTriplestoresRetrievedFeb}.
 They differ from relational databases by being purposefully built to only store and access data in a set of triples.
 Data is accessed through the query language SPARQL, which gets introduced in section \ref{sec:sparql}.
 Often more extensive datasets can be imported or exported using \ac{rdf} or another syntax.
@@ -91,6 +91,7 @@ WHERE {
 \end{lstlisting}
 
 \begin{lstlisting}[caption={SPARQL query searching all relations between Germany and Berlin}, label=lst:sparql2]
+PREFIX dbr: <http://dbpedia.org/resource/>
 SELECT ?relation
 WHERE {
 	dbr:Germany ?relation dbr:Berlin .
