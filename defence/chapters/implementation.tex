@@ -1,6 +1,42 @@
 \section{Implementation}
+
 \begin{frame}{Implementation}
-	What was implemented
+	\centering
 	
-	who implemented
+	\includegraphics[width=1\textwidth]{images/basilisk/high-level-design-approach_colors.pdf}
+	
+	\begin{columns}[T]
+		\column{0.3\textwidth}
+		\begin{itemize}
+			\item Minor changes to data model
+			\item Code restructure
+		\end{itemize}
+		
+		\column{0.3\textwidth}
+		\begin{itemize}
+			\item Adding REST endpoints
+			\item Data model restructure
+			\item Small fixes in functionality
+		\end{itemize}
+		
+		\column{0.35\textwidth}
+		\begin{itemize}
+			\item Implementing main functionality
+			\item Docker container management
+			\item IGUANA configuration
+		\end{itemize}
+		
+	\end{columns}
+	
+\end{frame}
+
+\section{Deployment}
+\begin{frame}{Deployment}
+	\centering
+	\includegraphics[width=.7\textwidth]{images/basilisk/docker-setup.pdf}
+	
+	\begin{itemize}
+		\item Docker Compose deployment
+		\item 5 containers + 1 container running the benchmarked triplestore
+	\end{itemize}
 \end{frame}
