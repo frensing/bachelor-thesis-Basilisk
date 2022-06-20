@@ -1,49 +1,89 @@
 \section{Introduction}
-\begin{frame}{Continuous Benchmarking of Triplestores}
-	
-	% Situation and Context
-	
-	% Broad topic
-	
-	
-	
-	\begin{columns}[T]
-		\column{0.5\textwidth}
-		\heading{Benchmark}
-		Used to measure and compare the performance of systems with a defined set of operations and metrics
-		\column{0.5\textwidth}
-		\heading{Triplestore}%\vspace*{.2cm}
-		Specialized database for storing knowledge graphs
-	\end{columns}
-	
-	\vspace{1cm}
-	
-	\begin{columns}[T]
-		\column{0.25\textwidth}
+%\begin{frame}{Continuous Benchmarking of Triplestores}
+%
+%	\begin{columns}[T]
+%		\column{0.5\textwidth}
+%		\centering
+%		{\large\textbf{Benchmark}}
+%		\column{0.5\textwidth}
+%		\centering
+%		{\large\textbf{Triplestore}}%\vspace*{.2cm}
+%	\end{columns}
+%	
+%	\vspace{1.5cm}
+%	
+%	\begin{columns}[T]
+%		\column{0.25\textwidth}
+%
+%		\column{0.5\textwidth}
+%		\centering
+%		{\large\textbf{''Continuous''}}
+%		
+%		\column{0.25\textwidth}
+%	\end{columns}
+%	
+%	
+%	
+%\end{frame}
 
-		\column{0.5\textwidth}
-		\heading{''Continuous''}
-		Continuous / automatic performing of benchmarks on triplestores
 
+\begin{frame}[fragile]{Triplestores}
+	
+	\begin{itemize}
+		\item Specialized databases for storing knowledge graphs
+	\end{itemize}
+
+	\centering
+	\begin{tikzpicture}[node distance=1cm and 2cm] 
+		\node[resource] (pb) {Germany}; 
+		\node[literal, right=of pb] (code) {Berlin};
+		\draw[->] (pb) -- node[above]{capital} (code);
+	\end{tikzpicture}
+
+	\begin{itemize}
+		\item Knowledge graphs are imported using a RDF syntax
+	\end{itemize}	
 		
-		\column{0.25\textwidth}
-	\end{columns}
+	\begin{block}{}
+		\lstset{keywordstyle=\color{templatetext}, numbers=none, emph={claw,packages,tex}, emphstyle=\color{textblue}}
+		\begin{lstlisting}
+@prefix dbr: <http://dbpedia.org/resource/> .
+@prefix dbo: <http://dbpedia.org/ontology/> .
+dbr:Germany dbo:capital dbr:Berlin .
+		\end{lstlisting}
+	\end{block}
+		
+	\begin{itemize}
+		\item Requests are send using the query language SPARQL
+	\end{itemize}
+
 	
-	
-	
+
 \end{frame}
 
-
-\begin{frame}{Triplestores}
-	Used for storing and accessing Knowledge graphs
+\begin{frame}[fragile]{Benchmarks}
 	
-	knowledge graph is
+	\begin{itemize}
+		\item Benchmarks are used to measure the performance of triplestores
+		
+		\item Benchmark metrics:
+		\begin{itemize}
+			\item QMPH - Query Mixes per Hour
+			\item avgQPS - Average Queries per second
+		\end{itemize}
 	
-	TURTLE syntax
+		\item Triplestore benchmark consists of a dataset and query file
+	\end{itemize}
 	
-	SPARQL endpoint
-\end{frame}
-
-\begin{frame}{Benchmarks}
-	Benchmarks for triplestores consist of dataset and query file
+	\begin{block}{}
+		\lstset{keywordstyle=\color{templatetext}, numbers=none, emph={claw,packages,tex}, emphstyle=\color{textblue}}
+		\begin{lstlisting}
+PREFIX dbr: <http://dbpedia.org/resource/>
+PREFIX dbo: <http://dbpedia.org/ontology/>
+SELECT ?capital
+WHERE {
+	dbr:Germany dbo:capital ?capital .
+}
+		\end{lstlisting}
+	\end{block}
 \end{frame}
